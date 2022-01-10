@@ -34,10 +34,10 @@
 //        StartGame();
 //    }
 
-//    public void RegisterError(PlayFabError error)
-//    {
-//        errorSignUp.text = error.GenerateErrorReport();
-//    }
+//public void RegisterError(PlayFabError error)
+//{
+//    errorSignUp.text = error.GenerateErrorReport();
+//}
 
 //    public void LogIn()
 //    {

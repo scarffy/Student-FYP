@@ -576,8 +576,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -13.6464, y: -180.621}
-  m_SizeDelta: {x: 1286.0135, y: 52.7579}
+  m_AnchoredPosition: {x: -8.7118, y: -393.0861}
+  m_SizeDelta: {x: 1670.922, y: 190.9301}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &148614840
 CanvasRenderer:
@@ -641,7 +641,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1159,6 +1159,8 @@ MonoBehaviour:
   RegisterPasswordField: {fileID: 1098870834}
   RegisterAccountBtn: {fileID: 1410735159}
   BackBtn: {fileID: 1647312589}
+  ErrorLogin: {fileID: 811631738}
+  ErrorSignUp: {fileID: 148614841}
 --- !u!4 &566370092
 Transform:
   m_ObjectHideFlags: 0
@@ -2040,7 +2042,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2099,8 +2101,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 24.1021, y: -126.24205}
-  m_SizeDelta: {x: 840.7593, y: 44.4841}
+  m_AnchoredPosition: {x: 21.6348, y: -441.71515}
+  m_SizeDelta: {x: 1378.644, y: 217.1992}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &910510827
 GameObject:

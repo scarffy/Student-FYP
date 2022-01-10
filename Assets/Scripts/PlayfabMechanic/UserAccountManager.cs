@@ -25,6 +25,11 @@ public class UserAccountManager : MonoBehaviour
     public Button RegisterAccountBtn;
     public Button BackBtn;
 
+    [Header("Error SignIn/Up")]
+    public TMP_Text ErrorLogin;
+    public TMP_Text ErrorSignUp;
+
+
     #region togglebuttonpanel
     public void OpenLoginPanel()
     {
@@ -50,6 +55,7 @@ public class UserAccountManager : MonoBehaviour
         string username = RegisterUsernameField.text;
         string password = RegisterPasswordField.text;
 
+
         RegisterPlayFabUserRequest req = new RegisterPlayFabUserRequest
         {
             Email = email,
@@ -71,8 +77,12 @@ public class UserAccountManager : MonoBehaviour
             BackBtn.interactable = true;
             RegisterAccountBtn.interactable = true;
             Debug.Log("Error: " + err.ErrorMessage);
+            ErrorSignUp.text = err.GenerateErrorReport();
         });
     }
+
+
+
     #endregion
 
     #region sign in
@@ -99,7 +109,13 @@ public class UserAccountManager : MonoBehaviour
         {
             Debug.Log("Error: " + err.ErrorMessage);
             LoginBtn.interactable = true;
+            ErrorLogin.text = err.GenerateErrorReport();
         });
+    }
+
+    public void LogInError(PlayFabError error)
+    {
+        ErrorLogin.text = error.GenerateErrorReport();
     }
     #endregion
 }
