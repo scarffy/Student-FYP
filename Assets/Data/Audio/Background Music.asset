@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8e881658c460421bac49768e36c8da7, type: 3}
-  m_Name: Core
+  m_Script: {fileID: 11500000, guid: f9b6a5742554bfb4a8f4cce59d3bca85, type: 3}
+  m_Name: Background Music
   m_EditorClassIdentifier: 
-  levels:
-  - {fileID: 102900000, guid: 3f6c22689e7534bbc8f37ac1209e3a8e, type: 3}
-  - {fileID: 102900000, guid: 767a7b279ec1a5b4aaa729e46902431e, type: 3}
+  audioClipsList:
+  - {fileID: 8300000, guid: 7e6f26db2fc88c04b9d080b1b054e0f4, type: 3}
