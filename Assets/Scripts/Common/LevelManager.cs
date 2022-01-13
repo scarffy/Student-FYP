@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using FYP.Data;
 
 namespace FYP
-{
+{   /// <summary>
+    /// To do : Add coroutine loading
+    /// </summary>
     public class LevelManager : Singleton<LevelManager>
     {
         public enum CurrentLoadedScene
@@ -19,7 +22,10 @@ namespace FYP
         public CurrentLoadedScene currentLoadedScene;
 
         [Space]
-        public Scene scene1;
+        public LevelData[] allLevels;
+
+        [Header("Level loaded")]
+        public List<string> currentLevelsLoaded;
 
         void Awake()
         {
@@ -28,38 +34,53 @@ namespace FYP
 
         void Start()
         {
-            SceneManager.sceneLoaded += LoadScene;
+            currentLoadedScene = CurrentLoadedScene.Core;
+            
+            LoadNextLevel();
         }
 
         /// <summary>
-        /// If there is no specific scene to load, use this
+        /// If there is no specific scene to load. Use this.
         /// </summary>
         public void LoadNextLevel()
         {
-            Debug.Log("Called load next level");
-            //int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-
-            //switch (currentLoadedScene)
-            //{
-            //    case CurrentLoadedScene.Core:
-
-            //        break;
-            //}
+            switch (currentLoadedScene)
+            {
+                case CurrentLoadedScene.Core:
+                    LoadLevels(allLevels[0]);
+                    break;
+            }
         }
 
         /// <summary>
-        /// If there is specific scene to load, use this
+        /// If there is specific scene to load. Use this.
         /// </summary>
-        /// <param name="value"></param>
-        public void LoadNextLevel(int value)
+        /// <param name="levelName"></param>
+        /// <param name="mode">Default value is additive</param>
+        void LoadLevels(string levelName = null, LoadSceneMode mode = LoadSceneMode.Additive)
         {
+            if (levelName == null) return;
 
+            SceneManager.LoadSceneAsync(levelName, mode);
         }
 
-        void LoadScene(Scene scene, LoadSceneMode mode)
+        void LoadLevels(LevelData levelData)
         {
+            foreach (var item in levelData.levels)
+            {
+                Scene loadedLevel = SceneManager.GetSceneByName(item.name);
+                // Check if level is loaded before the load it
+                if (!loadedLevel.isLoaded)
+                {
+                    SceneManager.LoadSceneAsync(item.name, LoadSceneMode.Additive);
+                }
+            }
+        }
 
+        public void UnloadScene(string levelName = null)
+        {
+            if (levelName == null) return;
+            SceneManager.UnloadSceneAsync(levelName);
         }
     }
 }
