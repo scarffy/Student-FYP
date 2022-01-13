@@ -19,6 +19,7 @@ namespace FYP {
         IEnumerator Start()
         {
             backgroundSource.clip = backgroundMusic.GetAudioClip();
+            backgroundSource.Play();
             yield return PlayBackground();
         }
 
@@ -30,7 +31,9 @@ namespace FYP {
         IEnumerator PlayBackground()
         {
             yield return new WaitWhile(() => backgroundSource.isPlaying);
+
             backgroundSource.clip = backgroundMusic.GetAudioClip();
+            backgroundSource.Play();
             yield return PlayBackground();
         }
 
