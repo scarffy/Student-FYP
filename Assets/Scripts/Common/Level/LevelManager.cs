@@ -26,6 +26,8 @@ namespace FYP
 
         [Header("Level loaded")]
         public List<string> currentLevelsLoaded;
+        public List<string> levelsToLoad;
+        public List<string> levelsToUnload;
 
         void Awake()
         {
@@ -53,7 +55,7 @@ namespace FYP
         }
 
         /// <summary>
-        /// If there is specific scene to load. Use this.
+        /// If there is specific scene to load. Use this for large scenes
         /// </summary>
         /// <param name="levelName"></param>
         /// <param name="mode">Default value is additive</param>
@@ -64,11 +66,18 @@ namespace FYP
             SceneManager.LoadSceneAsync(levelName, mode);
         }
 
+        /// <summary>
+        /// Core loading and unloading scenes that use scriptable objects
+        /// </summary>
+        /// <param name="levelData"></param>
         void LoadLevels(LevelData levelData)
         {
+            AddLevelToLoad(levelData);
+            AddLevelToUnload(levelData);
+
             foreach (var item in levelData.levels)
             {
-                if (!CheckIfLoaded(item.name))
+                if (CheckIfLoaded(item.name))
                 {
                     Scene loadedLevel = SceneManager.GetSceneByName(item.name);
                     // Check if level is loaded before the load it
@@ -78,6 +87,54 @@ namespace FYP
                         currentLevelsLoaded.Add(item.name);
                     }
                 }
+            }
+        }
+
+        #region Core Loading and Unloading Scenes
+        /// <summary>
+        /// Add to level to load list and will check if level already loaded
+        /// </summary>
+        /// <param name="levelData"></param>
+        void AddLevelToLoad(LevelData levelData)
+        {
+            levelsToLoad.Clear();
+            foreach (var item in levelData.levels)
+            {
+                levelsToLoad.Add(item.name);
+            }
+        }
+
+        bool CheckIfLoaded(string levelName)
+        {
+            for (int i = 0; i < levelsToLoad.Count; i++)
+            {
+                if (levelsToLoad[i] == levelName)
+                    return true;
+            }
+
+            return false;
+        }
+
+        void AddLevelToUnload(LevelData levelData)
+        {
+            levelsToUnload.Clear();
+            for (int i = 0; i < currentLevelsLoaded.Count; i++)
+            {
+                levelsToUnload.Add(currentLevelsLoaded[i]);
+            }
+
+            //! Add all level data into level to unload
+            foreach (var item in levelData.levels)
+            {
+                if (levelsToLoad.Contains(item.name))
+                {
+                    levelsToUnload.Remove(item.name);
+                }
+            }
+
+            foreach (var item in levelsToUnload)
+            {
+                UnloadScene(item);
             }
         }
 
@@ -95,15 +152,6 @@ namespace FYP
             }
         }
 
-        bool CheckIfLoaded(string levelName)
-        {
-            for (int i = 0; i < currentLevelsLoaded.Count; i++)
-            {
-                if (currentLevelsLoaded[i] == levelName)
-                    return true;
-            }
-
-            return false;
-        }
+        #endregion
     }
 }
