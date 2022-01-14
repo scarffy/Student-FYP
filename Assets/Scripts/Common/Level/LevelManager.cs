@@ -68,11 +68,15 @@ namespace FYP
         {
             foreach (var item in levelData.levels)
             {
-                Scene loadedLevel = SceneManager.GetSceneByName(item.name);
-                // Check if level is loaded before the load it
-                if (!loadedLevel.isLoaded)
+                if (!CheckIfLoaded(item.name))
                 {
-                    SceneManager.LoadSceneAsync(item.name, LoadSceneMode.Additive);
+                    Scene loadedLevel = SceneManager.GetSceneByName(item.name);
+                    // Check if level is loaded before the load it
+                    if (!loadedLevel.isLoaded)
+                    {
+                        SceneManager.LoadSceneAsync(item.name, LoadSceneMode.Additive);
+                        currentLevelsLoaded.Add(item.name);
+                    }
                 }
             }
         }
@@ -81,6 +85,25 @@ namespace FYP
         {
             if (levelName == null) return;
             SceneManager.UnloadSceneAsync(levelName);
+
+            for (int i = 0; i < currentLevelsLoaded.Count; i++)
+            {
+                if(currentLevelsLoaded[i] == levelName)
+                {
+                    currentLevelsLoaded.Remove(levelName);
+                }
+            }
+        }
+
+        bool CheckIfLoaded(string levelName)
+        {
+            for (int i = 0; i < currentLevelsLoaded.Count; i++)
+            {
+                if (currentLevelsLoaded[i] == levelName)
+                    return true;
+            }
+
+            return false;
         }
     }
 }
