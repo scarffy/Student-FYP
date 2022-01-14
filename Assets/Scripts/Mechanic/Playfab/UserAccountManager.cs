@@ -6,116 +6,137 @@ using PlayFab.ClientModels;
 using TMPro;
 using UnityEngine.UI;
 
-public class UserAccountManager : MonoBehaviour
+namespace FYP.Backend
 {
-    [Header("Screens")]
-    public GameObject LoginPanel;
-    public GameObject RegisterPanel;
-
-    [Header("Login Screen")]
-    public TMP_InputField LoginEmailField;
-    public TMP_InputField LoginPasswordField;
-    public Button LoginBtn;
-    public Button RegisterBtn;
-
-    [Header("Register Screen")]
-    public TMP_InputField RegisterEmailField;
-    public TMP_InputField RegisterUsernameField;
-    public TMP_InputField RegisterPasswordField;
-    public Button RegisterAccountBtn;
-    public Button BackBtn;
-
-    [Header("Error SignIn/Up")]
-    public TMP_Text ErrorLogin;
-    public TMP_Text ErrorSignUp;
-
-
-    #region togglebuttonpanel
-    public void OpenLoginPanel()
+    public class UserAccountManager : MonoBehaviour
     {
-        LoginPanel.SetActive(true);
-        RegisterPanel.SetActive(false);
+        [Header("Screens")]
+        public GameObject LoginPanel;
+        public GameObject RegisterPanel;
+
+        [Header("Login Screen")]
+        public TMP_InputField LoginEmailField;
+        public TMP_InputField LoginPasswordField;
+        public Button LoginBtn;
+        public Button RegisterBtn;
+
+        [Header("Register Screen")]
+        public TMP_InputField RegisterEmailField;
+        public TMP_InputField RegisterUsernameField;
+        public TMP_InputField RegisterPasswordField;
+        public Button RegisterAccountBtn;
+        public Button BackBtn;
+
+        [Header("Error SignIn/Up")]
+        public TMP_Text ErrorLogin;
+        public TMP_Text ErrorSignUp;
+
+
+        #region togglebuttonpanel
+        public void OpenLoginPanel()
+        {
+            LoginPanel.SetActive(true);
+            RegisterPanel.SetActive(false);
+        }
+
+        public void OpenRegistrationPanel()
+        {
+            LoginPanel.SetActive(false);
+            RegisterPanel.SetActive(true);
+        }
+        #endregion
+
+
+        #region signup
+        public void OnTryRegisterNewAccount()
+        {
+            BackBtn.interactable = false;
+            RegisterAccountBtn.interactable = false;
+
+            string email = RegisterEmailField.text;
+            string username = RegisterUsernameField.text;
+            string password = RegisterPasswordField.text;
+
+
+            RegisterPlayFabUserRequest req = new RegisterPlayFabUserRequest
+            {
+                Email = email,
+                DisplayName = username,
+                Password = password,
+                RequireBothUsernameAndEmail = false
+            };
+
+            PlayFabClientAPI.RegisterPlayFabUser(req,
+            res =>
+            {
+                BackBtn.interactable = true;
+                RegisterAccountBtn.interactable = true;
+                OpenLoginPanel();
+                Debug.Log(res.PlayFabId);
+            },
+            err =>
+            {
+                BackBtn.interactable = true;
+                RegisterAccountBtn.interactable = true;
+                Debug.Log("Error: " + err.ErrorMessage);
+                ErrorSignUp.text = err.GenerateErrorReport();
+            });
+        }
+
+
+
+        #endregion
+
+        #region sign in
+        public void OnTryLogin()
+        {
+            string email = LoginEmailField.text;
+            string password = LoginPasswordField.text;
+
+            LoginBtn.interactable = false;
+
+            LoginWithEmailAddressRequest req = new LoginWithEmailAddressRequest
+            {
+                Email = email,
+                Password = password
+            };
+
+            PlayFabClientAPI.LoginWithEmailAddress(req,
+            res =>
+            {
+                Debug.Log("Login Success");
+                //! masukgamescene
+                //! Get user info
+                GetUserInfo(email,res.PlayFabId);
+            },
+            err =>
+            {
+                Debug.Log("Error: " + err.ErrorMessage);
+                LoginBtn.interactable = true;
+                ErrorLogin.text = err.GenerateErrorReport();
+            });
+        }
+
+        public void PlayFabError(PlayFabError error)
+        {
+            ErrorLogin.text = error.GenerateErrorReport();
+        }
+        #endregion
+
+        void GetUserInfo(string email, string playfabId)
+        {
+            GetAccountInfoRequest req = new GetAccountInfoRequest
+            {
+                Email = email,
+                PlayFabId = playfabId
+            };
+
+            PlayFabClientAPI.GetAccountInfo(req,
+                res =>
+                {
+                    Data.PlayfabAccountInfo.FillData(res.AccountInfo);
+                },
+                PlayFabError);
+        }
     }
-
-    public void OpenRegistrationPanel()
-    {
-        LoginPanel.SetActive(false);
-        RegisterPanel.SetActive(true);
-    }
-    #endregion
-
-    
-    #region signup
-    public void OnTryRegisterNewAccount()
-    {
-        BackBtn.interactable = false;
-        RegisterAccountBtn.interactable = false;
-
-        string email = RegisterEmailField.text;
-        string username = RegisterUsernameField.text;
-        string password = RegisterPasswordField.text;
-
-
-        RegisterPlayFabUserRequest req = new RegisterPlayFabUserRequest
-        {
-            Email = email,
-            DisplayName = username,
-            Password = password,
-            RequireBothUsernameAndEmail = false
-        };
-
-        PlayFabClientAPI.RegisterPlayFabUser(req,
-        res =>
-        {
-            BackBtn.interactable = true;
-            RegisterAccountBtn.interactable = true;
-            OpenLoginPanel();
-            Debug.Log(res.PlayFabId);
-        },
-        err =>
-        {
-            BackBtn.interactable = true;
-            RegisterAccountBtn.interactable = true;
-            Debug.Log("Error: " + err.ErrorMessage);
-            ErrorSignUp.text = err.GenerateErrorReport();
-        });
-    }
-
-
-
-    #endregion
-
-    #region sign in
-    public void OnTryLogin()
-    {
-        string email = LoginEmailField.text;
-        string password = LoginPasswordField.text;
-
-        LoginBtn.interactable = false;
-
-        LoginWithEmailAddressRequest req = new LoginWithEmailAddressRequest
-        {
-            Email = email,
-            Password = password
-        };
-
-        PlayFabClientAPI.LoginWithEmailAddress(req,
-        res =>
-        {
-            Debug.Log("Login Success");
-            //masukgamescene
-        },
-        err =>
-        {
-            Debug.Log("Error: " + err.ErrorMessage);
-            LoginBtn.interactable = true;
-            ErrorLogin.text = err.GenerateErrorReport();
-        });
-    }
-
-    public void LogInError(PlayFabError error)
-    {
-        ErrorLogin.text = error.GenerateErrorReport();
-    }
-    #endregion
 }
