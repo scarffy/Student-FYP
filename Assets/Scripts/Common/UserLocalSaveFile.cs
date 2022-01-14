@@ -17,7 +17,7 @@ namespace FYP.Data
         /// </summary>
         public LocalSaveFile saveData;
 
-        public const string saveName = "saveName";
+        const string saveName = "saveName";
 
         public void SaveData()
         {

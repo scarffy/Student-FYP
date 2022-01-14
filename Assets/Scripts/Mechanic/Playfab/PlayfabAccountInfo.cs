@@ -17,6 +17,9 @@ namespace FYP.Data
         public static void FillData(UserAccountInfo value)
         {
             Instance.accountInfo = value;
+
+            UserLocalSaveFile.Instance.saveData.playfabId = value.PlayFabId;
+            UserLocalSaveFile.Instance.saveData.displayName = value.TitleInfo.DisplayName;
         }
     }
 }
