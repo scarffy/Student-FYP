@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731689, g: 0.13414702, b: 0.1210784, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414738, b: 0.12107852, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -151,6 +151,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1277242622}
+  - {fileID: 1705274037}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -200,4 +201,101 @@ MonoBehaviour:
   currentLoadedScene: 0
   allLevels:
   - {fileID: 11400000, guid: 54448dabcf3674de7b23341650c10d3a, type: 2}
-  test: {fileID: 11400000, guid: 54448dabcf3674de7b23341650c10d3a, type: 2}
+  currentLevelsLoaded: []
+  levelsToLoad: []
+  levelsToUnload: []
+--- !u!1 &1705274036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1705274037}
+  - component: {fileID: 1705274038}
+  m_Layer: 0
+  m_Name: Account Info
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1705274037
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705274036}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 128370338}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1705274038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705274036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de46ff14c45a9704387690889bfd7940, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  accountInfo:
+    AndroidDeviceInfo:
+      AndroidDeviceId: 
+    AppleAccountInfo:
+      AppleSubjectId: 
+    CustomIdInfo:
+      CustomId: 
+    FacebookInfo:
+      FacebookId: 
+      FullName: 
+    FacebookInstantGamesIdInfo:
+      FacebookInstantGamesId: 
+    GameCenterInfo:
+      GameCenterId: 
+    GoogleInfo:
+      GoogleEmail: 
+      GoogleGender: 
+      GoogleId: 
+      GoogleLocale: 
+      GoogleName: 
+    IosDeviceInfo:
+      IosDeviceId: 
+    KongregateInfo:
+      KongregateId: 
+      KongregateName: 
+    NintendoSwitchAccountInfo:
+      NintendoSwitchAccountSubjectId: 
+    NintendoSwitchDeviceIdInfo:
+      NintendoSwitchDeviceId: 
+    OpenIdInfo: []
+    PlayFabId: 
+    PrivateInfo:
+      Email: 
+    PsnInfo:
+      PsnAccountId: 
+      PsnOnlineId: 
+    SteamInfo:
+      SteamCountry: 
+      SteamId: 
+      SteamName: 
+    TitleInfo:
+      AvatarUrl: 
+      DisplayName: 
+      TitlePlayerAccount:
+        Id: 
+        Type: 
+    TwitchInfo:
+      TwitchId: 
+      TwitchUserName: 
+    Username: 
+    XboxInfo:
+      XboxUserId: 
