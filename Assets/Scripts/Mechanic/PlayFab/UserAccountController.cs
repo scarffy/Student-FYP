@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace FYP.Backend
 {
-    public class UserAccountManager : MonoBehaviour
+    public class UserAccountController : Singleton<UserAccountController>
     {
         [Header("Screens")]
         public GameObject LoginPanel;
@@ -45,7 +45,6 @@ namespace FYP.Backend
             RegisterPanel.SetActive(true);
         }
         #endregion
-
 
         #region signup
         public void OnTryRegisterNewAccount()
@@ -107,7 +106,7 @@ namespace FYP.Backend
                 Debug.Log("Login Success");
                 //! masukgamescene
                 //! Get user info
-                GetUserInfo(email,res.PlayFabId);
+                GetUserInfo(email, res.PlayFabId);
             },
             err =>
             {
