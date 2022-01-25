@@ -50,6 +50,11 @@ namespace FYP
             {
                 case CurrentLoadedScene.Core:
                     LoadLevels(allLevels[0]);
+                    currentLoadedScene = CurrentLoadedScene.RegisterLogin;
+                    break;
+
+                case CurrentLoadedScene.RegisterLogin:
+                    LoadLevels(allLevels[1]);
                     break;
             }
         }

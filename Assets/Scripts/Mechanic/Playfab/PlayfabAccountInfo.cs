@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using PlayFab.ClientModels;
 
@@ -20,6 +21,16 @@ namespace FYP.Data
 
             UserLocalSaveFile.Instance.saveData.playfabId = value.PlayFabId;
             UserLocalSaveFile.Instance.saveData.displayName = value.TitleInfo.DisplayName;
+        }
+
+        public static void FillData(UserAccountInfo value, Action action)
+        {
+            Instance.accountInfo = value;
+
+            UserLocalSaveFile.Instance.saveData.playfabId = value.PlayFabId;
+            UserLocalSaveFile.Instance.saveData.displayName = value.TitleInfo.DisplayName;
+
+            action();
         }
     }
 }
