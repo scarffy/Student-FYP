@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Core.unity
     guid: dcf989f2725c0424194037458f3a4b3c
   - enabled: 1
-    path: Assets/Scenes/PlayerRegister.unity
+    path: Assets/Scenes/Player_Register.unity
     guid: c7f3b0c413029ef408bc1de457ddfcd2
   - enabled: 1
     path: Assets/Scenes/Audio.unity
