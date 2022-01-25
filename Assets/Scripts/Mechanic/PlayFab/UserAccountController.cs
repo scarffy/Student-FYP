@@ -133,6 +133,7 @@ namespace FYP.Backend
             PlayFabClientAPI.GetAccountInfo(req,
                 res =>
                 {
+                    Debug.Log(res.AccountInfo);
                     Data.PlayfabAccountInfo.FillData(res.AccountInfo);
                 },
                 PlayFabError);
