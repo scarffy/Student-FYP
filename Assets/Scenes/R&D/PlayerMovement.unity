@@ -247,6 +247,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -7752971114223506576, guid: 6bb1b4ed80dff854a971f84a7219f1e2, type: 3}
     - target: {fileID: 8202234998273334245, guid: 0f379ba1875ae5444ae4dee4ed6f71c9, type: 3}
+      propertyPath: m_Center.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8202234998273334245, guid: 0f379ba1875ae5444ae4dee4ed6f71c9, type: 3}
       propertyPath: m_MinMoveDistance
       value: 0
       objectReference: {fileID: 0}
