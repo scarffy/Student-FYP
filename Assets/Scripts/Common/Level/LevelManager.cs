@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using FYP.Data;
+using TMPro;
 
 namespace FYP
 {   /// <summary>
     /// To do : Add coroutine loading
+    /// Debug why it wont load in Runtime. Not reference to an object? in LoadAllLevels. Why?
     /// </summary>
     public class LevelManager : Singleton<LevelManager>
     {
@@ -29,6 +31,9 @@ namespace FYP
         public List<string> levelsToLoad;
         public List<string> levelsToUnload;
 
+        [Space]
+        public TextMeshProUGUI debugText;
+
         void Awake()
         {
            
@@ -37,7 +42,7 @@ namespace FYP
         void Start()
         {
             currentLoadedScene = CurrentLoadedScene.Core;
-            
+            Debug.LogError(allLevels[0].levels[0].name);
             LoadNextLevel();
         }
 
@@ -49,6 +54,7 @@ namespace FYP
             switch (currentLoadedScene)
             {
                 case CurrentLoadedScene.Core:
+                    debugText.text = "Current Loaded Scene = Core";
                     LoadLevels(allLevels[0]);
                     currentLoadedScene = CurrentLoadedScene.RegisterLogin;
                     break;
@@ -64,7 +70,7 @@ namespace FYP
         /// </summary>
         /// <param name="levelName"></param>
         /// <param name="mode">Default value is additive</param>
-        void LoadLevels(string levelName = null, LoadSceneMode mode = LoadSceneMode.Additive)
+        public void LoadLevels(string levelName = null, LoadSceneMode mode = LoadSceneMode.Additive)
         {
             if (levelName == null) return;
 
@@ -77,6 +83,8 @@ namespace FYP
         /// <param name="levelData"></param>
         void LoadLevels(LevelData levelData)
         {
+            if (levelData == null)
+                debugText.text = "Level Data is null";
             AddLevelToLoad(levelData);
             AddLevelToUnload(levelData);
 
