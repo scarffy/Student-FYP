@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d251c1e72695544d8731be36ef80cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLoadedScene: 0
+  currentLoadedScene: 1
   allLevels:
   - {fileID: 11400000, guid: 54448dabcf3674de7b23341650c10d3a, type: 2}
   - {fileID: 11400000, guid: 0146c3ab84ca94abf9270b11b933e789, type: 2}
@@ -208,7 +208,6 @@ MonoBehaviour:
   currentLevelsLoaded: []
   levelsToLoad: []
   levelsToUnload: []
-  debugText: {fileID: 0}
 --- !u!1 &1392907217
 GameObject:
   m_ObjectHideFlags: 0

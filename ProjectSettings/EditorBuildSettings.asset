@@ -9,21 +9,21 @@ EditorBuildSettings:
     path: Assets/Scenes/Core.unity
     guid: dcf989f2725c0424194037458f3a4b3c
   - enabled: 1
-    path: Assets/Scenes/Player_Register.unity
-    guid: c7f3b0c413029ef408bc1de457ddfcd2
-  - enabled: 1
     path: Assets/Scenes/Audio.unity
     guid: 3f6c22689e7534bbc8f37ac1209e3a8e
   - enabled: 1
     path: Assets/Scenes/UI.unity
     guid: 767a7b279ec1a5b4aaa729e46902431e
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: d1c3109bdb54ad54c8a2b2838528e640
+    path: Assets/Scenes/Player_Register.unity
+    guid: c7f3b0c413029ef408bc1de457ddfcd2
   - enabled: 1
     path: Assets/Scenes/House_Environment.unity
     guid: 71637b26a3e624b628da757817c18145
   - enabled: 1
     path: Assets/Scenes/House_Interaction.unity
     guid: afe640287cdef477b89e654ec06e95a1
+  - enabled: 1
+    path: Assets/Scenes/Photon_Core.unity
+    guid: 6af01e6e6073d408ebe44bd57bb273e5
   m_configObjects: {}
