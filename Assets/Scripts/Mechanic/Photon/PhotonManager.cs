@@ -28,11 +28,29 @@ namespace FYP.Backend {
             base.OnConnectedToMaster();
         }
 
+        public override void OnDisconnected(DisconnectCause cause)
+        {
+            base.OnDisconnected(cause);
+        }
+
+        public void LeaveRoom()
+        {
+            PhotonNetwork.LeaveRoom();
+        }
+
         #region Create Room
 
         public override void OnCreatedRoom()
         {
             base.OnCreatedRoom();
+            RoomOptions roomOptions = new RoomOptions()
+            {
+                IsOpen = true,
+                IsVisible = true,
+                MaxPlayers = maxPlayersPerRoom,
+                CleanupCacheOnLeave = true
+            };
+            PhotonNetwork.JoinOrCreateRoom(roomName[0], roomOptions,TypedLobby.Default);
         }
 
         #endregion
