@@ -8,6 +8,7 @@ using Photon.Realtime;
 namespace FYP.Backend {
     public class PhotonManager : MonoBehaviourPunCallbacks
     {
+        public int roomIndex = 0;
         public string[] roomName;
 
         [SerializeField]
@@ -50,7 +51,7 @@ namespace FYP.Backend {
                 MaxPlayers = maxPlayersPerRoom,
                 CleanupCacheOnLeave = true
             };
-            PhotonNetwork.JoinOrCreateRoom(roomName[0], roomOptions,TypedLobby.Default);
+            PhotonNetwork.JoinOrCreateRoom(roomName[roomIndex], roomOptions,TypedLobby.Default);
         }
 
         #endregion
@@ -58,6 +59,7 @@ namespace FYP.Backend {
         #region Join Room
         public override void OnJoinedRoom()
         {
+            //! This is the place where you spawn a player
             base.OnJoinedRoom();
         }
 
