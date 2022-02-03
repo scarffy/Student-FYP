@@ -152,6 +152,8 @@ Transform:
   m_Children:
   - {fileID: 1277242622}
   - {fileID: 1705274037}
+  - {fileID: 1743132423}
+  - {fileID: 1392907218}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -198,12 +200,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d251c1e72695544d8731be36ef80cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLoadedScene: 0
+  currentLoadedScene: 1
   allLevels:
   - {fileID: 11400000, guid: 54448dabcf3674de7b23341650c10d3a, type: 2}
+  - {fileID: 11400000, guid: 0146c3ab84ca94abf9270b11b933e789, type: 2}
+  - {fileID: 11400000, guid: 2298fc351b692499c857286865b3c61a, type: 2}
   currentLevelsLoaded: []
   levelsToLoad: []
   levelsToUnload: []
+--- !u!1 &1392907217
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1392907218}
+  - component: {fileID: 1392907219}
+  m_Layer: 0
+  m_Name: UserLocalSaveFile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1392907218
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392907217}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 128370338}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1392907219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392907217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2ebfb8591d008d4ab964b1a3e4b1dce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveData:
+    username: 
+    playfabId: 
+    displayName: 
 --- !u!1 &1705274036
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,3 +350,46 @@ MonoBehaviour:
     Username: 
     XboxInfo:
       XboxUserId: 
+--- !u!1 &1743132422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1743132423}
+  - component: {fileID: 1743132424}
+  m_Layer: 0
+  m_Name: PlayFab Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1743132423
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743132422}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -90.275894, y: 36.54722, z: 46.472775}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 128370338}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1743132424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743132422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9fe66e1ea3931f40ac39e875b62e3b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

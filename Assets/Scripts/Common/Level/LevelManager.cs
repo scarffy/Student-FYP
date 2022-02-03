@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using FYP.Data;
+using TMPro;
 
 namespace FYP
 {   /// <summary>
     /// To do : Add coroutine loading
+    /// Debug why it wont load in Runtime. Not reference to an object? in LoadAllLevels. Why?
     /// </summary>
     public class LevelManager : Singleton<LevelManager>
     {
@@ -14,9 +16,8 @@ namespace FYP
         {
             Core,
             GameUi,
-            Credit,
             RegisterLogin,
-            Gameplay
+            Multiplayer
         }
 
         public CurrentLoadedScene currentLoadedScene;
@@ -29,27 +30,49 @@ namespace FYP
         public List<string> levelsToLoad;
         public List<string> levelsToUnload;
 
-        void Awake()
-        {
-           
-        }
 
         void Start()
         {
             currentLoadedScene = CurrentLoadedScene.Core;
-            
+            Debug.LogError(allLevels[0].levelsName[0]);
+            //LoadEditorNextLevel();
             LoadNextLevel();
         }
 
         /// <summary>
         /// If there is no specific scene to load. Use this.
         /// </summary>
+        public void LoadEditorNextLevel()
+        {
+            switch (currentLoadedScene)
+            {
+                case CurrentLoadedScene.Core:
+                    LoadEditorLevels(allLevels[0]);
+                    currentLoadedScene = CurrentLoadedScene.RegisterLogin;
+                    break;
+
+                case CurrentLoadedScene.RegisterLogin:
+                    LoadEditorLevels(allLevels[1]);
+                    break;
+            }
+        }
+
         public void LoadNextLevel()
         {
             switch (currentLoadedScene)
             {
                 case CurrentLoadedScene.Core:
                     LoadLevels(allLevels[0]);
+                    currentLoadedScene = CurrentLoadedScene.RegisterLogin;
+                    break;
+
+                case CurrentLoadedScene.RegisterLogin:
+                    LoadLevels(allLevels[1]);
+                    currentLoadedScene = CurrentLoadedScene.Multiplayer;
+                    break;
+
+                case CurrentLoadedScene.Multiplayer:
+
                     break;
             }
         }
@@ -59,7 +82,7 @@ namespace FYP
         /// </summary>
         /// <param name="levelName"></param>
         /// <param name="mode">Default value is additive</param>
-        void LoadLevels(string levelName = null, LoadSceneMode mode = LoadSceneMode.Additive)
+        public void LoadLevels(string levelName = null, LoadSceneMode mode = LoadSceneMode.Additive)
         {
             if (levelName == null) return;
 
@@ -67,13 +90,14 @@ namespace FYP
         }
 
         /// <summary>
-        /// Core loading and unloading scenes that use scriptable objects
+        /// Core loading and unloading scenes that use scriptable objects.
+        /// This use object which is not recognize in build
         /// </summary>
         /// <param name="levelData"></param>
-        void LoadLevels(LevelData levelData)
+        void LoadEditorLevels(LevelData levelData)
         {
-            AddLevelToLoad(levelData);
-            AddLevelToUnload(levelData);
+            AddEditorLevelToLoad(levelData);
+            AddEditorLevelToUnload(levelData);
 
             foreach (var item in levelData.levels)
             {
@@ -90,17 +114,51 @@ namespace FYP
             }
         }
 
+        /// <summary>
+        /// Core loading and unloading scenes that use string
+        /// </summary>
+        /// <param name="levelData"></param>
+        void LoadLevels(LevelData levelData)
+        {
+            Debug.Log("Calling Loadlevels");
+            AddLevelToLoad(levelData);
+            AddLevelToUnload(levelData);
+
+            foreach (var item in levelData.levelsName)
+            {
+                if (CheckIfLoaded(item))
+                {
+                    Scene loadedLevel = SceneManager.GetSceneByName(item);
+
+                    if (!loadedLevel.isLoaded)
+                    {
+                        SceneManager.LoadSceneAsync(item, LoadSceneMode.Additive);
+                        currentLevelsLoaded.Add(item);
+                    }
+                }
+            }
+        }
+
         #region Core Loading and Unloading Scenes
         /// <summary>
         /// Add to level to load list and will check if level already loaded
         /// </summary>
         /// <param name="levelData"></param>
-        void AddLevelToLoad(LevelData levelData)
+        void AddEditorLevelToLoad(LevelData levelData)
         {
             levelsToLoad.Clear();
             foreach (var item in levelData.levels)
             {
                 levelsToLoad.Add(item.name);
+            }
+        }
+
+        void AddLevelToLoad(LevelData levelData)
+        {
+            levelsToLoad.Clear();
+            foreach (var item in levelData.levelsName)
+            {
+                levelsToLoad.Add(item);
             }
         }
 
@@ -115,7 +173,7 @@ namespace FYP
             return false;
         }
 
-        void AddLevelToUnload(LevelData levelData)
+        void AddEditorLevelToUnload(LevelData levelData)
         {
             levelsToUnload.Clear();
             for (int i = 0; i < currentLevelsLoaded.Count; i++)
@@ -129,6 +187,28 @@ namespace FYP
                 if (levelsToLoad.Contains(item.name))
                 {
                     levelsToUnload.Remove(item.name);
+                }
+            }
+
+            foreach (var item in levelsToUnload)
+            {
+                UnloadScene(item);
+            }
+        }
+
+        void AddLevelToUnload(LevelData levelData)
+        {
+            levelsToUnload.Clear();
+            for (int i = 0; i < currentLevelsLoaded.Count; i++)
+            {
+                levelsToUnload.Add(currentLevelsLoaded[i]);
+            }
+
+            foreach (var item in levelData.levelsName)
+            {
+                if (levelsToUnload.Contains(item))
+                {
+                    levelsToUnload.Remove(item);
                 }
             }
 
@@ -152,6 +232,6 @@ namespace FYP
             }
         }
 
-        #endregion
+#endregion
     }
 }
