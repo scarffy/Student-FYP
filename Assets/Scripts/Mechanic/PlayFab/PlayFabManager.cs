@@ -14,13 +14,14 @@ namespace FYP.Backend
         [Header("Virtual Currency")]
         public int KC = 0;
 
+        [Header("Coin")]
+        public TMP_Text coinText;
+
         [Header("Stock Price")]
         public uint cost;
 
         [Header("Info Request")]
         public GetPlayerCombinedInfoRequestParams infoRequest;
-
-
     }
 }
 

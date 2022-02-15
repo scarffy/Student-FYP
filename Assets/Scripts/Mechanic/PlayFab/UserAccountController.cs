@@ -107,10 +107,16 @@ namespace FYP.Backend
             res =>
             {
                 GetUserInfo(email, res.PlayFabId);
-                Backend.PlayFabManager.Instance.KC = res.InfoResultPayload.UserVirtualCurrency["KC"];
                 Debug.Log("login success");
-                InventorySystem.Instance.BuyItem();
-
+                Backend.PlayFabManager.Instance.KC = res.InfoResultPayload.UserVirtualCurrency["KC"]; // to get the user virtual currency from playfab portal
+                //calling the function from Inventory System script
+                //InventorySystem.Instance.BuyItem()
+                InventorySystem.Instance.GetItemPrice();
+                InventorySystem.Instance.UpdateInventory();
+                foreach(GameObject obj in InventorySystem.Instance.enableGameObject)
+                {
+                    obj.SetActive(true);
+                }
             },
             err =>
             {
