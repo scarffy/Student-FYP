@@ -402,8 +402,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 500493937}
   m_HandleRect: {fileID: 500493936}
   m_Direction: 2
-  m_Value: -0.00046457563
-  m_Size: 0
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -480,7 +480,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00034729735, y: -59.934998}
+  m_AnchoredPosition: {x: 0.00034729735, y: 3.0000381}
   m_SizeDelta: {x: -150.8294, y: 140}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &363364909
@@ -962,7 +962,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00034729735, y: -59.934975}
+  m_AnchoredPosition: {x: 0.00034729735, y: 3}
   m_SizeDelta: {x: -150.8294, y: 140}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &594739853
@@ -1805,8 +1805,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 446305403}
   m_HandleRect: {fileID: 446305402}
   m_Direction: 2
-  m_Value: -0.00046473913
-  m_Size: 0
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2610,6 +2610,8 @@ MonoBehaviour:
   contentArea: {fileID: 363364907}
   buttonObject: {fileID: 2377190253991080314, guid: 98632c659dc3de5449c73d050301f055, type: 3}
   inventoryContent: {fileID: 594739851}
+  inventoryObjects: []
+  inventoryStacks: 
 --- !u!1 &2023723642
 GameObject:
   m_ObjectHideFlags: 0

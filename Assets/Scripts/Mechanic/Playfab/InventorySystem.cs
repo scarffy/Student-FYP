@@ -15,8 +15,10 @@ namespace FYP.Backend
         public GameObject contentArea;
         public GameObject buttonObject;
         public GameObject inventoryContent;
-        private List<GameObject> inventoryObjects = new List<GameObject>();
+        public List<GameObject> inventoryObjects;
+        public List<int> inventoryStacks;
 
+        #region Gift
         public void BasicInventory()
         {
             PurchaseItemRequest request = new PurchaseItemRequest();
@@ -30,6 +32,9 @@ namespace FYP.Backend
                 Debug.LogError(error.ErrorMessage);
             });
         }
+        #endregion
+
+        #region Request Price from Catalog
         public void GetItemPrice()
         {
             GetCatalogItemsRequest request = new GetCatalogItemsRequest();
@@ -63,7 +68,9 @@ namespace FYP.Backend
             }, error => { });
 
         }
+        #endregion
 
+        #region Purchase Item
         void MakePurchase(string name, int price)
         {
             PurchaseItemRequest request = new PurchaseItemRequest();
@@ -81,8 +88,9 @@ namespace FYP.Backend
                 Debug.Log(error.ErrorMessage);
             });
         }
+        #endregion
 
-
+        #region UpdateInventory
         public void UpdateInventory()
         {
             GetUserInventoryRequest request = new GetUserInventoryRequest();
@@ -96,6 +104,7 @@ namespace FYP.Backend
                         Destroy(obj);
                     }
                     inventoryObjects.Clear();
+                    inventoryStacks.Clear();
                 }
                 List<ItemInstance> ii = result.Inventory;
                 foreach (ItemInstance i in ii)
@@ -105,12 +114,42 @@ namespace FYP.Backend
                         if (editorI.Name == i.ItemId)
                         {
                             GameObject o = Instantiate((buttonObject), inventoryContent.transform.position, Quaternion.identity);
+                            o.name = editorI.Name;
                             o.transform.GetChild(0).GetComponent<TMP_Text>().text = i.ItemId;
                             o.transform.GetChild(1).GetComponent<TMP_Text>().text = "[" + editorI.Cost + "]";
                             o.GetComponent<Image>().sprite = editorI.GetComponent<SpriteRenderer>().sprite;
                             o.GetComponent<Image>().preserveAspect = true;
                             o.transform.SetParent(inventoryContent.transform);
+                            for (int inv = 0; inv < inventoryObjects.Count; inv++)
+                            {
+                                
+                                if (o.name == inventoryObjects[inv].name)
+                                {
+                                    int stacks = inventoryStacks[inv];
+                                    stacks++;
+                                    inventoryObjects[inv].transform.GetChild(0).GetComponent<TMP_Text>().text = i.ItemId + " x " + stacks;
+
+                                    inventoryStacks[inv] = stacks;
+                                    Destroy(o);
+                                    Debug.Log("Dope item found!");
+                                    break;
+                                }
+                            }
+
+                            //! this is to detect missing object from inventory system
+                            //for (int inv = 0; inv < inventoryObjects.Count; inv++)
+                            //{
+                            //    if (inventoryObjects[inv] == null)
+                            //    {
+                            //        inventoryObjects.RemoveAt(inv);
+                            //        Debug.Log("Null Object Found!");
+                            //    }
+                            //}
+                            
                             inventoryObjects.Add(o);
+                            inventoryStacks.Add(1);
+
+                        
                         }
 
                     }
@@ -121,11 +160,18 @@ namespace FYP.Backend
 
             });
         }
+        #endregion
 
+        #region Virtual Currency
+        /// <summary>
+        /// this is to display Virtual Currency into game scene
+        /// Call function from playfab manager
+        /// </summary>
         void Update()
         {
             Backend.PlayFabManager.Instance.coinText.text = "Coin : " + Backend.PlayFabManager.Instance.KC;
         }
+        #endregion
     }
 }
 
