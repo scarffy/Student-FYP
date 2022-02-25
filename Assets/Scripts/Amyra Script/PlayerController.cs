@@ -24,21 +24,16 @@ namespace FYP.PlayerMovement
         private Vector3 playerVelocity;             //refer to player movement
         private bool groundedPlayer;
         private Transform cameraTransform;          //mouse rotation for cinemachine
-        //public bool isSprinting;
+        private Vector2 input;
 
         private Animator animator;
 
         private InputAction moveAction;             //WASD action
         private InputAction jumpAction;             //Jump action
         private InputAction sprintAction;           //Running action
+        private InputAction attackAction;           //Attacking Action
 
-        //private void Awake()
-        //{
-        //    playerInput = new PlayerInput();
-
-        //    playerInput.actions.Sprint.performed += x => SprintPressed();
-        //}
-
+        
         private void Start()
         {
             controller = GetComponent<CharacterController>();
@@ -46,28 +41,27 @@ namespace FYP.PlayerMovement
             playerInput = GetComponent<PlayerInput>();
             cameraTransform = Camera.main.transform;
             moveAction = playerInput.actions["Move"];
-            //lookAction = playerInput.actions["Look"];
             jumpAction = playerInput.actions["Jump"];
             sprintAction = playerInput.actions["Sprint"];
+            attackAction = playerInput.actions["Attack"];            
         }
 
         void Update()
         {
+            input = moveAction.ReadValue<Vector2>();
+
             groundedPlayer = controller.isGrounded;
             if (groundedPlayer && playerVelocity.y < 0)
             {
                 playerVelocity.y = 0f;
             }
 
-           Vector2 input = moveAction.ReadValue<Vector2>();
-           if (input.magnitude > 0)
+            playerVelocity.y += gravityValue * Time.deltaTime;
+            controller.Move(playerVelocity * Time.deltaTime);
+
+            if (input.magnitude > 0)
             {
-                animator.SetBool("isWalking", true);
-                Debug.Log("Walking");
-                Vector3 move = new Vector3(input.x, 0, input.y);
-                move = move.x * cameraTransform.right.normalized + move.z * cameraTransform.forward.normalized;
-                move.y = 0f;
-                controller.Move(move * Time.deltaTime * playerSpeed);
+                OnMoveAction();
             }
             else
             {
@@ -75,45 +69,60 @@ namespace FYP.PlayerMovement
                 Debug.Log("Idle");
             }
 
-            // Changes the height position of the player..
-            //if (jumpAction.triggered && groundedPlayer) --grounded player is not detect--
             if (jumpAction.triggered)
             {
-                animator.Play("Jumping");
-                playerVelocity.y += Mathf.Sqrt(jumpHeight * 1.0f * gravityValue);
-                Debug.Log("Jump");
+                
+                OnJumping();
             }
 
             if (sprintAction.triggered)
             {
-                animator.Play("Running");
-                Vector3 run = new Vector3(input.x, 0, input.y);
-                run = run.x * cameraTransform.right.normalized + run.z * cameraTransform.forward.normalized;
-                run.y = 0f;
-                controller.Move(run * Time.deltaTime * playerSprint);
-                Debug.Log("Running");
+                OnRunning();
             }
 
-            //Vector2 sprint = sprintAction.ReadValue<Vector2>();
-            //if(sprint.magnitude > 0)
-            //{
-            //    animator.SetBool("isRunning", true);
-            //    Vector3 run = new Vector3(sprint.x, 0, sprint.y);
-            //    run = run.x * cameraTransform.right.normalized + run.z * cameraTransform.forward.normalized;
-            //    run.y = 0f;
-            //    controller.Move(run * Time.deltaTime * playerSprint);
-            //}
-            //else
-            //{
-            //    animator.SetBool("isRunning", false);
-            //}
+            if (attackAction.triggered)
+            {
+                OnAttacking();
+            }
 
+            CameraRotation();           
+        }
 
+        private void OnMoveAction()
+        {
+            animator.SetBool("isWalking", true);
+            Debug.Log("Walking");
+            Vector3 move = new Vector3(input.x, 0, input.y);
+            move = move.x * cameraTransform.right.normalized + move.z * cameraTransform.forward.normalized;
+            move.y = 0f;
+            controller.Move(move * Time.deltaTime * playerSpeed);
+        }
 
+        private void OnJumping()
+        {
+            animator.Play("Jumping");
+            playerVelocity.y += Mathf.Sqrt(jumpHeight * 1.0f * gravityValue);
+            Debug.Log("Jump");
+        }
 
-            playerVelocity.y += gravityValue * Time.deltaTime;
-            controller.Move(playerVelocity * Time.deltaTime);
+        private void OnRunning()
+        {
+            animator.Play("Running");
+            Vector3 run = new Vector3(input.x, 0, input.y);
+            run = run.x * cameraTransform.right.normalized + run.z * cameraTransform.forward.normalized;
+            run.y = 0f;
+            controller.Move(run * Time.deltaTime * playerSprint);
+            Debug.Log("Running");
+        }
 
+        private void OnAttacking()
+        {
+            animator.Play("Attacking");
+            Debug.Log("attack");
+        }
+
+        private void CameraRotation()
+        {
             // Rotate towards camera direction        
             Quaternion targetRotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
