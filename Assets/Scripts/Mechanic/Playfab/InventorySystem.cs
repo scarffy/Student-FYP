@@ -165,7 +165,7 @@ namespace FYP.Backend
         #region Virtual Currency
         /// <summary>
         /// this is to display Virtual Currency into game scene
-        /// Call function from playfab manager
+        /// Call KC from playfab manager
         /// </summary>
         void Update()
         {
