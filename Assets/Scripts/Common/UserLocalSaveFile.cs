@@ -41,6 +41,7 @@ namespace FYP.Data
     {
         public string username;
         public string playfabId;
+        //public string virtualCurrency;
 
         [Space]
         public string displayName;

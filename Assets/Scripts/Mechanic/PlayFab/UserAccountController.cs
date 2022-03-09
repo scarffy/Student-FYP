@@ -6,6 +6,7 @@ using PlayFab.ClientModels;
 using TMPro;
 using UnityEngine.UI;
 
+
 namespace FYP.Backend
 {
     public class UserAccountController : Singleton<UserAccountController>
@@ -31,7 +32,7 @@ namespace FYP.Backend
         public TMP_Text ErrorLogin;
         public TMP_Text ErrorSignUp;
 
-
+        
         #region togglebuttonpanel
         public void OpenLoginPanel()
         {
@@ -91,22 +92,32 @@ namespace FYP.Backend
         {
             string email = LoginEmailField.text;
             string password = LoginPasswordField.text;
-
+            
             LoginBtn.interactable = false;
 
             LoginWithEmailAddressRequest req = new LoginWithEmailAddressRequest
             {
                 Email = email,
-                Password = password
+                Password = password,
+                InfoRequestParameters = Backend.PlayFabManager.Instance.infoRequest,
+               
             };
 
             PlayFabClientAPI.LoginWithEmailAddress(req,
             res =>
             {
-                Debug.Log("Login Success");
-                //! masukgamescene
-                //! Get user info
                 GetUserInfo(email, res.PlayFabId);
+                Debug.Log("login success");
+                Backend.PlayFabManager.Instance.KC = res.InfoResultPayload.UserVirtualCurrency["KC"]; // to get the user virtual currency from playfab portal
+
+                //! calling the function from Inventory System script
+                //InventorySystem.Instance.BuyItem()
+                InventorySystem.Instance.GetItemPrice();
+                InventorySystem.Instance.UpdateInventory();
+                foreach(GameObject obj in InventorySystem.Instance.enableGameObject)
+                {
+                    obj.SetActive(true);
+                }
             },
             err =>
             {
@@ -122,12 +133,13 @@ namespace FYP.Backend
         }
         #endregion
 
+
         void GetUserInfo(string email, string playfabId)
         {
             GetAccountInfoRequest req = new GetAccountInfoRequest
             {
                 Email = email,
-                PlayFabId = playfabId
+                PlayFabId = playfabId,
             };
 
             PlayFabClientAPI.GetAccountInfo(req,

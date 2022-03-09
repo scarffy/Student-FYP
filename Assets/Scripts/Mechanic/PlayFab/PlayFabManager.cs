@@ -8,13 +8,20 @@ using PlayFab.ClientModels;
 
 namespace FYP.Backend
 {
-    public class PlayFabManager : MonoBehaviour
+    public class PlayFabManager : Singleton<PlayFabManager>
     {
-        public void SignUp()
-        {
-            UserAccountController.Instance.OnTryRegisterNewAccount();
-        }
 
+        [Header("Virtual Currency")]
+        public int KC = 0;
+
+        [Header("Coin")]
+        public TMP_Text coinText;
+
+        [Header("Stock Price")]
+        public uint cost;
+
+        [Header("Info Request")]
+        public GetPlayerCombinedInfoRequestParams infoRequest;
     }
 }
 
