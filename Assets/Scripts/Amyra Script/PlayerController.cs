@@ -99,7 +99,7 @@ namespace FYP.PlayerMovement
 
             if (jumpAction.triggered)
             {
-                playerVelocity.y += Mathf.Sqrt(jumpHeight * 1.0f * gravityValue);
+                //playerVelocity.y += Mathf.Sqrt(jumpHeight * 1.0f * gravityValue);
                 animator.Play(jumpAnimation);
             }
 
