@@ -15,12 +15,15 @@ namespace FYP.Data
         [Header("PlayFab Account Info")]
         public UserAccountInfo accountInfo;
 
+
         public static void FillData(UserAccountInfo value)
         {
             Instance.accountInfo = value;
 
             UserLocalSaveFile.Instance.saveData.playfabId = value.PlayFabId;
             UserLocalSaveFile.Instance.saveData.displayName = value.TitleInfo.DisplayName;
+            
+            
         }
 
         public static void FillData(UserAccountInfo value, Action action)
