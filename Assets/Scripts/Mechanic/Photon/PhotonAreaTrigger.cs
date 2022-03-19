@@ -10,17 +10,22 @@ namespace FYP.Backend
 
         public void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            
+
+            if (other.transform.parent.CompareTag("Player"))
             {
-                Debug.Log($"Player entering zone {gameObject.name}");
-                plController = other.GetComponent<PhotonPlayerController>();
-                if (plController!= null && plController.isOtherPlayer)
+                plController = other.gameObject.GetComponentInParent<PhotonPlayerController>();
+                if (plController != null && plController.isOtherPlayer)
                 {
+                    Debug.Log("Not local player");
                     return;
                 }
-
-                PhotonController.Instance.roomIndex = 0;
-                PhotonController.Instance.JoinOrCreateRoom();
+                else if(plController != null && !plController.isOtherPlayer)
+                {
+                    Debug.Log("Local player");
+                    PhotonController.Instance.roomIndex = 0;
+                    PhotonController.Instance.JoinOrCreateRoom();
+                }
             }
         }
     }

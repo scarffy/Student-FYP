@@ -150,9 +150,11 @@ namespace FYP.Backend {
                 object[] data = (object[])photonEvent.CustomData;
 
                 GameObject player = Instantiate(PhotonController.Instance.playerPrefab, (Vector3)data[0], (Quaternion)data[1]);
+                player.tag = "Untagged";
                 player.GetComponent<PhotonPlayerController>().InMultiplayerOther();
                 PhotonView photonView = player.GetComponent<PhotonView>();
                 photonView.ViewID = (int)data[2];
+                
             }
             //if (photonEvent.Sender != -1)
             //{
