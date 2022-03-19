@@ -145,17 +145,27 @@ namespace FYP.Backend {
 
         public void OnEvent(EventData photonEvent)
         {
-            if (photonEvent.Sender != -1)
+            if(photonEvent.Code == 0)
             {
-                switch (photonEvent.Code)
-                {
-                    // event to manual instantiate
-                    case CustomManualInstantiationEventCode.VIEW_ID:
-                        //_ = PhotonNetwork.CurrentRoom.GetPlayer(photonEvent.Sender);
-                        //object[] data = (object[])photonEvent.CustomData;
-                        break;
-                }
+                object[] data = (object[])photonEvent.CustomData;
+
+                GameObject player = Instantiate(PhotonController.Instance.playerPrefab, (Vector3)data[0], (Quaternion)data[1]);
+                player.GetComponent<PhotonPlayerController>().InMultiplayerOther();
+                PhotonView photonView = player.GetComponent<PhotonView>();
+                photonView.ViewID = (int)data[2];
             }
+            //if (photonEvent.Sender != -1)
+            //{
+            //    switch (photonEvent.Code)
+            //    {
+            //        // event to manual instantiate
+            //        case CustomManualInstantiationEventCode.VIEW_ID:
+            //            Photon.Realtime.Player player = PhotonNetwork.CurrentRoom.GetPlayer(photonEvent.Sender);
+            //            object[] data = (object[])photonEvent.CustomData;
+            //            PhotonController.Instance.InstantiatePlayer(player, (int)data[2]);
+            //            break;
+            //    }
+            //}
         }
     }
 }

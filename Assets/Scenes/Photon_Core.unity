@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: cameraObject
       value: 
       objectReference: {fileID: 984083562}
+    - target: {fileID: -8274464149153065289, guid: 055cbab21d73d984198044fde2957923, type: 3}
+      propertyPath: isOtherPlayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2902787729868370010, guid: 055cbab21d73d984198044fde2957923, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.20000076
@@ -206,6 +210,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GirlPlayer_Photon Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8498363520238078622, guid: 055cbab21d73d984198044fde2957923, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 055cbab21d73d984198044fde2957923, type: 3}
 --- !u!1 &863443385
@@ -240,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21c49deb093f7c447adb0aa531d54784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pController: {fileID: 0}
+  plController: {fileID: 0}
 --- !u!65 &863443387
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -386,6 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a8ef478ef08f3d4d995d5e2e245dab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 8498363520238078622, guid: 055cbab21d73d984198044fde2957923, type: 3}
   roomIndex: 0
 --- !u!1 &1991207809
 GameObject:

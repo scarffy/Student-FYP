@@ -3,24 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using FYP.Backend;
+using StarterAssets;
+using UnityEngine.InputSystem;
 
 public class PhotonPlayerController : MonoBehaviour
 {
+    [Space(20)]
     public GameObject playerObject;
     public GameObject cameraObject;
+    public GameObject playerFollowCamera;
+    public ThirdPersonController tpController;
+    public BasicRigidBodyPush brbPush;
+    public StarterAssetsInputs saInputs;
+    public PlayerInput plInput;
+    public Rigidbody rb;
 
+    [Space(20)]
     public PhotonView pView;
     public PhotonTransformView pTransformView;
 
-    IEnumerator Start()
+    public bool isOtherPlayer = true;
+
+    void Start()
     {
-        yield return new WaitForSeconds(2f);
-        //InMultiplayer();
         PhotonManager.Instance.OnJoin += InMultiplayer;
     }
 
     public void InMultiplayer()
     {
+        isOtherPlayer = false;
+
         playerObject.AddComponent<PhotonTransformView>();
         pTransformView = playerObject.GetComponent<PhotonTransformView>();
         pTransformView.m_SynchronizePosition = true;
@@ -34,10 +46,47 @@ public class PhotonPlayerController : MonoBehaviour
 
         PhotonManager.Instance.SendViewId(pView);
         
-        if (pView.IsMine)
+        if (!pView.IsMine)
         {
             //cameraObject.SetActive(false);
             
         }
+    }
+
+    public void InMultiplayerOther()
+    {
+        isOtherPlayer = true;
+
+        playerObject.AddComponent<PhotonTransformView>();
+        pTransformView = playerObject.GetComponent<PhotonTransformView>();
+        pTransformView.m_SynchronizePosition = true;
+        pTransformView.m_SynchronizeRotation = true;
+
+        gameObject.AddComponent<PhotonView>();
+        pView = GetComponent<PhotonView>();
+
+        pView.ObservedComponents = new List<Component>();
+        pView.ObservedComponents.Add(pTransformView);
+
+        Destroy(cameraObject);
+        cameraObject = null;
+
+        Destroy(playerFollowCamera);
+        playerFollowCamera = null;
+
+        Destroy(tpController);
+        tpController = null;
+
+        Destroy(brbPush);
+        brbPush = null;
+
+        Destroy(saInputs);
+        saInputs = null;
+
+        Destroy(plInput);
+        plInput = null;
+
+        Destroy(rb);
+        rb = null;
     }
 }

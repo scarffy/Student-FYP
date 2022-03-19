@@ -11,6 +11,8 @@ namespace FYP.Backend
     {
         public static PhotonController Instance;
 
+        public GameObject playerPrefab;
+
         public int roomIndex;
 
         void Start()
@@ -27,6 +29,12 @@ namespace FYP.Backend
         public void LeaveRoom()
         {
             PhotonManager.Instance.LeaveRoom();
+        }
+
+        public void InstantiatePlayer(Photon.Realtime.Player player, int photonViewId)
+        {
+            GameObject playerGo = Instantiate(playerPrefab, new Vector3(0,0,0), Quaternion.identity);
+            //playerGo.GetComponent<PhotonPlayerController>().InMultiplayerOther();
         }
     }
 }
