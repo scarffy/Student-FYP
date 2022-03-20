@@ -26,6 +26,9 @@ public class PhotonPlayerController : MonoBehaviour
 
     public bool isOtherPlayer = true;
 
+    public Photon.Realtime.Player phPlayer;
+    public FYP.Data.LocalSaveFile SaveFile;
+
     void Start()
     {
         PhotonManager.Instance.OnJoin += InMultiplayer;
@@ -92,6 +95,55 @@ public class PhotonPlayerController : MonoBehaviour
         Destroy(rb);
         rb = null;
     }
+
+    public void InMultiplayerOther(Photon.Realtime.Player player)
+    {
+        isOtherPlayer = true;
+
+        playerObject.AddComponent<PhotonTransformView>();
+        pTransformView = playerObject.GetComponent<PhotonTransformView>();
+        pTransformView.m_SynchronizePosition = true;
+        pTransformView.m_SynchronizeRotation = true;
+
+        gameObject.AddComponent<PhotonView>();
+        pView = GetComponent<PhotonView>();
+
+        pView.ObservedComponents = new List<Component>();
+        pView.ObservedComponents.Add(pTransformView);
+
+        //! Destroying stuffs we don't need.
+        Destroy(cameraObject);
+        cameraObject = null;
+
+        Destroy(playerFollowCamera);
+        playerFollowCamera = null;
+
+        Destroy(tpController);
+        tpController = null;
+
+        Destroy(brbPush);
+        brbPush = null;
+
+        Destroy(saInputs);
+        saInputs = null;
+
+        Destroy(plInput);
+        plInput = null;
+
+        Destroy(rb);
+        rb = null;
+
+        if (player.CustomProperties.ContainsKey("PlayFabID"))
+        {
+            //Debug.Log("Contain PlayFabID");
+            gameObject.name = (string)player.CustomProperties["PlayFabID"];
+        }
+        else
+        {
+            //Debug.Log("Contain No Key");
+        }
+    }
+
 
     /// <summary>
     /// Remove photon component and destroy all other players

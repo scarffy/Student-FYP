@@ -34,7 +34,7 @@ namespace FYP.Backend {
             }
 
             //! To delete this once done
-            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(1,UnityEngine.SceneManagement.LoadSceneMode.Additive);
+            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Multiplayer_Environment", UnityEngine.SceneManagement.LoadSceneMode.Additive);
         }
 
         void Start()
@@ -53,8 +53,18 @@ namespace FYP.Backend {
             base.OnConnectedToMaster();
             readyToConnect = true;
 
-            ExitGames.Client.Photon.Hashtable userHash = new ExitGames.Client.Photon.Hashtable();
+            if(Data.UserLocalSaveFile.Instance != null)
+            {
+                Data.UserLocalSaveFile.Instance.LoadData();
+                Debug.Log(Data.UserLocalSaveFile.Instance.saveDataString);
+                ExitGames.Client.Photon.Hashtable userHash = new ExitGames.Client.Photon.Hashtable();
 
+                // userHash.Add("Key", "Value");
+                userHash.Add("UserInfos", Data.UserLocalSaveFile.Instance.saveDataString);
+                userHash.Add("PlayFabID", Data.UserLocalSaveFile.Instance.saveData.playfabId);
+
+                PhotonNetwork.LocalPlayer.SetCustomProperties(userHash);
+            }
         }
 
         public override void OnDisconnected(DisconnectCause cause)
@@ -173,8 +183,9 @@ namespace FYP.Backend {
                 GameObject player = Instantiate(PhotonController.Instance.playerPrefab, (Vector3)data[0], (Quaternion)data[1]);
                 player.transform.SetParent(PhotonController.Instance.playersParent.transform);
                 //! Find a way to set gameobject name
-                
-                player.GetComponent<PhotonPlayerController>().InMultiplayerOther();
+
+                //player.GetComponent<PhotonPlayerController>().InMultiplayerOther();
+                player.GetComponent<PhotonPlayerController>().InMultiplayerOther(PhotonNetwork.CurrentRoom.GetPlayer(photonEvent.Sender));
                 PhotonView photonView = player.GetComponent<PhotonView>();
                 photonView.ViewID = (int)data[2];
             }
