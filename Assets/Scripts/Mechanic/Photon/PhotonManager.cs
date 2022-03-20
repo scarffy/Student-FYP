@@ -19,6 +19,9 @@ namespace FYP.Backend {
         [SerializeField]
         private byte maxPlayersPerRoom = 20;
 
+        public bool readyToConnect = false;
+        public bool isInRoom = false;
+
         private void Awake()
         {
             if (Instance == null)
@@ -30,6 +33,7 @@ namespace FYP.Backend {
                 Destroy(gameObject);
             }
 
+            //! To delete this once done
             UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(1,UnityEngine.SceneManagement.LoadSceneMode.Additive);
         }
 
@@ -47,16 +51,19 @@ namespace FYP.Backend {
         {
             Debug.Log("Photon connected and ready to roll");
             base.OnConnectedToMaster();
+            readyToConnect = true;
         }
 
         public override void OnDisconnected(DisconnectCause cause)
         {
             base.OnDisconnected(cause);
+            readyToConnect = false;
         }
 
         public void LeaveRoom()
         {
             PhotonNetwork.LeaveRoom();
+            isInRoom = false;
         }
 
         #region Create Room
@@ -85,6 +92,7 @@ namespace FYP.Backend {
             //! This is the place where you spawn a player
             base.OnJoinedRoom();
             OnJoin?.Invoke();
+            isInRoom = true;
         }
 
         public override void OnLeftRoom()
@@ -150,12 +158,12 @@ namespace FYP.Backend {
                 object[] data = (object[])photonEvent.CustomData;
 
                 GameObject player = Instantiate(PhotonController.Instance.playerPrefab, (Vector3)data[0], (Quaternion)data[1]);
-                player.tag = "Untagged";
                 player.GetComponent<PhotonPlayerController>().InMultiplayerOther();
                 PhotonView photonView = player.GetComponent<PhotonView>();
                 photonView.ViewID = (int)data[2];
                 
             }
+
             //if (photonEvent.Sender != -1)
             //{
             //    switch (photonEvent.Code)

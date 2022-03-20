@@ -10,6 +10,8 @@ public class PhotonPlayerController : MonoBehaviour
 {
     [Space(20)]
     public GameObject playerObject;
+
+    [Header("Stuffs to destroy for other player")]
     public GameObject cameraObject;
     public GameObject playerFollowCamera;
     public ThirdPersonController tpController;
@@ -68,6 +70,7 @@ public class PhotonPlayerController : MonoBehaviour
         pView.ObservedComponents = new List<Component>();
         pView.ObservedComponents.Add(pTransformView);
 
+        //! Destroying stuffs we don't need.
         Destroy(cameraObject);
         cameraObject = null;
 

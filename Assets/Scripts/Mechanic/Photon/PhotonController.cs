@@ -13,16 +13,16 @@ namespace FYP.Backend
 
         public GameObject playerPrefab;
 
-        public int roomIndex;
-
         void Start()
         {
             Instance = this;
         }
 
-        public void JoinOrCreateRoom()
+        public void JoinOrCreateRoom(int value)
         {
-            PhotonManager.Instance.roomIndex = roomIndex;
+            //! Add details to sync such as playfab id
+
+            PhotonManager.Instance.roomIndex = value;
             PhotonManager.Instance.CreateRoomOrJoin();
         }
 
