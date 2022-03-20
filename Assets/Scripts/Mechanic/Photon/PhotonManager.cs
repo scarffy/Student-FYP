@@ -52,6 +52,9 @@ namespace FYP.Backend {
             Debug.Log("Photon connected and ready to roll");
             base.OnConnectedToMaster();
             readyToConnect = true;
+
+            ExitGames.Client.Photon.Hashtable userHash = new ExitGames.Client.Photon.Hashtable();
+
         }
 
         public override void OnDisconnected(DisconnectCause cause)
@@ -98,6 +101,16 @@ namespace FYP.Backend {
         public override void OnLeftRoom()
         {
             base.OnLeftRoom();
+            PhotonController.Instance.RemoveOtherPlayer();
+        }
+
+        #endregion
+
+        #region Other Player Event
+        public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+        {
+            base.OnPlayerLeftRoom(otherPlayer);
+            PhotonController.Instance.RemoveOtherPlayer(otherPlayer);
         }
 
         #endregion
@@ -158,10 +171,12 @@ namespace FYP.Backend {
                 object[] data = (object[])photonEvent.CustomData;
 
                 GameObject player = Instantiate(PhotonController.Instance.playerPrefab, (Vector3)data[0], (Quaternion)data[1]);
+                player.transform.SetParent(PhotonController.Instance.playersParent.transform);
+                //! Find a way to set gameobject name
+                
                 player.GetComponent<PhotonPlayerController>().InMultiplayerOther();
                 PhotonView photonView = player.GetComponent<PhotonView>();
                 photonView.ViewID = (int)data[2];
-                
             }
 
             //if (photonEvent.Sender != -1)

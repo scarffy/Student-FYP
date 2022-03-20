@@ -92,4 +92,16 @@ public class PhotonPlayerController : MonoBehaviour
         Destroy(rb);
         rb = null;
     }
+
+    /// <summary>
+    /// Remove photon component and destroy all other players
+    /// </summary>
+    public void OnLeftRoom()
+    { 
+        Destroy(pTransformView);
+        Destroy(pView);
+
+        pTransformView = null;
+        pView = null;
+    }
 }
