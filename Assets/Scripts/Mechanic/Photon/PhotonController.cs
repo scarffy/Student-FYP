@@ -53,8 +53,10 @@ namespace FYP.Backend
         /// <param name="player"></param>
         public void RemoveOtherPlayer(Photon.Realtime.Player player)
         {
-            // string pName = (string)player.CustomProperties["PlayFabID"];
-            
+            string pName = (string)player.CustomProperties["PlayFabID"];
+            Transform transform = playersParent.transform.Find(pName);
+            if (transform)
+                Destroy(transform.gameObject);
         }
     }
 }

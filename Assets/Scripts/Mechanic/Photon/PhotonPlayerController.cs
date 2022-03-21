@@ -50,12 +50,7 @@ public class PhotonPlayerController : MonoBehaviour
         pView.ObservedComponents.Add(pTransformView);
 
         PhotonManager.Instance.SendViewId(pView);
-        
-        if (!pView.IsMine)
-        {
-            //cameraObject.SetActive(false);
-            
-        }
+
     }
 
     public void InMultiplayerOther()
