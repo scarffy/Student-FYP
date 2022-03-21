@@ -18,7 +18,6 @@ public class PhotonPlayerController : MonoBehaviour
     public BasicRigidBodyPush brbPush;
     public StarterAssetsInputs saInputs;
     public PlayerInput plInput;
-    public Rigidbody rb;
 
     [Space(20)]
     public PhotonView pView;
@@ -32,6 +31,11 @@ public class PhotonPlayerController : MonoBehaviour
     void Start()
     {
         PhotonManager.Instance.OnJoin += InMultiplayer;
+    }
+
+    private void OnDestroy()
+    {
+        PhotonManager.Instance.OnJoin -= InMultiplayer;
     }
 
     public void InMultiplayer()
@@ -86,9 +90,6 @@ public class PhotonPlayerController : MonoBehaviour
 
         Destroy(plInput);
         plInput = null;
-
-        Destroy(rb);
-        rb = null;
     }
 
     public void InMultiplayerOther(Photon.Realtime.Player player)
@@ -124,9 +125,6 @@ public class PhotonPlayerController : MonoBehaviour
 
         Destroy(plInput);
         plInput = null;
-
-        Destroy(rb);
-        rb = null;
 
         if (player.CustomProperties.ContainsKey("PlayFabID"))
         {

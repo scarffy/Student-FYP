@@ -44,6 +44,10 @@ namespace FYP.Backend
                 {
                     Destroy(players[i].gameObject);
                 }
+                else
+                {
+                    players[i].OnLeftRoom();
+                }
             }
         }
 
