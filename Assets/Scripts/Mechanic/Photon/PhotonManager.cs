@@ -19,6 +19,7 @@ namespace FYP.Backend {
         [SerializeField]
         private byte maxPlayersPerRoom = 20;
 
+        [Header("Multiplayer connection state")]
         public bool readyToConnect = false;
         public bool isInRoom = false;
 

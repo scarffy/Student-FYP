@@ -26,6 +26,8 @@ public class PhotonPlayerController : MonoBehaviour
     public bool isOtherPlayer = true;
 
     public Photon.Realtime.Player phPlayer;
+
+    [Space(20)]
     public FYP.Data.LocalSaveFile SaveFile;
 
     void Start()
@@ -47,6 +49,19 @@ public class PhotonPlayerController : MonoBehaviour
         pTransformView.m_SynchronizePosition = true;
         pTransformView.m_SynchronizeRotation = true;
 
+        PhotonAnimatorView photonAnimatorView = playerObject.AddComponent<PhotonAnimatorView>();
+        Animator animator = playerObject.GetComponent<Animator>();
+        for (int i = 0; i < animator.layerCount; i++)
+        {
+            photonAnimatorView.SetLayerSynchronized(i, PhotonAnimatorView.SynchronizeType.Discrete);
+        }
+
+        foreach (var animatorControllerParameter in animator.parameters)
+        {
+            photonAnimatorView.SetParameterSynchronized(animatorControllerParameter.name, (PhotonAnimatorView.ParameterType)animatorControllerParameter.type,
+                PhotonAnimatorView.SynchronizeType.Discrete);
+        }
+
         gameObject.AddComponent<PhotonView>();
         pView = GetComponent<PhotonView>();
 
@@ -65,6 +80,19 @@ public class PhotonPlayerController : MonoBehaviour
         pTransformView = playerObject.GetComponent<PhotonTransformView>();
         pTransformView.m_SynchronizePosition = true;
         pTransformView.m_SynchronizeRotation = true;
+
+        PhotonAnimatorView photonAnimatorView = playerObject.AddComponent<PhotonAnimatorView>();
+        Animator animator = playerObject.GetComponent<Animator>();
+        for (int i = 0; i < animator.layerCount; i++)
+        {
+            photonAnimatorView.SetLayerSynchronized(i, PhotonAnimatorView.SynchronizeType.Discrete);
+        }
+
+        foreach (var animatorControllerParameter in animator.parameters)
+        {
+            photonAnimatorView.SetParameterSynchronized(animatorControllerParameter.name, (PhotonAnimatorView.ParameterType)animatorControllerParameter.type,
+                PhotonAnimatorView.SynchronizeType.Discrete);
+        }
 
         gameObject.AddComponent<PhotonView>();
         pView = GetComponent<PhotonView>();
