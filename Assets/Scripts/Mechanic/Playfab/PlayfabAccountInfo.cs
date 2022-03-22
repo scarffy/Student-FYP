@@ -22,7 +22,8 @@ namespace FYP.Data
 
             UserLocalSaveFile.Instance.saveData.playfabId = value.PlayFabId;
             UserLocalSaveFile.Instance.saveData.displayName = value.TitleInfo.DisplayName;
-            
+
+            UserLocalSaveFile.Instance.SaveData();
             
         }
 
@@ -33,6 +34,7 @@ namespace FYP.Data
             UserLocalSaveFile.Instance.saveData.playfabId = value.PlayFabId;
             UserLocalSaveFile.Instance.saveData.displayName = value.TitleInfo.DisplayName;
 
+            UserLocalSaveFile.Instance.SaveData();
             action();
         }
     }
