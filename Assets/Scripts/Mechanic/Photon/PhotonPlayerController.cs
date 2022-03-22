@@ -13,6 +13,7 @@ public class PhotonPlayerController : MonoBehaviour
 
     [Header("Stuffs to destroy for other player")]
     public GameObject cameraObject;
+    public Animator animator;
     public GameObject playerFollowCamera;
     public ThirdPersonController tpController;
     public BasicRigidBodyPush brbPush;
@@ -22,6 +23,7 @@ public class PhotonPlayerController : MonoBehaviour
     [Space(20)]
     public PhotonView pView;
     public PhotonTransformView pTransformView;
+    public PhotonAnimatorView photonAnimatorView;
 
     public bool isOtherPlayer = true;
 
@@ -49,8 +51,8 @@ public class PhotonPlayerController : MonoBehaviour
         pTransformView.m_SynchronizePosition = true;
         pTransformView.m_SynchronizeRotation = true;
 
-        PhotonAnimatorView photonAnimatorView = playerObject.AddComponent<PhotonAnimatorView>();
-        Animator animator = playerObject.GetComponent<Animator>();
+        photonAnimatorView = playerObject.AddComponent<PhotonAnimatorView>();
+        
         for (int i = 0; i < animator.layerCount; i++)
         {
             photonAnimatorView.SetLayerSynchronized(i, PhotonAnimatorView.SynchronizeType.Discrete);
@@ -67,6 +69,7 @@ public class PhotonPlayerController : MonoBehaviour
 
         pView.ObservedComponents = new List<Component>();
         pView.ObservedComponents.Add(pTransformView);
+        pView.ObservedComponents.Add(photonAnimatorView);
 
         PhotonManager.Instance.SendViewId(pView);
 
@@ -81,8 +84,8 @@ public class PhotonPlayerController : MonoBehaviour
         pTransformView.m_SynchronizePosition = true;
         pTransformView.m_SynchronizeRotation = true;
 
-        PhotonAnimatorView photonAnimatorView = playerObject.AddComponent<PhotonAnimatorView>();
-        Animator animator = playerObject.GetComponent<Animator>();
+        photonAnimatorView = playerObject.AddComponent<PhotonAnimatorView>();
+        
         for (int i = 0; i < animator.layerCount; i++)
         {
             photonAnimatorView.SetLayerSynchronized(i, PhotonAnimatorView.SynchronizeType.Discrete);
@@ -99,6 +102,7 @@ public class PhotonPlayerController : MonoBehaviour
 
         pView.ObservedComponents = new List<Component>();
         pView.ObservedComponents.Add(pTransformView);
+        pView.ObservedComponents.Add(photonAnimatorView);
 
         //! Destroying stuffs we don't need.
         Destroy(cameraObject);
@@ -129,11 +133,25 @@ public class PhotonPlayerController : MonoBehaviour
         pTransformView.m_SynchronizePosition = true;
         pTransformView.m_SynchronizeRotation = true;
 
+        photonAnimatorView = playerObject.AddComponent<PhotonAnimatorView>();
+
+        for (int i = 0; i < animator.layerCount; i++)
+        {
+            photonAnimatorView.SetLayerSynchronized(i, PhotonAnimatorView.SynchronizeType.Discrete);
+        }
+
+        foreach (var animatorControllerParameter in animator.parameters)
+        {
+            photonAnimatorView.SetParameterSynchronized(animatorControllerParameter.name, (PhotonAnimatorView.ParameterType)animatorControllerParameter.type,
+                PhotonAnimatorView.SynchronizeType.Discrete);
+        }
+
         gameObject.AddComponent<PhotonView>();
         pView = GetComponent<PhotonView>();
 
         pView.ObservedComponents = new List<Component>();
         pView.ObservedComponents.Add(pTransformView);
+        pView.ObservedComponents.Add(photonAnimatorView);
 
         //! Destroying stuffs we don't need.
         Destroy(cameraObject);
@@ -170,11 +188,13 @@ public class PhotonPlayerController : MonoBehaviour
     /// Remove photon component and destroy all other players
     /// </summary>
     public void OnLeftRoom()
-    { 
+    {
         Destroy(pTransformView);
+        Destroy(photonAnimatorView);
         Destroy(pView);
-
+        
         pTransformView = null;
+        photonAnimatorView = null;
         pView = null;
     }
 }

@@ -9,31 +9,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2355612608803250749, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.4736567
+      value: 0.19999981
       objectReference: {fileID: 0}
     - target: {fileID: 2355612608803250749, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.7160084
+      value: 1.375
       objectReference: {fileID: 0}
     - target: {fileID: 2355612608803250749, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.6808
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 2355612608803250749, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.73607796
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2355612608803250749, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.034421846
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2355612608803250749, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.6753079
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2355612608803250749, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.031040791
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4624383543593666834, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -113,6 +113,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7051626830960581434, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
   m_PrefabInstance: {fileID: 646291974362272359}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &3787389184676055453 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4357115291374279674, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
+  m_PrefabInstance: {fileID: 646291974362272359}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7576319139334605142 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7051626830960581425, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
@@ -171,14 +176,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerObject: {fileID: 7576319139334605149}
   cameraObject: {fileID: 2902787729868370015}
+  animator: {fileID: 3787389184676055453}
   playerFollowCamera: {fileID: 5248113536099195530}
   tpController: {fileID: 7576319139334605142}
   brbPush: {fileID: 415476054593086381}
   saInputs: {fileID: 6163775536349746465}
   plInput: {fileID: 7576319139334605137}
-  rb: {fileID: 0}
   pView: {fileID: 0}
   pTransformView: {fileID: 0}
+  photonAnimatorView: {fileID: 0}
   isOtherPlayer: 1
   SaveFile:
     username: 
