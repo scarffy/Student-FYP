@@ -2235,6 +2235,7 @@ MonoBehaviour:
   BottomClamp: -30
   CameraAngleOverride: 0
   LockCameraPosition: 0
+  _animAttack: 0
 --- !u!114 &953644253429313994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2268,6 +2269,8 @@ MonoBehaviour:
   look: {x: 0, y: 0}
   jump: 0
   sprint: 0
+  attack: 0
+  defence: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
