@@ -19,19 +19,28 @@ namespace FYP.Data
 
         const string saveName = "saveName";
 
+        [HideInInspector]
+        public string saveDataString;
+
         public void SaveData()
         {
-            string tempString = JsonUtility.ToJson(saveData);
-            PlayerPrefs.SetString(saveName, tempString);
+            saveDataString = JsonUtility.ToJson(saveData);
+            PlayerPrefs.SetString(saveName, saveDataString);
+
+            Debug.Log("Save Local Data");
         }
 
         public void LoadData()
         {
-            string tempString = "";
+            saveDataString = "";
             if (PlayerPrefs.HasKey(saveName))
             {
-                tempString = PlayerPrefs.GetString(saveName);
-                saveData = JsonUtility.FromJson<LocalSaveFile>(tempString);
+                saveDataString = PlayerPrefs.GetString(saveName);
+                saveData = JsonUtility.FromJson<LocalSaveFile>(saveDataString);
+            }
+            else
+            {
+                Debug.Log("No local save file found");
             }
         }
     }

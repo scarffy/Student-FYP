@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+namespace FYP.legacy { 
 public class Player : MonoBehaviour
 {
     [Header("Player Settings")]
@@ -73,4 +74,5 @@ public class Player : MonoBehaviour
         
 
     }
+}
 }

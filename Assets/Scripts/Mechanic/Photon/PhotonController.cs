@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
 using Photon.Pun;
-using Photon.Realtime;
 
 namespace FYP.Backend
 {
@@ -12,6 +8,7 @@ namespace FYP.Backend
         public static PhotonController Instance;
 
         public GameObject playerPrefab;
+        public GameObject playersParent;
 
         void Start()
         {
@@ -31,10 +28,35 @@ namespace FYP.Backend
             PhotonManager.Instance.LeaveRoom();
         }
 
-        public void InstantiatePlayer(Photon.Realtime.Player player, int photonViewId)
+        /// <summary>
+        /// current Player leave room
+        /// </summary>
+        public void RemoveOtherPlayer()
         {
-            GameObject playerGo = Instantiate(playerPrefab, new Vector3(0,0,0), Quaternion.identity);
-            //playerGo.GetComponent<PhotonPlayerController>().InMultiplayerOther();
+            PhotonPlayerController[] players = playersParent.transform.GetComponentsInChildren<PhotonPlayerController>();
+            for (int i = 0; i < players.Length; i++)
+            {
+                if (players[i].isOtherPlayer)
+                {
+                    Destroy(players[i].gameObject);
+                }
+                else
+                {
+                    players[i].OnLeftRoom();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Other player leave room
+        /// </summary>
+        /// <param name="player"></param>
+        public void RemoveOtherPlayer(Photon.Realtime.Player player)
+        {
+            string pName = (string)player.CustomProperties["PlayFabID"];
+            Transform transform = playersParent.transform.Find(pName);
+            if (transform)
+                Destroy(transform.gameObject);
         }
     }
 }
