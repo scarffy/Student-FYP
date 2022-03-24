@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Inventory_System.unity
     guid: f73dc5614a5c3b64e8836952c9636913
+  - enabled: 1
+    path: Assets/Scenes/Multiplayer_Environment.unity
+    guid: ac12b10dd6b1efb4da4baab12e073d9c
   m_configObjects: {}
