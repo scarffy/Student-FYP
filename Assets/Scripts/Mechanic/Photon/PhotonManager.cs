@@ -19,6 +19,7 @@ namespace FYP.Backend {
         [SerializeField]
         private byte maxPlayersPerRoom = 20;
 
+        [Header("Multiplayer connection state")]
         public bool readyToConnect = false;
         public bool isInRoom = false;
 
@@ -34,7 +35,7 @@ namespace FYP.Backend {
             }
 
             //! To delete this once done
-            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(1,UnityEngine.SceneManagement.LoadSceneMode.Additive);
+            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Multiplayer_Environment", UnityEngine.SceneManagement.LoadSceneMode.Additive);
         }
 
         void Start()
@@ -52,6 +53,19 @@ namespace FYP.Backend {
             Debug.Log("Photon connected and ready to roll");
             base.OnConnectedToMaster();
             readyToConnect = true;
+
+            if(Data.UserLocalSaveFile.Instance != null)
+            {
+                Data.UserLocalSaveFile.Instance.LoadData();
+                Debug.Log(Data.UserLocalSaveFile.Instance.saveDataString);
+                ExitGames.Client.Photon.Hashtable userHash = new ExitGames.Client.Photon.Hashtable();
+
+                // userHash.Add("Key", "Value");
+                userHash.Add("UserInfos", Data.UserLocalSaveFile.Instance.saveDataString);
+                userHash.Add("PlayFabID", Data.UserLocalSaveFile.Instance.saveData.playfabId);
+
+                PhotonNetwork.LocalPlayer.SetCustomProperties(userHash);
+            }
         }
 
         public override void OnDisconnected(DisconnectCause cause)
@@ -98,6 +112,16 @@ namespace FYP.Backend {
         public override void OnLeftRoom()
         {
             base.OnLeftRoom();
+            PhotonController.Instance.RemoveOtherPlayer();
+        }
+
+        #endregion
+
+        #region Other Player Event
+        public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+        {
+            base.OnPlayerLeftRoom(otherPlayer);
+            PhotonController.Instance.RemoveOtherPlayer(otherPlayer);
         }
 
         #endregion
@@ -158,10 +182,13 @@ namespace FYP.Backend {
                 object[] data = (object[])photonEvent.CustomData;
 
                 GameObject player = Instantiate(PhotonController.Instance.playerPrefab, (Vector3)data[0], (Quaternion)data[1]);
-                player.GetComponent<PhotonPlayerController>().InMultiplayerOther();
+                player.transform.SetParent(PhotonController.Instance.playersParent.transform);
+                //! Find a way to set gameobject name
+
+                //player.GetComponent<PhotonPlayerController>().InMultiplayerOther();
+                player.GetComponent<PhotonPlayerController>().InMultiplayerOther(PhotonNetwork.CurrentRoom.GetPlayer(photonEvent.Sender));
                 PhotonView photonView = player.GetComponent<PhotonView>();
                 photonView.ViewID = (int)data[2];
-                
             }
 
             //if (photonEvent.Sender != -1)
