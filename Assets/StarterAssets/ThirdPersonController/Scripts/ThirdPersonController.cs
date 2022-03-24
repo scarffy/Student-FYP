@@ -76,6 +76,7 @@ namespace StarterAssets
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
+		private float immobilizeTimer;
 
 		// animation IDs
 		private int _animIDSpeed;
@@ -309,8 +310,14 @@ namespace StarterAssets
             if (_input.attack && Grounded)
             {
 				//Play Animation
+				_animator.SetLayerWeight(_animator.GetLayerIndex("Attack Layer"), 1);
                 _animator.SetBool("Punching", _input.attack);
-            }
+
+				//yield return new WaitForSeconds(0.9f);
+				_animator.SetLayerWeight(_animator.GetLayerIndex("Attack Layer"), 0);
+
+
+			}
             else
             {
 				//Stop Animation

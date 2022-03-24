@@ -328,6 +328,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1364969675}
     m_Modifications:
+    - target: {fileID: 27272666581160647, guid: d1543531268bc5a44b36bf26cbb5a594, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 426147729719518692, guid: d1543531268bc5a44b36bf26cbb5a594, type: 3}
       propertyPath: m_Name
       value: Sword
@@ -338,15 +342,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1054453326285193054, guid: d1543531268bc5a44b36bf26cbb5a594, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1054453326285193054, guid: d1543531268bc5a44b36bf26cbb5a594, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1054453326285193054, guid: d1543531268bc5a44b36bf26cbb5a594, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.5
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 1054453326285193054, guid: d1543531268bc5a44b36bf26cbb5a594, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1165,11 +1169,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2355612608803250749, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4
+      value: -4.102
       objectReference: {fileID: 0}
     - target: {fileID: 3398654247744643686, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.102
       objectReference: {fileID: 0}
     - target: {fileID: 4624383543593666834, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1177,7 +1181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4624383543593666834, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4
+      value: -4.102
       objectReference: {fileID: 0}
     - target: {fileID: 7051626830960581425, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
       propertyPath: AttackLayers.m_Bits
@@ -1230,6 +1234,10 @@ PrefabInstance:
     - target: {fileID: 9009547502522816761, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
       propertyPath: m_Name
       value: GirlPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 9009547502522816761, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
