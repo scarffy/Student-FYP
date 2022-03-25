@@ -14,6 +14,8 @@ namespace StarterAssets
 #endif
 	public class ThirdPersonController : MonoBehaviour
 	{
+		public static ThirdPersonController instance;
+
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
 		public float MoveSpeed = 2.0f;
@@ -74,6 +76,7 @@ namespace StarterAssets
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
+		private float immobilizeTimer;
 
 		// animation IDs
 		private int _animIDSpeed;
@@ -81,6 +84,8 @@ namespace StarterAssets
 		private int _animIDJump;
 		private int _animIDFreeFall;
 		private int _animIDMotionSpeed;
+		public int _animAttack;
+		private int _animDefence;
 
 		private Animator _animator;
 		private CharacterController _controller;
@@ -120,6 +125,8 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+			Attacking();
+			Defencing();
 		}
 
 		private void LateUpdate()
@@ -134,6 +141,8 @@ namespace StarterAssets
 			_animIDJump = Animator.StringToHash("Jump");
 			_animIDFreeFall = Animator.StringToHash("FreeFall");
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+			_animAttack = Animator.StringToHash("Punching");
+			_animDefence = Animator.StringToHash("Defence");
 		}
 
 		private void GroundedCheck()
@@ -294,6 +303,42 @@ namespace StarterAssets
 			{
 				_verticalVelocity += Gravity * Time.deltaTime;
 			}
+		}
+
+		public void Attacking()
+        {
+            if (_input.attack && Grounded)
+            {
+				//Play Animation
+				_animator.SetLayerWeight(_animator.GetLayerIndex("Attack Layer"), 1);
+                _animator.SetBool("Punching", _input.attack);
+
+				//yield return new WaitForSeconds(0.9f);
+				_animator.SetLayerWeight(_animator.GetLayerIndex("Attack Layer"), 0);
+
+
+			}
+            else
+            {
+				//Stop Animation
+				_animator.SetBool("Punching", false);
+			}
+
+        }
+
+		public void Defencing()
+		{
+			if (_input.defence && Grounded)
+			{
+				//Play Animation
+				_animator.SetBool("Defence", _input.defence);
+			}
+			else
+			{
+				//Stop Animation
+				_animator.SetBool("Defence", false);
+			}
+
 		}
 
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
