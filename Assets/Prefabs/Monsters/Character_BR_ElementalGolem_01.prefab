@@ -872,7 +872,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: b315d7683f0280a488c91ee057deeafb, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -3056,13 +3056,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7152488059252321626}
-  m_LocalRotation: {x: 0.3766417, y: -0.4397086, z: 0.102449425, w: 0.8088891}
-  m_LocalPosition: {x: 0.34, y: -0.226, z: -0.053}
+  m_LocalRotation: {x: 0.5920842, y: -0.39209658, z: 0.22382835, w: 0.66753095}
+  m_LocalPosition: {x: 0.3587, y: -0.0659, z: -0.0881}
   m_LocalScale: {x: 0.3999999, y: 0.39999992, z: 0.3999999}
   m_Children: []
   m_Father: {fileID: 3384600755529938152}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 135.62, y: 117.462006, z: 166.612}
+  m_LocalEulerAnglesHint: {x: 104.985, y: 88.092, z: 140.20801}
 --- !u!33 &7147232404561430358
 MeshFilter:
   m_ObjectHideFlags: 0

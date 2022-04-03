@@ -1,5 +1,168 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &312600003
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 312600004}
+  - component: {fileID: 312600009}
+  - component: {fileID: 312600008}
+  - component: {fileID: 312600007}
+  - component: {fileID: 312600006}
+  - component: {fileID: 312600005}
+  m_Layer: 0
+  m_Name: RangeChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &312600004
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312600003}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7761107115338289749}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &312600009
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312600003}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &312600008
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312600003}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &312600007
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312600003}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &312600006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312600003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92723f5125c9e8142bf918c865b19b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameObjectEnterName:
+    m_PersistentCalls:
+      m_Calls: []
+  GameObjectEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  GameObjectEnterCollider:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1791516405}
+        m_TargetAssemblyTypeName: FYP.NPC.EnemyAI.EnemyController, Assembly-CSharp
+        m_MethodName: PlayerEnter
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &312600005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312600003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a935844ea05afe647a496aaab23b998a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameObjectEnterName:
+    m_PersistentCalls:
+      m_Calls: []
+  GameObjectEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  GameObjectEnterCollider:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1791516405}
+        m_TargetAssemblyTypeName: FYP.NPC.EnemyAI.EnemyController, Assembly-CSharp
+        m_MethodName: PlayerExit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5770683058926990064
 GameObject:
   m_ObjectHideFlags: 0
@@ -25,13 +188,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5770683058926990064}
-  m_LocalRotation: {x: -0.82021374, y: -0.5168651, z: 0.04733667, w: 0.24053954}
-  m_LocalPosition: {x: 0.142, y: 0.038, z: -0.095}
+  m_LocalRotation: {x: -0.8195565, y: 0.07343873, z: 0.0507188, w: 0.56600493}
+  m_LocalPosition: {x: 0.06, y: -0.072, z: -0.269}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7758143144125269023}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -159.778, y: 20.348999, z: -68.10101}
+  m_LocalEulerAnglesHint: {x: -110.74, y: 0, z: 10.240997}
 --- !u!33 &5792779203761548124
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2544,6 +2707,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7761107115338289749}
   - component: {fileID: 7707567884648656953}
+  - component: {fileID: 1791516406}
+  - component: {fileID: 1791516403}
+  - component: {fileID: 1791516405}
   m_Layer: 0
   m_Name: Character_SpiritDemon_01
   m_TagString: Untagged
@@ -2573,6 +2739,7 @@ Transform:
   - {fileID: 7758096093745717555}
   - {fileID: 7761080654121920151}
   - {fileID: 7760944020758567725}
+  - {fileID: 312600004}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2589,12 +2756,70 @@ Animator:
   m_Controller: {fileID: 9100000, guid: b315d7683f0280a488c91ee057deeafb, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!136 &1791516406
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7756184750271346567}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.8355598
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8952241, z: 0}
+--- !u!195 &1791516403
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7756184750271346567}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &1791516405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7756184750271346567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97ca8e88e8ab65f4498730fefbde525d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 1
+  enemyColor: {fileID: 2100000, guid: bd411708eb537914793e1cc46f0a9dae, type: 2}
+  destpoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  numDestpoints: 0
+  isEntering: 0
+  playerCollider: {fileID: 0}
 --- !u!1 &7757174244385234705
 GameObject:
   m_ObjectHideFlags: 0
