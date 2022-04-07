@@ -58,6 +58,14 @@ namespace FYP.Backend
                 return;
             }
 
+            if(PhotonManager.Instance.readyToConnect && PhotonManager.Instance.isInRoom)
+            {
+                if(Photon.Pun.PhotonNetwork.CurrentRoom.Name == gameObject.name)
+                {
+                    return;
+                }
+            }
+
             if (other.transform.parent.CompareTag("Player"))
             {
                 if(plController == null)
@@ -77,6 +85,9 @@ namespace FYP.Backend
 
         public void OnTriggerExit(Collider other)
         {
+            //! Disable this for now
+            return;
+
             //! Give player some debug message
             if (PhotonManager.Instance.readyToConnect && !PhotonManager.Instance.isInRoom)
                 return;
