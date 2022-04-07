@@ -58,6 +58,7 @@ namespace FYP.Backend
                 return;
             }
 
+            //! This to avoid the overlapping colliders
             if(PhotonManager.Instance.readyToConnect && PhotonManager.Instance.isInRoom)
             {
                 if(Photon.Pun.PhotonNetwork.CurrentRoom.Name == gameObject.name)
@@ -85,7 +86,7 @@ namespace FYP.Backend
 
         public void OnTriggerExit(Collider other)
         {
-            //! Disable this for now
+            //! Disable this for now. To avoid overlapping collider with other room name
             return;
 
             //! Give player some debug message

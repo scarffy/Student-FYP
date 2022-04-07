@@ -7,10 +7,13 @@ using Photon.Realtime;
 using System;
 using ExitGames.Client.Photon;
 
-namespace FYP.Backend {
-    public class PhotonManager : MonoBehaviourPunCallbacks,IOnEventCallback
+namespace FYP.Backend
+{
+    public class PhotonManager : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         public static PhotonManager Instance;
+
+        public Action OnJoin;
 
         [HideInInspector]
         public int roomIndex = 0;
@@ -22,6 +25,11 @@ namespace FYP.Backend {
         [Header("Multiplayer connection state")]
         public bool readyToConnect = false;
         public bool isInRoom = false;
+
+        [Header("Player")]
+        [SerializeField] Transform playerArrayParent;
+        [SerializeField] List<Transform> players;
+        public bool isMasterClient;
 
         private void Awake()
         {
@@ -54,7 +62,7 @@ namespace FYP.Backend {
             base.OnConnectedToMaster();
             readyToConnect = true;
 
-            if(Data.UserLocalSaveFile.Instance != null)
+            if (Data.UserLocalSaveFile.Instance != null)
             {
                 Data.UserLocalSaveFile.Instance.LoadData();
                 Debug.Log(Data.UserLocalSaveFile.Instance.saveDataString);
@@ -99,14 +107,15 @@ namespace FYP.Backend {
         #endregion
 
         #region Join Room
-
-        public Action OnJoin;
         public override void OnJoinedRoom()
         {
             //! This is the place where you spawn a player
             base.OnJoinedRoom();
             OnJoin?.Invoke();
             isInRoom = true;
+
+            //! This is to get the master client but can already get from PhotonNetwork.MasterClient
+            UpdatePlayerList();
         }
 
         public override void OnLeftRoom()
@@ -118,10 +127,17 @@ namespace FYP.Backend {
         #endregion
 
         #region Other Player Event
+        public override void OnPlayerEnteredRoom(Player newPlayer)
+        {
+            base.OnPlayerEnteredRoom(newPlayer);
+            UpdatePlayerList();
+        }
+
         public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
         {
             base.OnPlayerLeftRoom(otherPlayer);
             PhotonController.Instance.RemoveOtherPlayer(otherPlayer);
+            UpdatePlayerList();
         }
 
         #endregion
@@ -157,6 +173,8 @@ namespace FYP.Backend {
 
         #endregion
 
+        #region PlayerEvents
+
         public void SendViewId(PhotonView photonView)
         {
             photonView.ViewID = PhotonNetwork.AllocateViewID(PhotonNetwork.LocalPlayer.ActorNumber);
@@ -177,32 +195,37 @@ namespace FYP.Backend {
 
         public void OnEvent(EventData photonEvent)
         {
-            if(photonEvent.Code == 0)
+            if (photonEvent.Code == 0)
             {
                 object[] data = (object[])photonEvent.CustomData;
 
                 GameObject player = Instantiate(PhotonController.Instance.playerPrefab, (Vector3)data[0], (Quaternion)data[1]);
                 player.transform.SetParent(PhotonController.Instance.playersParent.transform);
-                //! Find a way to set gameobject name
 
                 //player.GetComponent<PhotonPlayerController>().InMultiplayerOther();
                 player.GetComponent<PhotonPlayerController>().InMultiplayerOther(PhotonNetwork.CurrentRoom.GetPlayer(photonEvent.Sender));
                 PhotonView photonView = player.GetComponent<PhotonView>();
                 photonView.ViewID = (int)data[2];
             }
-
-            //if (photonEvent.Sender != -1)
-            //{
-            //    switch (photonEvent.Code)
-            //    {
-            //        // event to manual instantiate
-            //        case CustomManualInstantiationEventCode.VIEW_ID:
-            //            Photon.Realtime.Player player = PhotonNetwork.CurrentRoom.GetPlayer(photonEvent.Sender);
-            //            object[] data = (object[])photonEvent.CustomData;
-            //            PhotonController.Instance.InstantiatePlayer(player, (int)data[2]);
-            //            break;
-            //    }
-            //}
         }
+
+        //! No use for this yet.
+        //! Delete if not used.
+        public void UpdatePlayerList()
+        {
+            players = new List<Transform>();
+
+            foreach (Transform item in playerArrayParent)
+            {
+                players.Add(item);
+            }
+
+            if (PhotonNetwork.IsMasterClient)
+                isMasterClient = true;
+            else
+                isMasterClient = false;
+        }
+
+        #endregion
     }
 }
