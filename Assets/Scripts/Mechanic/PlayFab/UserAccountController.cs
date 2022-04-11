@@ -32,6 +32,8 @@ namespace FYP.Backend
         public TMP_Text ErrorLogin;
         public TMP_Text ErrorSignUp;
 
+
+
         
         #region togglebuttonpanel
         public void OpenLoginPanel()
@@ -109,6 +111,9 @@ namespace FYP.Backend
                 GetUserInfo(email, res.PlayFabId);
                 Debug.Log("login success");
                 Backend.PlayFabManager.Instance.KC = res.InfoResultPayload.UserVirtualCurrency["KC"]; // to get the user virtual currency from playfab portal
+                Backend.InventorySystem.Instance.shopBag.SetActive(true);
+                Backend.InventorySystem.Instance.inventoryBeg.SetActive(true);
+                Backend.InventorySystem.Instance.virtualCoin.SetActive(true);
 
                 //! calling the function from Inventory System script
                 //InventorySystem.Instance.BuyItem()
