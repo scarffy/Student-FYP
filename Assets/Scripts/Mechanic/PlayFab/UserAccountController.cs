@@ -75,6 +75,9 @@ namespace FYP.Backend
                 RegisterAccountBtn.interactable = true;
                 OpenLoginPanel();
                 Debug.Log(res.PlayFabId);
+
+                Data.PlayfabAccountInfo.Instance.GetStatistics();
+                Data.PlayfabAccountInfo.Instance.SetStats();
             },
             err =>
             {
@@ -101,7 +104,7 @@ namespace FYP.Backend
             {
                 Email = email,
                 Password = password,
-                InfoRequestParameters = Backend.PlayFabManager.Instance.infoRequest,
+                InfoRequestParameters = Data.PlayfabAccountInfo.Instance.infoRequest,
                
             };
 
@@ -114,6 +117,7 @@ namespace FYP.Backend
                 Backend.InventorySystem.Instance.shopBag.SetActive(true);
                 Backend.InventorySystem.Instance.inventoryBeg.SetActive(true);
                 Backend.InventorySystem.Instance.virtualCoin.SetActive(true);
+                Backend.InventorySystem.Instance.playerStats.SetActive(true);
 
                 //! calling the function from Inventory System script
                 //InventorySystem.Instance.BuyItem()
@@ -123,6 +127,9 @@ namespace FYP.Backend
                 {
                     obj.SetActive(true);
                 }
+
+                Data.PlayfabAccountInfo.Instance.GetStatistics();
+                Data.PlayfabAccountInfo.Instance.SetStats();
             },
             err =>
             {
