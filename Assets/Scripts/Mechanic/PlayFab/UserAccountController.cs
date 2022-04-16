@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine.UI;
 
 
+
 namespace FYP.Backend
 {
     public class UserAccountController : Singleton<UserAccountController>
@@ -75,6 +76,10 @@ namespace FYP.Backend
                 RegisterAccountBtn.interactable = true;
                 OpenLoginPanel();
                 Debug.Log(res.PlayFabId);
+
+                Backend.PlayerStats.Instance.SetUserData();
+                Backend.PlayerStats.Instance.GetUserData(res.PlayFabId);
+
             },
             err =>
             {
@@ -101,7 +106,7 @@ namespace FYP.Backend
             {
                 Email = email,
                 Password = password,
-                InfoRequestParameters = Backend.PlayFabManager.Instance.infoRequest,
+                InfoRequestParameters = Data.PlayfabAccountInfo.Instance.infoRequest,
                
             };
 
@@ -114,6 +119,7 @@ namespace FYP.Backend
                 Backend.InventorySystem.Instance.shopBag.SetActive(true);
                 Backend.InventorySystem.Instance.inventoryBeg.SetActive(true);
                 Backend.InventorySystem.Instance.virtualCoin.SetActive(true);
+                Backend.InventorySystem.Instance.playerStats.SetActive(true);
 
                 //! calling the function from Inventory System script
                 //InventorySystem.Instance.BuyItem()
@@ -123,6 +129,10 @@ namespace FYP.Backend
                 {
                     obj.SetActive(true);
                 }
+
+                Backend.PlayerStats.Instance.SetUserData();
+                Backend.PlayerStats.Instance.GetUserData(res.PlayFabId);
+
             },
             err =>
             {

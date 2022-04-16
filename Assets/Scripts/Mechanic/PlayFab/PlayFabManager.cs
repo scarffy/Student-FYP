@@ -20,8 +20,15 @@ namespace FYP.Backend
         [Header("Stock Price")]
         public uint cost;
 
-        [Header("Info Request")]
-        public GetPlayerCombinedInfoRequestParams infoRequest;
+        [Header("Player Stat")]
+        public TMP_Text currentEXP;
+        public TMP_Text maxEXP;
+        public TMP_Text playerLevel;
+        public TMP_Text playerHealth;
+        public TMP_Text playerVitality;
+        public TMP_Text playerStrength;
+
+
     }
 }
 
