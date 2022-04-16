@@ -1349,9 +1349,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1705274038}
-        m_TargetAssemblyTypeName: FYP.Data.PlayfabAccountInfo, Assembly-CSharp
-        m_MethodName: SetStats
+      - m_Target: {fileID: 2051458470}
+        m_TargetAssemblyTypeName: FYP.Backend.PlayerStats, Assembly-CSharp
+        m_MethodName: SetUserData
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4767,7 +4767,7 @@ GameObject:
   - component: {fileID: 2051458469}
   - component: {fileID: 2051458470}
   m_Layer: 0
-  m_Name: PlayerStatistics
+  m_Name: PlayerTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
