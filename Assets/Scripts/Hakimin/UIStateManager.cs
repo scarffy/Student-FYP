@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace FYP.UI
 {
@@ -18,10 +19,18 @@ namespace FYP.UI
             inventory,
             sell,
             buy,
+            quit,
         }
         #endregion
 
         #region private variable
+        [Header("Buttons")]
+        [SerializeField] Button signupButton;
+        [SerializeField] Button signinButton;
+        //[SerializeField] Button statusButton;
+        //[SerializeField] Button quitButton;
+        //[SerializeField] Button settingsButton;
+
         [Header("Panels")]
         [SerializeField] GameObject signupPanel;
         [SerializeField] GameObject signinPanel;
@@ -29,6 +38,8 @@ namespace FYP.UI
         [SerializeField] GameObject inventoryPanel;
         [SerializeField] GameObject sellPanel;
         [SerializeField] GameObject buyPanel;
+        [SerializeField] GameObject quitPanel;
+        [SerializeField] GameObject settingsPanel;
 
         #endregion
 
@@ -41,7 +52,11 @@ namespace FYP.UI
         // Start is called before the first frame update
         void Start()
         {
-
+                signupButton.onClick.AddListener(() => { SetStates(1); });
+            signinButton.onClick.AddListener(() => { SetStates(2); });
+            //    signinButton.onClick.AddListener(() => { SetState(State.signup); });
+            //statusButton.onClick.AddListener(() => { SetStates(3); });
+            SetStates(1);
         }
 
         // Update is called once per frame
@@ -52,11 +67,12 @@ namespace FYP.UI
 
         public void SetStates(int value)
         {
+            Debug.Log("calling");
             state = (State)value;
             SetState(state);
         }
 
-        private void SetState(State curState)
+        public void SetState(State curState)
         {
             state = curState;
 
@@ -66,6 +82,7 @@ namespace FYP.UI
             inventoryPanel.SetActive(state == State.inventory);
             sellPanel.SetActive(state == State.sell);
             buyPanel.SetActive(state == State.buy);
+            quitPanel.SetActive(state == State.quit);
         }
     }
 }
