@@ -27,9 +27,10 @@ namespace FYP.UI
         [Header("Buttons")]
         [SerializeField] Button signupButton;
         [SerializeField] Button signinButton;
-        //[SerializeField] Button statusButton;
-        //[SerializeField] Button quitButton;
-        //[SerializeField] Button settingsButton;
+        [SerializeField] Button statusButton;
+        [SerializeField] Button quitButton;
+        [SerializeField] Button settingsButton;
+        [SerializeField] List<Button> closeButton = new List<Button>();
 
         [Header("Panels")]
         [SerializeField] GameObject signupPanel;
@@ -52,27 +53,22 @@ namespace FYP.UI
         // Start is called before the first frame update
         void Start()
         {
-                signupButton.onClick.AddListener(() => { SetStates(1); });
+            signupButton.onClick.AddListener(() => { SetStates(1); });
             signinButton.onClick.AddListener(() => { SetStates(2); });
-            //    signinButton.onClick.AddListener(() => { SetState(State.signup); });
-            //statusButton.onClick.AddListener(() => { SetStates(3); });
-            SetStates(1);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            statusButton.onClick.AddListener(() => { SetStates(3); });
+            for (int i = 0; i < closeButton.Count; i++)
+            {
+                closeButton[i].onClick.AddListener(() => { SetStates(0); });
+            }
         }
 
         public void SetStates(int value)
         {
-            Debug.Log("calling");
             state = (State)value;
             SetState(state);
         }
 
-        public void SetState(State curState)
+        private void SetState(State curState)
         {
             state = curState;
 
