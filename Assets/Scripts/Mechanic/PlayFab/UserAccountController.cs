@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine.UI;
 
 
+
 namespace FYP.Backend
 {
     public class UserAccountController : Singleton<UserAccountController>
@@ -76,8 +77,9 @@ namespace FYP.Backend
                 OpenLoginPanel();
                 Debug.Log(res.PlayFabId);
 
-                Data.PlayfabAccountInfo.Instance.GetStatistics();
-                Data.PlayfabAccountInfo.Instance.SetStats();
+                Backend.PlayerStats.Instance.SetUserData();
+                Backend.PlayerStats.Instance.GetUserData(res.PlayFabId);
+
             },
             err =>
             {
@@ -128,8 +130,9 @@ namespace FYP.Backend
                     obj.SetActive(true);
                 }
 
-                Data.PlayfabAccountInfo.Instance.GetStatistics();
-                Data.PlayfabAccountInfo.Instance.SetStats();
+                Backend.PlayerStats.Instance.SetUserData();
+                Backend.PlayerStats.Instance.GetUserData(res.PlayFabId);
+
             },
             err =>
             {
