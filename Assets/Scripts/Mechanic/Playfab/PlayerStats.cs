@@ -25,15 +25,12 @@ namespace FYP.Backend
                 Keys = null
             }, result =>
             {
-                Debug.Log("Got user data: ");
-                Debug.Log("Current EXP : " + result.Data["CurrentEXP"].Value);
-                Debug.Log("Max EXP : " + result.Data["MaxEXP"].Value);
-                Debug.Log("Player Health : " + result.Data["PlayerHealth"].Value);
-                Debug.Log("Player Strength : " + result.Data["PlayerStrength"].Value);
-                Debug.Log("Player Level : " + result.Data["PlayerLevel"].Value);
-                Debug.Log("Player Vitality : " + result.Data["PlayerVitality"].Value);
-                //if (result.Data == null || !result.Data.ContainsKey("CurrentEXP")) Debug.Log("No CurrentEXP");
-                //else Debug.Log("MaxEXP: " + result.Data["MaxEXP"].Value); 
+                Backend.PlayFabManager.Instance.playerLevel.text = "Level : " + result.Data["PlayerLevel"].Value;
+                Backend.PlayFabManager.Instance.playerHealth.text = "Health : " + result.Data["PlayerHealth"].Value;
+                Backend.PlayFabManager.Instance.playerVitality.text = "Vitality : " + result.Data["PlayerVitality"].Value;
+                Backend.PlayFabManager.Instance.playerStrength.text = "Strength : " + result.Data["PlayerStrength"].Value;
+                Backend.PlayFabManager.Instance.currentEXP.text = "Current Exp : " + result.Data["CurrentEXP"].Value;
+                Backend.PlayFabManager.Instance.maxEXP.text = " Max Exp : " + result.Data["MaxEXP"].Value;
             }, (error) =>
             {
                 Debug.Log("Got error retrieving user data:");
@@ -55,7 +52,10 @@ namespace FYP.Backend
 
         }
             },
-            result => Debug.Log("Successfully updated user data"),
+            result =>
+            {
+                Debug.Log("Successfully updated user data");
+            },
             error =>
             {
                 Debug.Log("Got error setting user statistic data");
