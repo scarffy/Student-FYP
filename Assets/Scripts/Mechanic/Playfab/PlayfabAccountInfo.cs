@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using PlayFab;
 using PlayFab.ClientModels;
+using PlayFab.Json;
 
 namespace FYP.Data
 {
@@ -14,6 +16,9 @@ namespace FYP.Data
     {
         [Header("PlayFab Account Info")]
         public UserAccountInfo accountInfo;
+
+        [Header("Info Request")]
+        public GetPlayerCombinedInfoRequestParams infoRequest;
 
 
         public static void FillData(UserAccountInfo value)
@@ -37,5 +42,6 @@ namespace FYP.Data
             UserLocalSaveFile.Instance.SaveData();
             action();
         }
+
     }
 }
