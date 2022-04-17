@@ -55,7 +55,6 @@ namespace FYP.UI
         {
             signupButton.onClick.AddListener(() => { SetStates(1); });
             signinButton.onClick.AddListener(() => { SetStates(2); });
-            statusButton.onClick.AddListener(() => { SetStates(3); });
             for (int i = 0; i < closeButton.Count; i++)
             {
                 closeButton[i].onClick.AddListener(() => { SetStates(0); });
