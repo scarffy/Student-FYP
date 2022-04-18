@@ -119,7 +119,8 @@ namespace FYP.Backend
                 Backend.InventorySystem.Instance.shopBag.SetActive(true);
                 Backend.InventorySystem.Instance.inventoryBeg.SetActive(true);
                 Backend.InventorySystem.Instance.virtualCoin.SetActive(true);
-                Backend.InventorySystem.Instance.playerStats.SetActive(true);
+                Backend.PlayFabManager.Instance.playerStats.SetActive(true);
+                Backend.PlayFabManager.Instance.monsterStats.SetActive(true);
 
                 //! calling the function from Inventory System script
                 //InventorySystem.Instance.BuyItem()
@@ -132,6 +133,7 @@ namespace FYP.Backend
 
                 Backend.PlayerStats.Instance.SetUserData();
                 Backend.PlayerStats.Instance.GetUserData(res.PlayFabId);
+                //Backend.MonsterStats.Instance.GetMonsterData();
 
             },
             err =>
