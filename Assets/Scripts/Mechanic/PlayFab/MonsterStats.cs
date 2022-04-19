@@ -38,7 +38,6 @@ namespace FYP.Backend
             {
                 string json = result.Data["MonsterData"];
                 monsterStatus = JsonUtility.FromJson<MonsterStatus>(json);
-                Backend.PlayFabManager.Instance.monsterLevel.text = json;
             },
             error =>
             {

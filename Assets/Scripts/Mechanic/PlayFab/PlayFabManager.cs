@@ -28,18 +28,11 @@ namespace FYP.Backend
         public TMP_Text playerVitality;
         public TMP_Text playerStrength;
 
-        [Header("Monster Stat")]
-        public TMP_Text givenEXP;
-        public TMP_Text monsterLevel;
-        public TMP_Text monsterHealth;
-        public TMP_Text monsterVitality;
-        public TMP_Text monsterStrength;
-
-        [Header("Monster Update Btn")]
-        public GameObject monsterStats;
-
         [Header("Player Update Btn")]
         public GameObject playerStats;
+
+        [Header("Checker")]
+        public bool isSignIn;
 
     }
 }
