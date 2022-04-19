@@ -35,6 +35,8 @@ namespace FYP.Backend
 
 
 
+
+
         
         #region togglebuttonpanel
         public void OpenLoginPanel()
@@ -115,11 +117,13 @@ namespace FYP.Backend
             {
                 GetUserInfo(email, res.PlayFabId);
                 Debug.Log("login success");
+                Backend.PlayFabManager.Instance.isSignIn = true;
                 Backend.PlayFabManager.Instance.KC = res.InfoResultPayload.UserVirtualCurrency["KC"]; // to get the user virtual currency from playfab portal
                 Backend.InventorySystem.Instance.shopBag.SetActive(true);
                 Backend.InventorySystem.Instance.inventoryBeg.SetActive(true);
                 Backend.InventorySystem.Instance.virtualCoin.SetActive(true);
-                Backend.InventorySystem.Instance.playerStats.SetActive(true);
+                Backend.PlayFabManager.Instance.playerStats.SetActive(true);
+
 
                 //! calling the function from Inventory System script
                 //InventorySystem.Instance.BuyItem()
@@ -132,6 +136,7 @@ namespace FYP.Backend
 
                 Backend.PlayerStats.Instance.SetUserData();
                 Backend.PlayerStats.Instance.GetUserData(res.PlayFabId);
+                Backend.MonsterStats.Instance.GetTitleData();
 
             },
             err =>
