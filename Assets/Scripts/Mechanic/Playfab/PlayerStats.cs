@@ -78,7 +78,7 @@ namespace FYP.Backend
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <param name="callback"></param>
-        public void SetUserData(string key, string value, System.Action callback)
+        public void SetUserData(string key, string value, System.Action callback = null)
         {
             PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest() {
                 Data = new Dictionary<string, string>

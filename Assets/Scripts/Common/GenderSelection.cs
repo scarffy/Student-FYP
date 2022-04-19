@@ -6,10 +6,8 @@ using UnityEngine.UI;
 
 namespace FYP.UI
 {
-    public class GenderSelection : MonoBehaviour
+    public class GenderSelection : Singleton<GenderSelection>
     {
-        public static GenderSelection Instance { get; private set; }
-
         [SerializeField] GameObject canvasParent;
         [SerializeField] CanvasGroup cg;
         [SerializeField] TextMeshProUGUI questionTexts;
@@ -30,11 +28,6 @@ namespace FYP.UI
         public float fadingSpeed = 2.5f;
         public enum Direction { FadeIn, FadeOut };
 
-        private void Awake()
-        {
-            if (Instance != null && Instance != this) Destroy(this);
-            else Instance = this;
-        }
 
         // Start is called before the first frame update
         void Start()
@@ -44,12 +37,6 @@ namespace FYP.UI
             nextButton.onClick.AddListener(() => NextQuestion());
             questionTexts.text = conversations[questionIndex];
             genderPanel.SetActive(false);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
 
         void SelectGender(bool isBoy)
@@ -82,6 +69,9 @@ namespace FYP.UI
             {
                 StartCoroutine(FadeCanvas(cg, Direction.FadeOut, fadingSpeed));
                 UIStateManager.Instance.SetState(UIStateManager.State.single);
+
+                //TO DO: 1.Check if logged in  2. add data to playfab
+                Backend.PlayerStats.Instance.SetUserData("PlayerGender", isBoy.ToString());
             }
         }
 
