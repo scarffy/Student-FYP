@@ -62,6 +62,7 @@ namespace FYP.UI
             {
                 closeButton[i].onClick.AddListener(() => { SetStates(0); });
             }
+            SetState(0);
         }
 
         public void SetStates(int value)
@@ -70,7 +71,7 @@ namespace FYP.UI
             SetState(state);
         }
 
-        private void SetState(State curState)
+        public void SetState(State curState)
         {
             state = curState;
 
