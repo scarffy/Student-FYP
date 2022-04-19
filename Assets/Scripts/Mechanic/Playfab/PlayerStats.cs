@@ -41,9 +41,23 @@ namespace FYP.Backend
             });
         }
 
-        public void GetUserData(string myPlayFabId, string key)
+        public void GetUserData(string myPlayFabId, string key, System.Action callback = null)
         {
+            PlayFabClientAPI.GetUserData(new GetUserDataRequest()
+            {
+                PlayFabId = myPlayFabId,
+                Keys = null
+            },
+            result => {
+                if (key == result.Data[key].Value)
+                {
+                    callback();
+                }
+            },
+            error =>
+            {
 
+            });
         }
 
         #endregion
