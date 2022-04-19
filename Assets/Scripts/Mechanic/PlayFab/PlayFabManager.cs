@@ -28,6 +28,11 @@ namespace FYP.Backend
         public TMP_Text playerVitality;
         public TMP_Text playerStrength;
 
+        [Header("Player Update Btn")]
+        public GameObject playerStats;
+
+        [Header("Checker")]
+        public bool isSignIn;
 
     }
 }
