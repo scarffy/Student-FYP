@@ -257,15 +257,21 @@ namespace FYP.NPC.EnemyAI
 
         }
 
-    public void TurnOnCollider()
-    {
-      Debug.Log("Trigger on collider");
-    }
-
-    public void TurnOffCollider()
-    {
-      Debug.Log("Trigger off collider");
-    }
+        /// <summary>
+        /// This is used by animation event
+        /// </summary>
+        public void TurnOnCollider()
+        {
+          Debug.Log("Trigger on collider");
+        }
+        
+        /// <summary>
+        /// This is used by animation event
+        /// </summary>
+        public void TurnOffCollider()
+        {
+          Debug.Log("Trigger off collider");
+        }
 
         public IEnumerator EnemyDead()
         {
