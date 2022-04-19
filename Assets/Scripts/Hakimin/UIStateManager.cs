@@ -13,6 +13,8 @@ namespace FYP.UI
         public enum State
         {
             none,
+            single,
+            multiplayer,
             signup,
             signin,
             status,
@@ -33,6 +35,7 @@ namespace FYP.UI
         [SerializeField] List<Button> closeButton = new List<Button>();
 
         [Header("Panels")]
+        [SerializeField] GameObject mainMultiplayer;
         [SerializeField] GameObject signupPanel;
         [SerializeField] GameObject signinPanel;
         [SerializeField] GameObject statusPanel;
@@ -59,6 +62,7 @@ namespace FYP.UI
             {
                 closeButton[i].onClick.AddListener(() => { SetStates(0); });
             }
+            SetState(0);
         }
 
         public void SetStates(int value)
@@ -67,10 +71,11 @@ namespace FYP.UI
             SetState(state);
         }
 
-        private void SetState(State curState)
+        public void SetState(State curState)
         {
             state = curState;
 
+            mainMultiplayer.SetActive(state == State.multiplayer);
             signupPanel.SetActive(state == State.signup);
             signinPanel.SetActive(state == State.signin);
             statusPanel.SetActive(state == State.status);
