@@ -13,7 +13,6 @@ namespace FYP.NPC.EnemyAI
 {
     public class EnemyController : MonoBehaviour
     {
-
         private Animator animator;
 
         public enum ENEMY_STATE
@@ -236,6 +235,14 @@ namespace FYP.NPC.EnemyAI
                     animator.SetBool("isAttacking", true);
 
                     transform.LookAt(playerCollider.transform.position); //pandang player
+
+                    //! Check animation done then apply damage to player
+                    // TODO: Clean this code!!
+                    //if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+                    //{
+                    //    Debug.Log("Animation attack done");
+                    //    Common.PlayerHealth.Instance.SetDmg(120);
+                    //}
                 }
                 else
                 {
@@ -249,6 +256,16 @@ namespace FYP.NPC.EnemyAI
             yield return null;
 
         }
+
+    public void TurnOnCollider()
+    {
+      Debug.Log("Trigger on collider");
+    }
+
+    public void TurnOffCollider()
+    {
+      Debug.Log("Trigger off collider");
+    }
 
         public IEnumerator EnemyDead()
         {
@@ -278,7 +295,7 @@ namespace FYP.NPC.EnemyAI
                 //enable ai chasing player
                 playerCollider = value;
                 isEntering = true;
-                Debug.Log("True");
+                //Debug.Log("True");
             }           
 
         }
@@ -290,7 +307,7 @@ namespace FYP.NPC.EnemyAI
             {
                 //disable ai chasing player
                 isEntering = false;
-                Debug.Log("False");
+                //Debug.Log("False");
             }
         }
 
@@ -300,7 +317,7 @@ namespace FYP.NPC.EnemyAI
             {
                 playerCollider = value;
                 isAttacking = true;
-                Debug.Log("Attacking");
+               // Debug.Log("Attacking");
             }
 
         }
@@ -319,7 +336,7 @@ namespace FYP.NPC.EnemyAI
         {
             if (other.CompareTag("Player"))
             {
-                Debug.Log("ouch");
+               // Debug.Log("ouch");
 
             }
         }
