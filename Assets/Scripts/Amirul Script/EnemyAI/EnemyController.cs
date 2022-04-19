@@ -13,6 +13,9 @@ namespace FYP.NPC.EnemyAI
 {
     public class EnemyController : MonoBehaviour
     {
+
+        private Animator animator;
+
         public enum ENEMY_STATE
         {
             IDLE,
@@ -79,21 +82,27 @@ namespace FYP.NPC.EnemyAI
         public ENEMY_STATE currentState = ENEMY_STATE.PATROL;
 
         NavMeshAgent agent;
+        Transform player;
+        Collider playerCollider = null;
 
         [SerializeField] Material enemyColor;
         [SerializeField] List<Transform> destpoints;
         [SerializeField] int numDestpoints = 0;
         [SerializeField] bool isEntering;
-        [SerializeField] Collider playerCollider = null;
+        [SerializeField] bool isAttacking;
+        //[SerializeField] 
+        [SerializeField] Collider axes;
 
         #endregion
 
         // Start is called before the first frame update
         void Start()
         {
+            animator = this.GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
             ChangeEnemyState(ENEMY_STATE.PATROL);
-            enemyColor.color = Color.green;
+            enemyColor.color = Color.green;         
+
 
         }
 
@@ -125,12 +134,15 @@ namespace FYP.NPC.EnemyAI
         {
             enemyColor.color = Color.grey;
             MoveSpeed(2.0f);
+            animator.SetBool("isPatrolling", true);
+            Debug.Log("monster patrol");
 
             while (currentState == ENEMY_STATE.PATROL)
             {
 
                 
                 agent.SetDestination(destpoints[numDestpoints].position);
+                
 
                 if (agent.remainingDistance <= agent.stoppingDistance)
                 {
@@ -145,7 +157,7 @@ namespace FYP.NPC.EnemyAI
                     enemyColor.color = Color.yellow;
                     MoveSpeed(1.0f);
 
-                    yield return new WaitForSeconds(1.0f);
+                    yield return new WaitForSeconds(0.5f);
                     ChangeEnemyState(ENEMY_STATE.CHASE);
                 }
 
@@ -159,6 +171,7 @@ namespace FYP.NPC.EnemyAI
 
             enemyColor.color = Color.red;
             MoveSpeed(3.0f);
+            
 
             while (currentState == ENEMY_STATE.CHASE)
             {
@@ -167,10 +180,17 @@ namespace FYP.NPC.EnemyAI
                 if (isEntering)
                 {
                     agent.SetDestination(playerCollider.transform.position);
+                    animator.SetBool("isChasing", true);
+
+                    if (isAttacking)
+                    {
+                        ChangeEnemyState(ENEMY_STATE.ATTACK);
+                    }
                 }
                 else
                 {
                     ChangeEnemyState(ENEMY_STATE.RETURNPOSITION);
+                    animator.SetBool("isChasing", false);
                 }
 
                 yield return null;
@@ -208,7 +228,26 @@ namespace FYP.NPC.EnemyAI
 
         public IEnumerator EnemyAttacking()
         {
+
+            while (currentState == ENEMY_STATE.ATTACK)
+            {
+                if (isAttacking)
+                {
+                    animator.SetBool("isAttacking", true);
+
+                    transform.LookAt(playerCollider.transform.position); //pandang player
+                }
+                else
+                {
+                    ChangeEnemyState(ENEMY_STATE.CHASE);
+                    animator.SetBool("isAttacking", false);
+                }
+                yield return null; //if not infinite loop
+
+            }                  
+            
             yield return null;
+
         }
 
         public IEnumerator EnemyDead()
@@ -252,6 +291,36 @@ namespace FYP.NPC.EnemyAI
                 //disable ai chasing player
                 isEntering = false;
                 Debug.Log("False");
+            }
+        }
+
+        public void AttackRangeEnter(Collider value)
+        {
+            if (value.CompareTag("Player"))
+            {
+                playerCollider = value;
+                isAttacking = true;
+                Debug.Log("Attacking");
+            }
+
+        }
+
+        public void AttackRangeExit(Collider value)
+        {
+            if (value.CompareTag("Player"))
+            {
+                isAttacking = false;
+                Debug.Log("Not Attack");
+            }
+
+        }
+
+        public void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                Debug.Log("ouch");
+
             }
         }
 
