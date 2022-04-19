@@ -15,8 +15,10 @@ MonoBehaviour:
   levels:
   - {fileID: 102900000, guid: 3f6c22689e7534bbc8f37ac1209e3a8e, type: 3}
   - {fileID: 102900000, guid: 767a7b279ec1a5b4aaa729e46902431e, type: 3}
-  - {fileID: 102900000, guid: c7f3b0c413029ef408bc1de457ddfcd2, type: 3}
+  - {fileID: 102900000, guid: 71637b26a3e624b628da757817c18145, type: 3}
+  - {fileID: 102900000, guid: afe640287cdef477b89e654ec06e95a1, type: 3}
   levelsName:
   - Audio
   - UI
-  - Player_Register
+  - House_Environment
+  - House_Interaction
