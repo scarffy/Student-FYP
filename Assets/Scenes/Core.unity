@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4231,13 +4231,8 @@ MonoBehaviour:
   playerHealth: {fileID: 1695544240}
   playerVitality: {fileID: 152270404}
   playerStrength: {fileID: 2130763683}
-  givenEXP: {fileID: 0}
-  monsterLevel: {fileID: 0}
-  monsterHealth: {fileID: 0}
-  monsterVitality: {fileID: 0}
-  monsterStrength: {fileID: 0}
-  monsterStats: {fileID: 0}
   playerStats: {fileID: 589575278}
+  isSignIn: 0
 --- !u!1 &1787395125
 GameObject:
   m_ObjectHideFlags: 0
@@ -4673,9 +4668,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Items:
+  - {fileID: 7923211360889282099, guid: 5fb7b69a54bef6d4eaec444320690c3c, type: 3}
+  - {fileID: 4007435205616771513, guid: 6286744852885d1489a1de8629189944, type: 3}
+  - {fileID: 3361664416835228615, guid: aae8fda6bf73e7c4a940faf31685f4a2, type: 3}
+  - {fileID: 4547053867306310176, guid: a55bf865c5eb1e34dac9d63fe8a13a97, type: 3}
+  - {fileID: 2815008546696894855, guid: 0e8d4386c13e4cd4fb4515fc5b6ddecc, type: 3}
   - {fileID: 3001981576623457836, guid: cad52cceb052fba4ca7c173e8f5b25ec, type: 3}
-  - {fileID: 3655423418111510314, guid: 5068e9661eeef7a49a2a1a167c801388, type: 3}
-  - {fileID: -3090937692984999108, guid: 224372b8d6c30844c9ea1bc76892945a, type: 3}
+  - {fileID: 2815008546696894855, guid: 0e8d4386c13e4cd4fb4515fc5b6ddecc, type: 3}
   enableGameObject:
   - {fileID: 1404045830}
   contentArea: {fileID: 363364907}
