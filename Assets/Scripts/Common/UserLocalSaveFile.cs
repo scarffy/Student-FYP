@@ -22,6 +22,12 @@ namespace FYP.Data
         [HideInInspector]
         public string saveDataString;
 
+        public void SaveData(LocalSaveFile data)
+        {
+            saveDataString = JsonUtility.ToJson(data);
+            PlayerPrefs.SetString(saveName, saveDataString);
+        }
+
         public void SaveData()
         {
             saveDataString = JsonUtility.ToJson(saveData);

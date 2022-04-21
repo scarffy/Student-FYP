@@ -69,7 +69,7 @@ namespace FYP.UI
             mainMultiplayer.SetActive(state == State.multiplayer);
             signupPanel.SetActive(state == State.signup);
             signinPanel.SetActive(state == State.signin);
-            errorPanel.SetActive(state == State.error);
+            //errorPanel.SetActive(state == State.error);
             statusPanel.SetActive(state == State.status);
             inventoryPanel.SetActive(state == State.inventory);
             sellPanel.SetActive(state == State.sell);

@@ -12,7 +12,7 @@ public class Diary : MonoBehaviour
             Debug.Log("Diary");
             //! Register name in playfab
             //! If not sign in / sign up, then stop player and open sign up or sign in panel
-            UIStateManager.Instance.SetStates(1);
+            UIStateManager.Instance.SetState(UIStateManager.State.signup);
         }
     }
 }

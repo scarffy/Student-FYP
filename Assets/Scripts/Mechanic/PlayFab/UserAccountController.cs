@@ -35,14 +35,26 @@ namespace FYP.Backend
             {
                 Email = info.email,
                 DisplayName = info.username,
-                Password = info.password
+                Username = info.username,
+                Password = info.password,
+                RequireBothUsernameAndEmail = false
             };
 
             PlayFabClientAPI.RegisterPlayFabUser(req,
                 res => {
                     UI.UIStateManager.Instance.SetState(UI.UIStateManager.State.none);
+                    PlayFabManager.Instance.isSignIn = true;
+
+
+                    Data.LocalSaveFile localSaveFile = new Data.LocalSaveFile();
+                    localSaveFile.username = info.username;
+                    localSaveFile.displayName = info.username;
+                    localSaveFile.playfabId = res.PlayFabId;
+
+                    Data.UserLocalSaveFile.Instance.SaveData(localSaveFile);
                 },
                 err => {
+                    Debug.Log(err.GenerateErrorReport());
                     UI.UIStateManager.Instance.SetErrorState("Some error msg here");
                 });
         }
