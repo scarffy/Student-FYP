@@ -89,7 +89,6 @@ namespace FYP.Backend
                GetUserInfo(UI.UIStateManager.Instance.GetEmailSignIn, res.PlayFabId);
                PlayerStats.Instance.GetUserData(res.PlayFabId, "PlayerGender", null,res => 
                {
-                   Debug.Log($"{res}");
                    if (res.Contains("True"))
                        GenderSelection.Instance.SelectGender(true);
                    else

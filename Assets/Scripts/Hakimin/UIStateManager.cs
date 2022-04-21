@@ -97,6 +97,11 @@ namespace FYP.UI
         public override void RegisterPlayer() => base.RegisterPlayer();
         public override void SignInPlayer() => base.SignInPlayer();
 
+        public override void SetStatus(Backend.PlayerData data)
+        {
+
+        }
+
         public string GetEmailSignIn => signinEmail.text;
         public string GetPass => signinPassword.text;
 

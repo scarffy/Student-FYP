@@ -58,7 +58,6 @@ namespace FYP.UI {
 
         public virtual void SignInPlayer()
         {
-            Debug.Log("clicked");
             Data.LocalSaveFile info = new Data.LocalSaveFile();
             info.email = signinEmail.text;
             info.password = signinPassword.text;
@@ -66,5 +65,6 @@ namespace FYP.UI {
             Backend.UserAccountController.Instance.OnTryLogin(info);
         }
 
+        public abstract void SetStatus(Backend.PlayerData data);
     }
 }

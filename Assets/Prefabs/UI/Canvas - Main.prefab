@@ -97,7 +97,7 @@ MonoBehaviour:
     m_Left: 35
     m_Right: 0
     m_Top: 0
-    m_Bottom: 0
+    m_Bottom: 10
   m_ChildAlignment: 0
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
@@ -2979,7 +2979,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1162763250340105223}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3989,7 +3989,7 @@ MonoBehaviour:
     m_Left: 35
     m_Right: 0
     m_Top: 0
-    m_Bottom: 0
+    m_Bottom: 10
   m_ChildAlignment: 0
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
@@ -4374,7 +4374,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000032424927}
+  m_AnchoredPosition: {x: 0, y: -0.000037610393}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &4275406049158260718
@@ -4708,19 +4708,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8361973401664427197}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &4724846839477746361
 GameObject:
   m_ObjectHideFlags: 0
@@ -7113,8 +7101,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -464.99994, y: 253}
-  m_SizeDelta: {x: -1107, y: -670.6469}
+  m_AnchoredPosition: {x: -653, y: 183.2}
+  m_SizeDelta: {x: -1390.5938, y: -518.9572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5491410010889260534
 CanvasRenderer:
@@ -9586,10 +9574,10 @@ RectTransform:
   m_Father: {fileID: 5491410010907599112}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -55.26001}
-  m_SizeDelta: {x: 714, y: 110.515015}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -55.257507}
+  m_SizeDelta: {x: 0, y: 110.515015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7961014786259880606
 CanvasRenderer:
@@ -10500,7 +10488,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7632581308987206202}
   m_HandleRect: {fileID: 6846966502235128905}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -11093,10 +11081,10 @@ RectTransform:
   m_Father: {fileID: 5491410010889260528}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -55.257507}
-  m_SizeDelta: {x: 714, y: 110.515015}
+  m_SizeDelta: {x: 0, y: 110.515015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2300410634674152324
 CanvasRenderer:
