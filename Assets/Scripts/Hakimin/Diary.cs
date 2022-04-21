@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FYP.UI;
 
 public class Diary : MonoBehaviour
 {
@@ -9,7 +10,9 @@ public class Diary : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Diary");
-            // Register name in playfab
+            //! Register name in playfab
+            //! If not sign in / sign up, then stop player and open sign up or sign in panel
+            UIStateManager.Instance.SetStates(1);
         }
     }
 }
