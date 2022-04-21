@@ -10,104 +10,56 @@ using UnityEngine.UI;
 
 namespace FYP.Backend
 {
+    /// <summary>
+    /// Register and Login player
+    /// </summary>
     public class UserAccountController : Singleton<UserAccountController>
     {
-        [Header("Screens")]
-        public GameObject LoginPanel;
-        public GameObject RegisterPanel;
-
-        [Header("Login Screen")]
-        public TMP_InputField LoginEmailField;
-        public TMP_InputField LoginPasswordField;
-        public Button LoginBtn;
-        public Button RegisterBtn;
-
-        [Header("Register Screen")]
-        public TMP_InputField RegisterEmailField;
-        public TMP_InputField RegisterUsernameField;
-        public TMP_InputField RegisterPasswordField;
-        public Button RegisterAccountBtn;
-        public Button BackBtn;
-
-        [Header("Error SignIn/Up")]
-        public TMP_Text ErrorLogin;
-        public TMP_Text ErrorSignUp;
-
-
-
-
-
-        
-        #region togglebuttonpanel
-        public void OpenLoginPanel()
+        public bool samePassword(UserRegisterInfo info)
         {
-            LoginPanel.SetActive(true);
-            RegisterPanel.SetActive(false);
+            if (info.password == info.confirmPassword)
+                return true;
+            else
+                return false;
         }
-
-        public void OpenRegistrationPanel()
-        {
-            LoginPanel.SetActive(false);
-            RegisterPanel.SetActive(true);
-        }
-        #endregion
 
         #region signup
-        public void OnTryRegisterNewAccount()
+        public void OnTryRegisterNewAccount(string json)
         {
-            BackBtn.interactable = false;
-            RegisterAccountBtn.interactable = false;
+            UserRegisterInfo info = JsonUtility.FromJson<UserRegisterInfo>(json);
 
-            string email = RegisterEmailField.text;
-            string username = RegisterUsernameField.text;
-            string password = RegisterPasswordField.text;
-
+            if (!samePassword(info))
+                return;
 
             RegisterPlayFabUserRequest req = new RegisterPlayFabUserRequest
             {
-                Email = email,
-                DisplayName = username,
-                Password = password,
-                RequireBothUsernameAndEmail = false
+                Email = info.email,
+                DisplayName = info.username,
+                Password = info.password
             };
 
             PlayFabClientAPI.RegisterPlayFabUser(req,
-            res =>
-            {
-                BackBtn.interactable = true;
-                RegisterAccountBtn.interactable = true;
-                OpenLoginPanel();
-                Debug.Log(res.PlayFabId);
-
-                Backend.PlayerStats.Instance.SetUserData();
-                Backend.PlayerStats.Instance.GetUserData(res.PlayFabId);
-
-            },
-            err =>
-            {
-                BackBtn.interactable = true;
-                RegisterAccountBtn.interactable = true;
-                Debug.Log("Error: " + err.ErrorMessage);
-                ErrorSignUp.text = err.GenerateErrorReport();
-            });
+                res => {
+                    UI.UIStateManager.Instance.SetState(UI.UIStateManager.State.none);
+                },
+                err => {
+                    UI.UIStateManager.Instance.SetErrorState("Some error msg here");
+                });
         }
-
-
-
         #endregion
 
         #region sign in
         public void OnTryLogin()
         {
-            string email = LoginEmailField.text;
-            string password = LoginPasswordField.text;
+            //string email = LoginEmailField.text;
+            //string password = LoginPasswordField.text;
             
-            LoginBtn.interactable = false;
+            //LoginBtn.interactable = false;
 
             LoginWithEmailAddressRequest req = new LoginWithEmailAddressRequest
             {
-                Email = email,
-                Password = password,
+                //Email = email,
+                //Password = password,
                 InfoRequestParameters = Data.PlayfabAccountInfo.Instance.infoRequest,
                
             };
@@ -115,7 +67,7 @@ namespace FYP.Backend
             PlayFabClientAPI.LoginWithEmailAddress(req,
             res =>
             {
-                GetUserInfo(email, res.PlayFabId);
+                //GetUserInfo(email, res.PlayFabId);
                 Debug.Log("login success");
                 Backend.PlayFabManager.Instance.isSignIn = true;
                 Backend.PlayFabManager.Instance.KC = res.InfoResultPayload.UserVirtualCurrency["KC"]; // to get the user virtual currency from playfab portal
@@ -142,14 +94,9 @@ namespace FYP.Backend
             err =>
             {
                 Debug.Log("Error: " + err.ErrorMessage);
-                LoginBtn.interactable = true;
-                ErrorLogin.text = err.GenerateErrorReport();
+                //LoginBtn.interactable = true;
+                //ErrorLogin.text = err.GenerateErrorReport();
             });
-        }
-
-        public void PlayFabError(PlayFabError error)
-        {
-            ErrorLogin.text = error.GenerateErrorReport();
         }
         #endregion
 
@@ -170,9 +117,16 @@ namespace FYP.Backend
                         LevelManager.Instance.LoadNextLevel();
                     });
                 },
-                PlayFabError);
+                err => { });
         }
-
-        
     }
+}
+
+[System.Serializable]
+public class UserRegisterInfo
+{
+    public string username;
+    public string email;
+    public string password;
+    public string confirmPassword;
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -725,7 +725,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 837983434}
-  - component: {fileID: 837983435}
   - component: {fileID: 837983436}
   m_Layer: 0
   m_Name: -- Script --
@@ -748,31 +747,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &837983435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 837983433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cea0fb75b2bdbed48a5a4ae6547e330e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LoginPanel: {fileID: 0}
-  RegisterPanel: {fileID: 0}
-  LoginEmailField: {fileID: 0}
-  LoginPasswordField: {fileID: 0}
-  LoginBtn: {fileID: 0}
-  RegisterBtn: {fileID: 0}
-  RegisterEmailField: {fileID: 0}
-  RegisterUsernameField: {fileID: 0}
-  RegisterPasswordField: {fileID: 0}
-  RegisterAccountBtn: {fileID: 0}
-  BackBtn: {fileID: 0}
-  ErrorLogin: {fileID: 0}
-  ErrorSignUp: {fileID: 0}
 --- !u!114 &837983436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,6 +759,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d31bce414b14f0ebf841aa0f9823eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boyPlayer: {fileID: 1668720477}
+  girlPlayer: {fileID: 1668188443}
   canvasParent: {fileID: 1352702859}
   cg: {fileID: 1194007299}
   questionTexts: {fileID: 190999297}
@@ -1202,6 +1178,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
+--- !u!1 &1668188443 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9009547502522816761, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
+  m_PrefabInstance: {fileID: 1668188442}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1668720476
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1303,6 +1284,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc5f7282923b1e540a00aedc602045af, type: 3}
+--- !u!1 &1668720477 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2150389508363100734, guid: bc5f7282923b1e540a00aedc602045af, type: 3}
+  m_PrefabInstance: {fileID: 1668720476}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1755191050
 GameObject:
   m_ObjectHideFlags: 0

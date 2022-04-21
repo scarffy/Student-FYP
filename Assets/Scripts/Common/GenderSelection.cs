@@ -8,6 +8,11 @@ namespace FYP.UI
 {
     public class GenderSelection : Singleton<GenderSelection>
     {
+        [Header("Player characters")]
+        [SerializeField] GameObject boyPlayer;
+        [SerializeField] GameObject girlPlayer;
+
+        [Header("Main Canvas")]
         [SerializeField] GameObject canvasParent;
         [SerializeField] CanvasGroup cg;
         [SerializeField] TextMeshProUGUI questionTexts;
@@ -44,6 +49,11 @@ namespace FYP.UI
             this.isBoy = isBoy;
             genderPanel.SetActive(false);
             isAnswered = true;
+
+            if (isBoy)
+                boyPlayer.SetActive(true);
+            else
+                girlPlayer.SetActive(true);
         }
 
         void NextQuestion()
@@ -60,18 +70,20 @@ namespace FYP.UI
                     questionIndex++;
                     questionTexts.text = conversations[questionIndex];
                 }
-                    if(questionIndex == 3)
-                    {
-                        genderPanel.SetActive(true);
-                    }
+                if (questionIndex == 3)
+                {
+                    genderPanel.SetActive(true);
+                }
             }
             else
             {
                 StartCoroutine(FadeCanvas(cg, Direction.FadeOut, fadingSpeed));
                 UIStateManager.Instance.SetState(UIStateManager.State.single);
 
-                //TO DO: 1.Check if logged in  2. add data to playfab
-                Backend.PlayerStats.Instance.SetUserData("PlayerGender", isBoy.ToString());
+                //if (Backend.PlayFabManager.Instance.isSignIn)
+                //{
+                //    Backend.PlayerStats.Instance.SetUserData("PlayerGender", isBoy.ToString());
+                //}
             }
         }
 
