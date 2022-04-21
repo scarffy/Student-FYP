@@ -45,7 +45,6 @@ namespace FYP.UI {
 
         public virtual void RegisterPlayer()
         {
-            Debug.Log("clicked");
             UserRegisterInfo info = new UserRegisterInfo();
             info.username = registerUsername.text;
             info.email = registerEmail.text;
@@ -59,7 +58,12 @@ namespace FYP.UI {
 
         public virtual void SignInPlayer()
         {
-            
+            Debug.Log("clicked");
+            Data.LocalSaveFile info = new Data.LocalSaveFile();
+            info.email = signinEmail.text;
+            info.password = signinPassword.text;
+
+            Backend.UserAccountController.Instance.OnTryLogin(info);
         }
 
     }

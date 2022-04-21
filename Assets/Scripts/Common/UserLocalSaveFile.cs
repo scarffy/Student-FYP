@@ -49,6 +49,21 @@ namespace FYP.Data
                 Debug.Log("No local save file found");
             }
         }
+
+        public bool DataExist()
+        {
+            saveDataString = "";
+            if (PlayerPrefs.HasKey(saveName))
+            {
+                saveDataString = PlayerPrefs.GetString(saveName);
+                saveData = JsonUtility.FromJson<LocalSaveFile>(saveDataString);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     [Serializable]
@@ -56,7 +71,8 @@ namespace FYP.Data
     {
         public string username;
         public string playfabId;
-        //public string virtualCurrency;
+        public string email;
+        public string password;
 
         [Space]
         public string displayName;

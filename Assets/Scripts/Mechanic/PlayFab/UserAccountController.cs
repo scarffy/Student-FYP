@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
-using TMPro;
-using UnityEngine.UI;
-
-
 
 namespace FYP.Backend
 {
@@ -15,6 +12,13 @@ namespace FYP.Backend
     /// </summary>
     public class UserAccountController : Singleton<UserAccountController>
     {
+        public Action OnLoggedIn;
+
+        private void Start()
+        {
+            OnCheckLogin();
+        }
+
         public bool samePassword(UserRegisterInfo info)
         {
             if (info.password == info.confirmPassword)
@@ -60,14 +64,58 @@ namespace FYP.Backend
         }
         #endregion
 
+        #region auto sign in
+        public void OnCheckLogin()
+        {
+            if (Data.UserLocalSaveFile.Instance.DataExist() && !PlayFabManager.Instance.isSignIn){
+                Debug.Log("File Exist. Try to login");
+                OnTryLogin(Data.UserLocalSaveFile.Instance.saveData);
+            }
+        }
+
+        public void OnTryLogin(Data.LocalSaveFile saveData)
+        {
+            Debug.Log($"{saveData.email} {saveData.password}");
+            LoginWithEmailAddressRequest req = new LoginWithEmailAddressRequest
+            {
+                Email = saveData.email,
+                Password = saveData.password,
+                InfoRequestParameters = Data.PlayfabAccountInfo.Instance.infoRequest,
+            };
+
+            PlayFabClientAPI.LoginWithEmailAddress(req,
+           res =>
+           {
+               GetUserInfo(UI.UIStateManager.Instance.GetEmailSignIn, res.PlayFabId);
+               PlayFabManager.Instance.isSignIn = true;
+               PlayFabManager.Instance.KC = res.InfoResultPayload.UserVirtualCurrency["KC"]; // to get the user virtual currency from playfab portal
+
+                //! calling the function from Inventory System script
+                //InventorySystem.Instance.BuyItem()
+               InventorySystem.Instance.GetItemPrice();
+               InventorySystem.Instance.UpdateInventory();
+               foreach (GameObject obj in InventorySystem.Instance.enableGameObject)
+               {
+                   obj.SetActive(true);
+               }
+
+               PlayerStats.Instance.SetUserData();
+               PlayerStats.Instance.GetUserData(res.PlayFabId);
+               MonsterStats.Instance.GetTitleData();
+
+               OnLoggedIn?.Invoke();
+           },
+           err =>
+           {
+               Debug.Log("Error: " + err.ErrorMessage);
+           });
+        }
+
+        #endregion
+
         #region sign in
         public void OnTryLogin()
         {
-            //string email = LoginEmailField.text;
-            //string password = LoginPasswordField.text;
-            
-            //LoginBtn.interactable = false;
-
             LoginWithEmailAddressRequest req = new LoginWithEmailAddressRequest
             {
                 //Email = email,
@@ -79,15 +127,9 @@ namespace FYP.Backend
             PlayFabClientAPI.LoginWithEmailAddress(req,
             res =>
             {
-                //GetUserInfo(email, res.PlayFabId);
-                Debug.Log("login success");
-                Backend.PlayFabManager.Instance.isSignIn = true;
-                Backend.PlayFabManager.Instance.KC = res.InfoResultPayload.UserVirtualCurrency["KC"]; // to get the user virtual currency from playfab portal
-                Backend.InventorySystem.Instance.shopBag.SetActive(true);
-                Backend.InventorySystem.Instance.inventoryBeg.SetActive(true);
-                Backend.InventorySystem.Instance.virtualCoin.SetActive(true);
-                Backend.PlayFabManager.Instance.playerStats.SetActive(true);
-
+                GetUserInfo(UI.UIStateManager.Instance.GetEmailSignIn, res.PlayFabId);
+                PlayFabManager.Instance.isSignIn = true;
+                PlayFabManager.Instance.KC = res.InfoResultPayload.UserVirtualCurrency["KC"]; // to get the user virtual currency from playfab portal
 
                 //! calling the function from Inventory System script
                 //InventorySystem.Instance.BuyItem()
@@ -98,16 +140,15 @@ namespace FYP.Backend
                     obj.SetActive(true);
                 }
 
-                Backend.PlayerStats.Instance.SetUserData();
-                Backend.PlayerStats.Instance.GetUserData(res.PlayFabId);
-                Backend.MonsterStats.Instance.GetTitleData();
+                PlayerStats.Instance.SetUserData();
+                PlayerStats.Instance.GetUserData(res.PlayFabId);
+                MonsterStats.Instance.GetTitleData();
 
+                OnLoggedIn?.Invoke();
             },
             err =>
             {
                 Debug.Log("Error: " + err.ErrorMessage);
-                //LoginBtn.interactable = true;
-                //ErrorLogin.text = err.GenerateErrorReport();
             });
         }
         #endregion
@@ -124,10 +165,7 @@ namespace FYP.Backend
             PlayFabClientAPI.GetAccountInfo(req,
                 res =>
                 {
-                    //Data.PlayfabAccountInfo.FillData(res.AccountInfo);
-                    Data.PlayfabAccountInfo.FillData(res.AccountInfo, () => {
-                        LevelManager.Instance.LoadNextLevel();
-                    });
+                    Data.PlayfabAccountInfo.FillData(res.AccountInfo, UI.UIStateManager.Instance.GetPass);
                 },
                 err => { });
         }

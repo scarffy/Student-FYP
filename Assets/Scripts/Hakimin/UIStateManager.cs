@@ -37,9 +37,16 @@ namespace FYP.UI
 
         void Start()
         {
+            Backend.UserAccountController.Instance.OnLoggedIn += LoggedIn;
             RegisterButtons();
 
             SetState(0);
+        }
+
+        void LoggedIn()
+        {
+            SetState(State.none);
+            Backend.UserAccountController.Instance.OnLoggedIn -= LoggedIn;
         }
 
         public override void RegisterButtons()
@@ -89,5 +96,9 @@ namespace FYP.UI
 
         public override void RegisterPlayer() => base.RegisterPlayer();
         public override void SignInPlayer() => base.SignInPlayer();
+
+        public string GetEmailSignIn => signinEmail.text;
+        public string GetPass => signinPassword.text;
+
     }
 }

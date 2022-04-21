@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FYP;
 using FYP.UI;
 
-public class Diary : MonoBehaviour
+public class Diary : Singleton<Diary>
 {
     public void OnTriggerEnter(Collider other)
     {
@@ -12,7 +13,9 @@ public class Diary : MonoBehaviour
             Debug.Log("Diary");
             //! Register name in playfab
             //! If not sign in / sign up, then stop player and open sign up or sign in panel
-            UIStateManager.Instance.SetState(UIStateManager.State.signup);
+            if(!FYP.Backend.PlayFabManager.Instance.isSignIn){
+                UIStateManager.Instance.SetState(UIStateManager.State.signin);
+            }
         }
     }
 }

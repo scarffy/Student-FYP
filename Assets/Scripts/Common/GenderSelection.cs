@@ -51,9 +51,15 @@ namespace FYP.UI
             isAnswered = true;
 
             if (isBoy)
+            {
                 boyPlayer.SetActive(true);
+                girlPlayer.SetActive(false);
+            }
             else
+            {
                 girlPlayer.SetActive(true);
+                boyPlayer.SetActive(false);
+            }
         }
 
         void NextQuestion()
