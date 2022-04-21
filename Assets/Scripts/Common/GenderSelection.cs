@@ -8,6 +8,11 @@ namespace FYP.UI
 {
     public class GenderSelection : Singleton<GenderSelection>
     {
+        [Header("Player characters")]
+        [SerializeField] GameObject boyPlayer;
+        [SerializeField] GameObject girlPlayer;
+
+        [Header("Main Canvas")]
         [SerializeField] GameObject canvasParent;
         [SerializeField] CanvasGroup cg;
         [SerializeField] TextMeshProUGUI questionTexts;
@@ -32,6 +37,8 @@ namespace FYP.UI
         // Start is called before the first frame update
         void Start()
         {
+            Backend.UserAccountController.Instance.OnLoggedIn += LoggedIn;
+
             boyButton.onClick.AddListener(() => SelectGender(true));
             girlButton.onClick.AddListener(() => SelectGender(false));
             nextButton.onClick.AddListener(() => NextQuestion());
@@ -39,11 +46,28 @@ namespace FYP.UI
             genderPanel.SetActive(false);
         }
 
-        void SelectGender(bool isBoy)
+        void LoggedIn()
+        {
+            canvasParent.SetActive(false);
+            Backend.UserAccountController.Instance.OnLoggedIn -= LoggedIn;
+        }
+
+        public void SelectGender(bool isBoy)
         {
             this.isBoy = isBoy;
             genderPanel.SetActive(false);
             isAnswered = true;
+
+            if (isBoy)
+            {
+                boyPlayer.SetActive(true);
+                girlPlayer.SetActive(false);
+            }
+            else
+            {
+                girlPlayer.SetActive(true);
+                boyPlayer.SetActive(false);
+            }
         }
 
         void NextQuestion()
@@ -60,18 +84,20 @@ namespace FYP.UI
                     questionIndex++;
                     questionTexts.text = conversations[questionIndex];
                 }
-                    if(questionIndex == 3)
-                    {
-                        genderPanel.SetActive(true);
-                    }
+                if (questionIndex == 3)
+                {
+                    genderPanel.SetActive(true);
+                }
             }
             else
             {
                 StartCoroutine(FadeCanvas(cg, Direction.FadeOut, fadingSpeed));
                 UIStateManager.Instance.SetState(UIStateManager.State.single);
 
-                //TO DO: 1.Check if logged in  2. add data to playfab
-                Backend.PlayerStats.Instance.SetUserData("PlayerGender", isBoy.ToString());
+                //if (Backend.PlayFabManager.Instance.isSignIn)
+                //{
+                //    Backend.PlayerStats.Instance.SetUserData("PlayerGender", isBoy.ToString());
+                //}
             }
         }
 
