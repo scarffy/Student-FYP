@@ -6,6 +6,7 @@ public class Testing : MonoBehaviour
 {
     [SerializeField] private LevelWindow levelWindow;
     [SerializeField] private Player_LevelSystem player;
+    //[SerializeField] private EquipWindow equipWindow;
 
     private void Awake()
     {
@@ -13,6 +14,7 @@ public class Testing : MonoBehaviour
         
         levelWindow.SetLevelSystem(levelSystem);
         player.SetLevelSystem(levelSystem);
+        //equipWindow.SetLevelSystem(levelSystem);
 
         LevelSystem_Animator levelSystem_Animator = new LevelSystem_Animator(levelSystem);
     }

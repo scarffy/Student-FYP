@@ -17,8 +17,8 @@ public class LevelWindow : MonoBehaviour
         experienceBarImage = transform.Find("experienceBar").Find("bar").GetComponent<Image>();
 
         transform.Find("experience5Btn").GetComponent<Button>().onClick.AddListener(() => { levelSystem.AddExperience(5); });
-        transform.Find("experience50Btn").GetComponent<Button>().onClick.AddListener(() => { levelSystem.AddExperience(5); });
-        transform.Find("experience500Btn").GetComponent<Button>().onClick.AddListener(() => { levelSystem.AddExperience(5); });
+        transform.Find("experience50Btn").GetComponent<Button>().onClick.AddListener(() => { levelSystem.AddExperience(50); });
+        transform.Find("experience500Btn").GetComponent<Button>().onClick.AddListener(() => { levelSystem.AddExperience(500); });
 
         
         //SetExperienceBarSize(.5f);

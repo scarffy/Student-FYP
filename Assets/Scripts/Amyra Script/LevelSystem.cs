@@ -8,30 +8,34 @@ public class LevelSystem //: MonoBehaviour
     public event EventHandler OnExperienceChanged;
     public event EventHandler OnLevelChanged;
 
+    private static readonly int[] experiencePerLevel = new[] { 100, 120, 140, 160, 180, 200, 250, 300, 400 };
     private int level;
     private int experience;
-    private int experienceToNextLevel;
+    //private int experienceToNextLevel;
 
     public LevelSystem()
     {
         level = 0;
         experience = 0;
-        experienceToNextLevel = 100;
+        //experienceToNextLevel = 100;
     }
 
     //im changing to while but it didnt go to the level 2
     public void AddExperience(int amount)
     {
-        experience += amount;
-        while (experience >= experienceToNextLevel)
+        if (!IsMaxLevel())
         {
-            //Enough experience to level up
-            level++;
-            experience -= experienceToNextLevel;
+            experience += amount;
+            while (!IsMaxLevel() && experience >= GetExperienceToNextLevel(level))
+            {
+                //Enough experience to level up                
+                experience -= GetExperienceToNextLevel(level);
+                level++;
 
-            if (OnLevelChanged != null) OnLevelChanged(this, EventArgs.Empty);
+                if (OnLevelChanged != null) OnLevelChanged(this, EventArgs.Empty);
+            }
+            if (OnExperienceChanged != null) OnExperienceChanged(this, EventArgs.Empty);
         }
-        if (OnExperienceChanged != null) OnExperienceChanged(this, EventArgs.Empty);
     }
 
     public int GetLevelNumber()
@@ -41,7 +45,16 @@ public class LevelSystem //: MonoBehaviour
 
     public float GetExperienceNormalized()
     {
-        return (float) experience / experienceToNextLevel;
+        if (IsMaxLevel())
+        {
+            return 1f;
+
+        }
+        else
+        {
+            return (float)experience / GetExperienceToNextLevel(level);
+        }
+        
     }
 
     public int GetExperience()
@@ -49,9 +62,35 @@ public class LevelSystem //: MonoBehaviour
         return experience;
     }
 
-    public int GetExperienceToNextLevel()
+    public int GetExperienceToNextLevel(int level)
     {
-        return experienceToNextLevel;
+        //return experienceToNextLevel;
+        //!infinite loop level calculation
+        //return level * 10;
+        if (level < experiencePerLevel.Length)
+        {
+            return experiencePerLevel[level];
+
+        }
+        else
+        {
+            //invalid level
+            Debug.LogError("Level invalid" + level);
+            return 100;
+        }
+
+        //
+       
+    }
+
+    public bool IsMaxLevel()
+    {
+        return IsMaxLevel(level);
+    }
+
+    public bool IsMaxLevel(int level)
+    {
+        return level == experiencePerLevel.Length - 1;
     }
 
 }

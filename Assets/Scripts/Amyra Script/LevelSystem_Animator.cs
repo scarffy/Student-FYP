@@ -11,12 +11,12 @@ public class LevelSystem_Animator // : MonoBehaviour
 
     private int level;
     private int experience;
-    private int experienceToNextLevel;
+    //private int experienceToNextLevel;
 
     public LevelSystem_Animator(LevelSystem levelSystem)
     {
         SetLevelSystem(levelSystem);
-        Update();
+        
     }
 
     private void SetLevelSystem(LevelSystem levelSystem)
@@ -25,7 +25,7 @@ public class LevelSystem_Animator // : MonoBehaviour
 
         level = levelSystem.GetLevelNumber();
         experience = levelSystem.GetExperience();
-        experienceToNextLevel = levelSystem.GetExperienceToNextLevel();
+        //experienceToNextLevel = levelSystem.GetExperienceToNextLevel();
 
         levelSystem.OnExperienceChanged += LevelSystem_OnExperienceChanged;
         levelSystem.OnLevelChanged += LevelSystem_OnLevelChanged;
@@ -71,7 +71,7 @@ public class LevelSystem_Animator // : MonoBehaviour
     private void AddExperience()
     {
         experience++;
-        if (experience >= experienceToNextLevel)
+        if (experience >= levelSystem.GetExperienceToNextLevel(level)) 
         {
             level++;
             experience = 0;
