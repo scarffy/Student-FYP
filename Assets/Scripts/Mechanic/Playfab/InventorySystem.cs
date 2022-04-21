@@ -21,7 +21,6 @@ namespace FYP.Backend
         public GameObject inventoryBeg;
         public GameObject shopBag;
         public GameObject virtualCoin;
-        public GameObject playerStats;
 
         #region Gift
         public void BasicInventory()

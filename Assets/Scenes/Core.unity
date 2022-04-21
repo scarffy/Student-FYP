@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -156,6 +156,7 @@ Transform:
   - {fileID: 1392907218}
   - {fileID: 2017651845}
   - {fileID: 2051458469}
+  - {fileID: 1833931996}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -933,6 +934,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &441509760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1386,6 +1399,18 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 589575278}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -1898,7 +1923,7 @@ GameObject:
   m_Component:
   - component: {fileID: 829518686}
   m_Layer: 5
-  m_Name: PlayerStats
+  m_Name: PlayerData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4206,6 +4231,13 @@ MonoBehaviour:
   playerHealth: {fileID: 1695544240}
   playerVitality: {fileID: 152270404}
   playerStrength: {fileID: 2130763683}
+  givenEXP: {fileID: 0}
+  monsterLevel: {fileID: 0}
+  monsterHealth: {fileID: 0}
+  monsterVitality: {fileID: 0}
+  monsterStrength: {fileID: 0}
+  monsterStats: {fileID: 0}
+  playerStats: {fileID: 589575278}
 --- !u!1 &1787395125
 GameObject:
   m_ObjectHideFlags: 0
@@ -4381,6 +4413,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1833931995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1833931996}
+  - component: {fileID: 1833931997}
+  m_Layer: 0
+  m_Name: MonsterData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1833931996
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833931995}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 128370338}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1833931997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833931995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473686cb7ce0bc24f9c2f272145e18f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterStatus:
+    items: []
 --- !u!1 &1844205020
 GameObject:
   m_ObjectHideFlags: 0
@@ -4609,7 +4686,6 @@ MonoBehaviour:
   inventoryBeg: {fileID: 1923829917}
   shopBag: {fileID: 1587627255}
   virtualCoin: {fileID: 1698294727}
-  playerStats: {fileID: 589575278}
 --- !u!1 &2023723642
 GameObject:
   m_ObjectHideFlags: 0
@@ -4767,7 +4843,7 @@ GameObject:
   - component: {fileID: 2051458469}
   - component: {fileID: 2051458470}
   m_Layer: 0
-  m_Name: PlayerTitle
+  m_Name: PlayerData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4799,12 +4875,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f5512b412966642acc52f0c3af4a82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLevel: 0
-  playerStrength: 0
-  playerHealth: 0
-  playerVitality: 0
-  currentEXP: 0
-  maxEXP: 0
+  playerData:
+    playerLevel: 0
+    playerStrength: 0
+    playerHealth: 0
+    playerVitality: 0
+    currentEXP: 0
+    maxEXP: 0
 --- !u!1 &2119237938
 GameObject:
   m_ObjectHideFlags: 0
