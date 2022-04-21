@@ -35,7 +35,7 @@ namespace FYP.Backend {
             }
 
             //! To delete this once done
-            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Multiplayer_Environment", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+            //UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Multiplayer_Environment", UnityEngine.SceneManagement.LoadSceneMode.Additive);
         }
 
         void Start()
