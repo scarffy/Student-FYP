@@ -37,6 +37,8 @@ namespace FYP.UI
         // Start is called before the first frame update
         void Start()
         {
+            Backend.UserAccountController.Instance.OnLoggedIn += LoggedIn;
+
             boyButton.onClick.AddListener(() => SelectGender(true));
             girlButton.onClick.AddListener(() => SelectGender(false));
             nextButton.onClick.AddListener(() => NextQuestion());
@@ -44,7 +46,13 @@ namespace FYP.UI
             genderPanel.SetActive(false);
         }
 
-        void SelectGender(bool isBoy)
+        void LoggedIn()
+        {
+            canvasParent.SetActive(false);
+            Backend.UserAccountController.Instance.OnLoggedIn -= LoggedIn;
+        }
+
+        public void SelectGender(bool isBoy)
         {
             this.isBoy = isBoy;
             genderPanel.SetActive(false);

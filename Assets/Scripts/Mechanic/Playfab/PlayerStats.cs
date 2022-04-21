@@ -41,7 +41,7 @@ namespace FYP.Backend
             });
         }
 
-        public void GetUserData(string myPlayFabId, string key, System.Action callback = null)
+        public void GetUserData(string myPlayFabId, string key, System.Action callback = null,System.Action<string> callbackString = null)
         {
             PlayFabClientAPI.GetUserData(new GetUserDataRequest()
             {
@@ -49,9 +49,12 @@ namespace FYP.Backend
                 Keys = null
             },
             result => {
-                if (key == result.Data[key].Value)
+                if (result.Data.ContainsKey(key))
                 {
-                    callback();
+                    if (callback != null)
+                        callback();
+                    if (callbackString != null)
+                        callbackString(result.Data[key].Value);
                 }
             },
             error =>

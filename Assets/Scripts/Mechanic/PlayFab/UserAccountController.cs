@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
+using FYP.UI;
 
 namespace FYP.Backend
 {
@@ -75,7 +76,6 @@ namespace FYP.Backend
 
         public void OnTryLogin(Data.LocalSaveFile saveData)
         {
-            Debug.Log($"{saveData.email} {saveData.password}");
             LoginWithEmailAddressRequest req = new LoginWithEmailAddressRequest
             {
                 Email = saveData.email,
@@ -87,6 +87,14 @@ namespace FYP.Backend
            res =>
            {
                GetUserInfo(UI.UIStateManager.Instance.GetEmailSignIn, res.PlayFabId);
+               PlayerStats.Instance.GetUserData(res.PlayFabId, "PlayerGender", null,res => 
+               {
+                   Debug.Log($"{res}");
+                   if (res.Contains("True"))
+                       GenderSelection.Instance.SelectGender(true);
+                   else
+                       GenderSelection.Instance.SelectGender(false);
+               });
                PlayFabManager.Instance.isSignIn = true;
                PlayFabManager.Instance.KC = res.InfoResultPayload.UserVirtualCurrency["KC"]; // to get the user virtual currency from playfab portal
 
@@ -152,7 +160,6 @@ namespace FYP.Backend
             });
         }
         #endregion
-
 
         void GetUserInfo(string email, string playfabId)
         {
