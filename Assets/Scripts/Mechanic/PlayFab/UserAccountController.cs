@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine.UI;
 
 
+
 namespace FYP.Backend
 {
     public class UserAccountController : Singleton<UserAccountController>
@@ -31,6 +32,10 @@ namespace FYP.Backend
         [Header("Error SignIn/Up")]
         public TMP_Text ErrorLogin;
         public TMP_Text ErrorSignUp;
+
+
+
+
 
         
         #region togglebuttonpanel
@@ -73,6 +78,10 @@ namespace FYP.Backend
                 RegisterAccountBtn.interactable = true;
                 OpenLoginPanel();
                 Debug.Log(res.PlayFabId);
+
+                Backend.PlayerStats.Instance.SetUserData();
+                Backend.PlayerStats.Instance.GetUserData(res.PlayFabId);
+
             },
             err =>
             {
@@ -99,7 +108,7 @@ namespace FYP.Backend
             {
                 Email = email,
                 Password = password,
-                InfoRequestParameters = Backend.PlayFabManager.Instance.infoRequest,
+                InfoRequestParameters = Data.PlayfabAccountInfo.Instance.infoRequest,
                
             };
 
@@ -108,7 +117,13 @@ namespace FYP.Backend
             {
                 GetUserInfo(email, res.PlayFabId);
                 Debug.Log("login success");
+                Backend.PlayFabManager.Instance.isSignIn = true;
                 Backend.PlayFabManager.Instance.KC = res.InfoResultPayload.UserVirtualCurrency["KC"]; // to get the user virtual currency from playfab portal
+                Backend.InventorySystem.Instance.shopBag.SetActive(true);
+                Backend.InventorySystem.Instance.inventoryBeg.SetActive(true);
+                Backend.InventorySystem.Instance.virtualCoin.SetActive(true);
+                Backend.PlayFabManager.Instance.playerStats.SetActive(true);
+
 
                 //! calling the function from Inventory System script
                 //InventorySystem.Instance.BuyItem()
@@ -118,6 +133,11 @@ namespace FYP.Backend
                 {
                     obj.SetActive(true);
                 }
+
+                Backend.PlayerStats.Instance.SetUserData();
+                Backend.PlayerStats.Instance.GetUserData(res.PlayFabId);
+                Backend.MonsterStats.Instance.GetTitleData();
+
             },
             err =>
             {

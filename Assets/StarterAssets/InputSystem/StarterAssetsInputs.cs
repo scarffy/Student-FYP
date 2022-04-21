@@ -12,6 +12,8 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		public bool attack;
+		public bool defence;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -45,6 +47,20 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
+
+		public void OnAttack(InputValue value)
+        {
+			attack = value.isPressed;
+			Debug.Log("Attack");
+        }
+
+		public void OnDefence(InputValue value)
+		{
+			defence = value.isPressed;
+			Debug.Log("Defence");
+		}
+
+
 #else
 	// old input sys if we do decide to have it (most likely wont)...
 #endif
@@ -69,6 +85,11 @@ namespace StarterAssets
 		{
 			sprint = newSprintState;
 		}
+
+		public void AttackInput(bool newAttackState)
+        {
+			attack = newAttackState;
+        }
 
 #if !UNITY_IOS || !UNITY_ANDROID
 
