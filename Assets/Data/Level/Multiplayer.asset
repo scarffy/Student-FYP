@@ -17,8 +17,10 @@ MonoBehaviour:
   - {fileID: 102900000, guid: 3f6c22689e7534bbc8f37ac1209e3a8e, type: 3}
   - {fileID: 102900000, guid: 767a7b279ec1a5b4aaa729e46902431e, type: 3}
   - {fileID: 102900000, guid: 6af01e6e6073d408ebe44bd57bb273e5, type: 3}
+  - {fileID: 102900000, guid: 5a8918f97d5bfe7469fd68bcf71031f6, type: 3}
   levelsName:
   - Core
   - Audio
   - UI
   - Photon_Core
+  - Multiplayer_Environment
