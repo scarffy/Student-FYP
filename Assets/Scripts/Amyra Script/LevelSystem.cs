@@ -1,0 +1,57 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+
+public class LevelSystem //: MonoBehaviour
+{
+    public event EventHandler OnExperienceChanged;
+    public event EventHandler OnLevelChanged;
+
+    private int level;
+    private int experience;
+    private int experienceToNextLevel;
+
+    public LevelSystem()
+    {
+        level = 0;
+        experience = 0;
+        experienceToNextLevel = 100;
+    }
+
+    //im changing to while but it didnt go to the level 2
+    public void AddExperience(int amount)
+    {
+        experience += amount;
+        while (experience >= experienceToNextLevel)
+        {
+            //Enough experience to level up
+            level++;
+            experience -= experienceToNextLevel;
+
+            if (OnLevelChanged != null) OnLevelChanged(this, EventArgs.Empty);
+        }
+        if (OnExperienceChanged != null) OnExperienceChanged(this, EventArgs.Empty);
+    }
+
+    public int GetLevelNumber()
+    {
+        return level;
+    }
+
+    public float GetExperienceNormalized()
+    {
+        return (float) experience / experienceToNextLevel;
+    }
+
+    public int GetExperience()
+    {
+        return experience;
+    }
+
+    public int GetExperienceToNextLevel()
+    {
+        return experienceToNextLevel;
+    }
+
+}
