@@ -21,6 +21,7 @@ namespace FYP.Backend
     public class PlayerStats : Singleton<PlayerStats>
     {
         public PlayerData playerData;
+        public System.Action<PlayerData> _playerData;
 
         #region getdata
         public void GetUserData(string myPlayFabId)
@@ -34,6 +35,8 @@ namespace FYP.Backend
                 string json = result.Data["PlayerData"].Value;
                 playerData = JsonUtility.FromJson<PlayerData>(json);
                 PlayFabManager.Instance.playerLevel.text = playerData.playerLevel.ToString();
+
+                _playerData?.Invoke(playerData);
             }, (error) =>
             {
                 Debug.Log("Got error retrieving user data:");
@@ -49,6 +52,8 @@ namespace FYP.Backend
                 Keys = null
             },
             result => {
+                string json = result.Data["PlayerData"].Value;
+                playerData = JsonUtility.FromJson<PlayerData>(json);
                 if (result.Data.ContainsKey(key))
                 {
                     if (callback != null)
@@ -75,8 +80,9 @@ namespace FYP.Backend
             PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest()
             {
                 Data = new Dictionary<string, string>() {
-            {"PlayerData", json }
-        }
+                    {"PlayerData", json }
+                },
+                Permission = UserDataPermission.Public,
             },
             result =>
             {
@@ -101,7 +107,8 @@ namespace FYP.Backend
                 Data = new Dictionary<string, string>
                 {
                     { key,value }
-                }
+                },
+                Permission = UserDataPermission.Public,
             },
             result => {
                 if (callback != null) callback();
