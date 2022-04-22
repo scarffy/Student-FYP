@@ -31,6 +31,10 @@ namespace FYP.UI
                 canvas.SetActive(false);
                 Backend.UserAccountController.Instance.OnFoundInfo += SetName;
             }
+            else
+            {
+                canvas.SetActive(true);
+            }
         }
 
         private void Update()
@@ -47,6 +51,12 @@ namespace FYP.UI
         {
             playerName = value;
             nameText.text = playerName;
+            canvas.SetActive(true);
+        }
+
+        private void OnDestroy()
+        {
+            Backend.UserAccountController.Instance.OnFoundInfo -= SetName;
         }
     }
 }
