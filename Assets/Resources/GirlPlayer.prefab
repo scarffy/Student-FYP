@@ -2919,6 +2919,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: 
   camera: {fileID: 0}
+  canvasParent: {fileID: 3886204268079776558}
   canvas: {fileID: 983613159596899730}
   nameText: {fileID: 2012830201604878599}
 --- !u!1 &9075072976002750169
@@ -3207,3 +3208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3886204268079776558 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5153195130548647141, guid: 2031362a164764e5e9487604b82f9ed5, type: 3}
+  m_PrefabInstance: {fileID: 8245318622551963595}
+  m_PrefabAsset: {fileID: 0}

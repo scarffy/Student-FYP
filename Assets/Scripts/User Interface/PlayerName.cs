@@ -13,6 +13,7 @@ namespace FYP.UI
         [SerializeField] Camera camera;
 
         [Header("UI")]
+        [SerializeField] GameObject canvasParent;
         [SerializeField] GameObject canvas;
         [SerializeField] TextMeshProUGUI nameText;
         #endregion
@@ -39,7 +40,7 @@ namespace FYP.UI
 
         private void Update()
         {
-            gameObject.transform.rotation = Quaternion.LookRotation(transform.position - camera.transform.position);
+            canvasParent.transform.rotation = Quaternion.LookRotation(canvasParent.transform.position - camera.transform.position);
         }
 
         void SetName()

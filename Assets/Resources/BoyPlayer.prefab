@@ -178,6 +178,7 @@ MonoBehaviour:
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
+  isUiOn: 0
 --- !u!114 &73053032170922481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1284,6 +1285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: 
   camera: {fileID: 0}
+  canvasParent: {fileID: 1744224109863042950}
   canvas: {fileID: 2340840817463279930}
   nameText: {fileID: 3906075257300602287}
 --- !u!1 &2374237243326611990
@@ -4333,8 +4335,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 31046512216382864, guid: 2031362a164764e5e9487604b82f9ed5, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2031362a164764e5e9487604b82f9ed5, type: 3}
 --- !u!224 &1584707874625824337 stripped
 RectTransform:
@@ -4357,3 +4358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1744224109863042950 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5153195130548647141, guid: 2031362a164764e5e9487604b82f9ed5, type: 3}
+  m_PrefabInstance: {fileID: 6897097065920269155}
+  m_PrefabAsset: {fileID: 0}

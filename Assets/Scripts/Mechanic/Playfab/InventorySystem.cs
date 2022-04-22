@@ -58,7 +58,7 @@ namespace FYP.Backend
                             editorItems.Cost = (int)cost;
                         }
                     }
-                    Debug.Log(cost);
+                    //Debug.Log(cost);
                 }
 
                 foreach (Item i in Items)
