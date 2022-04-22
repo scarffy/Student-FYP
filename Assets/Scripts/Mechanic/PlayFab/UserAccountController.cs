@@ -1,113 +1,133 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
-using TMPro;
-using UnityEngine.UI;
-
-
+using FYP.UI;
 
 namespace FYP.Backend
 {
+    /// <summary>
+    /// Register and Login player
+    /// </summary>
     public class UserAccountController : Singleton<UserAccountController>
     {
-        [Header("Screens")]
-        public GameObject LoginPanel;
-        public GameObject RegisterPanel;
+        public Action OnLoggedIn;
 
-        [Header("Login Screen")]
-        public TMP_InputField LoginEmailField;
-        public TMP_InputField LoginPasswordField;
-        public Button LoginBtn;
-        public Button RegisterBtn;
-
-        [Header("Register Screen")]
-        public TMP_InputField RegisterEmailField;
-        public TMP_InputField RegisterUsernameField;
-        public TMP_InputField RegisterPasswordField;
-        public Button RegisterAccountBtn;
-        public Button BackBtn;
-
-        [Header("Error SignIn/Up")]
-        public TMP_Text ErrorLogin;
-        public TMP_Text ErrorSignUp;
-
-
-
-
-
-        
-        #region togglebuttonpanel
-        public void OpenLoginPanel()
+        private void Start()
         {
-            LoginPanel.SetActive(true);
-            RegisterPanel.SetActive(false);
+            OnCheckLogin();
         }
 
-        public void OpenRegistrationPanel()
+        public bool samePassword(UserRegisterInfo info)
         {
-            LoginPanel.SetActive(false);
-            RegisterPanel.SetActive(true);
+            if (info.password == info.confirmPassword)
+                return true;
+            else
+                return false;
         }
-        #endregion
 
         #region signup
-        public void OnTryRegisterNewAccount()
+        public void OnTryRegisterNewAccount(string json)
         {
-            BackBtn.interactable = false;
-            RegisterAccountBtn.interactable = false;
+            UserRegisterInfo info = JsonUtility.FromJson<UserRegisterInfo>(json);
 
-            string email = RegisterEmailField.text;
-            string username = RegisterUsernameField.text;
-            string password = RegisterPasswordField.text;
-
+            if (!samePassword(info))
+                return;
 
             RegisterPlayFabUserRequest req = new RegisterPlayFabUserRequest
             {
-                Email = email,
-                DisplayName = username,
-                Password = password,
+                Email = info.email,
+                DisplayName = info.username,
+                Username = info.username,
+                Password = info.password,
                 RequireBothUsernameAndEmail = false
             };
 
             PlayFabClientAPI.RegisterPlayFabUser(req,
-            res =>
-            {
-                BackBtn.interactable = true;
-                RegisterAccountBtn.interactable = true;
-                OpenLoginPanel();
-                Debug.Log(res.PlayFabId);
+                res => {
+                    UI.UIStateManager.Instance.SetState(UI.UIStateManager.State.none);
+                    PlayFabManager.Instance.isSignIn = true;
 
-                Backend.PlayerStats.Instance.SetUserData();
-                Backend.PlayerStats.Instance.GetUserData(res.PlayFabId);
 
-            },
-            err =>
-            {
-                BackBtn.interactable = true;
-                RegisterAccountBtn.interactable = true;
-                Debug.Log("Error: " + err.ErrorMessage);
-                ErrorSignUp.text = err.GenerateErrorReport();
-            });
+                    Data.LocalSaveFile localSaveFile = new Data.LocalSaveFile();
+                    localSaveFile.username = info.username;
+                    localSaveFile.displayName = info.username;
+                    localSaveFile.playfabId = res.PlayFabId;
+
+                    Data.UserLocalSaveFile.Instance.SaveData(localSaveFile);
+                },
+                err => {
+                    Debug.Log(err.GenerateErrorReport());
+                    UI.UIStateManager.Instance.SetErrorState("Some error msg here");
+                });
+        }
+        #endregion
+
+        #region auto sign in
+        public void OnCheckLogin()
+        {
+            if (Data.UserLocalSaveFile.Instance.DataExist() && !PlayFabManager.Instance.isSignIn){
+                Debug.Log("File Exist. Try to login");
+                OnTryLogin(Data.UserLocalSaveFile.Instance.saveData);
+            }
         }
 
+        public void OnTryLogin(Data.LocalSaveFile saveData)
+        {
+            LoginWithEmailAddressRequest req = new LoginWithEmailAddressRequest
+            {
+                Email = saveData.email,
+                Password = saveData.password,
+                InfoRequestParameters = Data.PlayfabAccountInfo.Instance.infoRequest,
+            };
 
+            PlayFabClientAPI.LoginWithEmailAddress(req,
+           res =>
+           {
+               GetUserInfo(UI.UIStateManager.Instance.GetEmailSignIn, res.PlayFabId);
+               PlayerStats.Instance.GetUserData(res.PlayFabId, "PlayerGender", null,res => 
+               {
+                   Debug.Log($"{res}");
+                   if (res.Contains("True"))
+                       GenderSelection.Instance.SelectGender(true);
+                   else
+                       GenderSelection.Instance.SelectGender(false);
+               });
+               PlayFabManager.Instance.isSignIn = true;
+               PlayFabManager.Instance.KC = res.InfoResultPayload.UserVirtualCurrency["KC"]; // to get the user virtual currency from playfab portal
+
+                //! calling the function from Inventory System script
+                //InventorySystem.Instance.BuyItem()
+               InventorySystem.Instance.GetItemPrice();
+               InventorySystem.Instance.UpdateInventory();
+               foreach (GameObject obj in InventorySystem.Instance.enableGameObject)
+               {
+                   obj.SetActive(true);
+               }
+
+               PlayerStats.Instance.SetUserData();
+               PlayerStats.Instance.GetUserData(res.PlayFabId);
+               MonsterStats.Instance.GetTitleData();
+
+               OnLoggedIn?.Invoke();
+           },
+           err =>
+           {
+               Debug.Log("Error: " + err.ErrorMessage);
+           });
+        }
 
         #endregion
 
         #region sign in
         public void OnTryLogin()
         {
-            string email = LoginEmailField.text;
-            string password = LoginPasswordField.text;
-            
-            LoginBtn.interactable = false;
-
             LoginWithEmailAddressRequest req = new LoginWithEmailAddressRequest
             {
-                Email = email,
-                Password = password,
+                //Email = email,
+                //Password = password,
                 InfoRequestParameters = Data.PlayfabAccountInfo.Instance.infoRequest,
                
             };
@@ -115,15 +135,9 @@ namespace FYP.Backend
             PlayFabClientAPI.LoginWithEmailAddress(req,
             res =>
             {
-                GetUserInfo(email, res.PlayFabId);
-                Debug.Log("login success");
-                Backend.PlayFabManager.Instance.isSignIn = true;
-                Backend.PlayFabManager.Instance.KC = res.InfoResultPayload.UserVirtualCurrency["KC"]; // to get the user virtual currency from playfab portal
-                Backend.InventorySystem.Instance.shopBag.SetActive(true);
-                Backend.InventorySystem.Instance.inventoryBeg.SetActive(true);
-                Backend.InventorySystem.Instance.virtualCoin.SetActive(true);
-                Backend.PlayFabManager.Instance.playerStats.SetActive(true);
-
+                GetUserInfo(UI.UIStateManager.Instance.GetEmailSignIn, res.PlayFabId);
+                PlayFabManager.Instance.isSignIn = true;
+                PlayFabManager.Instance.KC = res.InfoResultPayload.UserVirtualCurrency["KC"]; // to get the user virtual currency from playfab portal
 
                 //! calling the function from Inventory System script
                 //InventorySystem.Instance.BuyItem()
@@ -134,25 +148,18 @@ namespace FYP.Backend
                     obj.SetActive(true);
                 }
 
-                Backend.PlayerStats.Instance.SetUserData();
-                Backend.PlayerStats.Instance.GetUserData(res.PlayFabId);
-                Backend.MonsterStats.Instance.GetTitleData();
+                PlayerStats.Instance.SetUserData();
+                PlayerStats.Instance.GetUserData(res.PlayFabId);
+                MonsterStats.Instance.GetTitleData();
 
+                OnLoggedIn?.Invoke();
             },
             err =>
             {
                 Debug.Log("Error: " + err.ErrorMessage);
-                LoginBtn.interactable = true;
-                ErrorLogin.text = err.GenerateErrorReport();
             });
         }
-
-        public void PlayFabError(PlayFabError error)
-        {
-            ErrorLogin.text = error.GenerateErrorReport();
-        }
         #endregion
-
 
         void GetUserInfo(string email, string playfabId)
         {
@@ -165,14 +172,18 @@ namespace FYP.Backend
             PlayFabClientAPI.GetAccountInfo(req,
                 res =>
                 {
-                    //Data.PlayfabAccountInfo.FillData(res.AccountInfo);
-                    Data.PlayfabAccountInfo.FillData(res.AccountInfo, () => {
-                        LevelManager.Instance.LoadNextLevel();
-                    });
+                    Data.PlayfabAccountInfo.FillData(res.AccountInfo, UI.UIStateManager.Instance.GetPass);
                 },
-                PlayFabError);
+                err => { });
         }
-
-        
     }
+}
+
+[System.Serializable]
+public class UserRegisterInfo
+{
+    public string username;
+    public string email;
+    public string password;
+    public string confirmPassword;
 }

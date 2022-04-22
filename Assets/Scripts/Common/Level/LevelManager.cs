@@ -16,7 +16,7 @@ namespace FYP
         {
             Core,
             GameUi,
-            RegisterLogin,
+            Single,
             Multiplayer
         }
 
@@ -48,10 +48,10 @@ namespace FYP
             {
                 case CurrentLoadedScene.Core:
                     LoadEditorLevels(allLevels[0]);
-                    currentLoadedScene = CurrentLoadedScene.RegisterLogin;
+                    currentLoadedScene = CurrentLoadedScene.Single;
                     break;
 
-                case CurrentLoadedScene.RegisterLogin:
+                case CurrentLoadedScene.Single:
                     LoadEditorLevels(allLevels[1]);
                     break;
             }
@@ -63,16 +63,16 @@ namespace FYP
             {
                 case CurrentLoadedScene.Core:
                     LoadLevels(allLevels[0]);
-                    currentLoadedScene = CurrentLoadedScene.RegisterLogin;
+                    currentLoadedScene = CurrentLoadedScene.Single;
                     break;
 
-                case CurrentLoadedScene.RegisterLogin:
-                    LoadLevels(allLevels[1]);
+                case CurrentLoadedScene.Single:
+                    LoadLevels(allLevels[2]);
                     currentLoadedScene = CurrentLoadedScene.Multiplayer;
                     break;
 
                 case CurrentLoadedScene.Multiplayer:
-
+                    LoadLevels(allLevels[2]);
                     break;
             }
         }
