@@ -52,6 +52,8 @@ namespace FYP.Backend
                 Keys = null
             },
             result => {
+                string json = result.Data["PlayerData"].Value;
+                playerData = JsonUtility.FromJson<PlayerData>(json);
                 if (result.Data.ContainsKey(key))
                 {
                     if (callback != null)

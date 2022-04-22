@@ -46,6 +46,7 @@ namespace FYP.UI
         void LoggedIn()
         {
             SetState(State.none);
+            SetStatus(Backend.PlayerStats.Instance.playerData);
             Backend.UserAccountController.Instance.OnLoggedIn -= LoggedIn;
         }
 
@@ -99,7 +100,7 @@ namespace FYP.UI
 
         public override void SetStatus(Backend.PlayerData data)
         {
-
+            UIStatusController.Instance.SetStatus(data);
         }
 
         public string GetEmailSignIn => signinEmail.text;

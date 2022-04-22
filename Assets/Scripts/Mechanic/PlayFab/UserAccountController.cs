@@ -55,6 +55,8 @@ namespace FYP.Backend
                     localSaveFile.username = info.username;
                     localSaveFile.displayName = info.username;
                     localSaveFile.playfabId = res.PlayFabId;
+                    localSaveFile.email = info.email;
+                    localSaveFile.password = info.password;
 
                     Data.UserLocalSaveFile.Instance.SaveData(localSaveFile);
                 },
@@ -86,7 +88,7 @@ namespace FYP.Backend
             PlayFabClientAPI.LoginWithEmailAddress(req,
            res =>
            {
-               GetUserInfo(UI.UIStateManager.Instance.GetEmailSignIn, res.PlayFabId);
+               GetUserInfo(saveData.email, res.PlayFabId);
                PlayerStats.Instance.GetUserData(res.PlayFabId, "PlayerGender", null,res => 
                {
                    if (res.Contains("True"))
@@ -109,7 +111,7 @@ namespace FYP.Backend
                PlayerStats.Instance.SetUserData();
                PlayerStats.Instance.GetUserData(res.PlayFabId);
                MonsterStats.Instance.GetTitleData();
-
+               Data.UserLocalSaveFile.Instance.SaveData();
                OnLoggedIn?.Invoke();
            },
            err =>
@@ -121,43 +123,46 @@ namespace FYP.Backend
         #endregion
 
         #region sign in
-        public void OnTryLogin()
-        {
-            LoginWithEmailAddressRequest req = new LoginWithEmailAddressRequest
-            {
-                //Email = email,
-                //Password = password,
-                InfoRequestParameters = Data.PlayfabAccountInfo.Instance.infoRequest,
+        /// <summary>
+        /// This is not used
+        /// </summary>
+        //public void OnTryLogin()
+        //{
+        //    LoginWithEmailAddressRequest req = new LoginWithEmailAddressRequest
+        //    {
+        //        //Email = email,
+        //        //Password = password,
+        //        InfoRequestParameters = Data.PlayfabAccountInfo.Instance.infoRequest,
                
-            };
+        //    };
 
-            PlayFabClientAPI.LoginWithEmailAddress(req,
-            res =>
-            {
-                GetUserInfo(UI.UIStateManager.Instance.GetEmailSignIn, res.PlayFabId);
-                PlayFabManager.Instance.isSignIn = true;
-                PlayFabManager.Instance.KC = res.InfoResultPayload.UserVirtualCurrency["KC"]; // to get the user virtual currency from playfab portal
+        //    PlayFabClientAPI.LoginWithEmailAddress(req,
+        //    res =>
+        //    {
+        //        GetUserInfo(UIStateManager.Instance.GetEmailSignIn, res.PlayFabId);
+        //        PlayFabManager.Instance.isSignIn = true;
+        //        PlayFabManager.Instance.KC = res.InfoResultPayload.UserVirtualCurrency["KC"]; // to get the user virtual currency from playfab portal
 
-                //! calling the function from Inventory System script
-                //InventorySystem.Instance.BuyItem()
-                InventorySystem.Instance.GetItemPrice();
-                InventorySystem.Instance.UpdateInventory();
-                foreach(GameObject obj in InventorySystem.Instance.enableGameObject)
-                {
-                    obj.SetActive(true);
-                }
+        //        //! calling the function from Inventory System script
+        //        //InventorySystem.Instance.BuyItem()
+        //        InventorySystem.Instance.GetItemPrice();
+        //        InventorySystem.Instance.UpdateInventory();
+        //        foreach(GameObject obj in InventorySystem.Instance.enableGameObject)
+        //        {
+        //            obj.SetActive(true);
+        //        }
 
-                PlayerStats.Instance.SetUserData();
-                PlayerStats.Instance.GetUserData(res.PlayFabId);
-                MonsterStats.Instance.GetTitleData();
+        //        PlayerStats.Instance.SetUserData();
+        //        PlayerStats.Instance.GetUserData(res.PlayFabId);
+        //        MonsterStats.Instance.GetTitleData();
 
-                OnLoggedIn?.Invoke();
-            },
-            err =>
-            {
-                Debug.Log("Error: " + err.ErrorMessage);
-            });
-        }
+        //        OnLoggedIn?.Invoke();
+        //    },
+        //    err =>
+        //    {
+        //        Debug.Log("Error: " + err.ErrorMessage);
+        //    });
+        //}
         #endregion
 
         void GetUserInfo(string email, string playfabId)
@@ -173,7 +178,9 @@ namespace FYP.Backend
                 {
                     Data.PlayfabAccountInfo.FillData(res.AccountInfo, UI.UIStateManager.Instance.GetPass);
                 },
-                err => { });
+                err => {
+                    Debug.LogError("Get User Info error : " + err.GenerateErrorReport());
+                });
         }
     }
 }
