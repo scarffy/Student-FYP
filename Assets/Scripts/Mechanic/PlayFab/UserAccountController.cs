@@ -14,6 +14,7 @@ namespace FYP.Backend
     public class UserAccountController : Singleton<UserAccountController>
     {
         public Action OnLoggedIn;
+        public Action OnFoundInfo;
 
         private void Start()
         {
@@ -111,7 +112,7 @@ namespace FYP.Backend
                PlayerStats.Instance.SetUserData();
                PlayerStats.Instance.GetUserData(res.PlayFabId);
                MonsterStats.Instance.GetTitleData();
-               Data.UserLocalSaveFile.Instance.SaveData();
+               //Data.UserLocalSaveFile.Instance.SaveData();
                OnLoggedIn?.Invoke();
            },
            err =>
@@ -176,7 +177,8 @@ namespace FYP.Backend
             PlayFabClientAPI.GetAccountInfo(req,
                 res =>
                 {
-                    Data.PlayfabAccountInfo.FillData(res.AccountInfo, UI.UIStateManager.Instance.GetPass);
+                    Data.PlayfabAccountInfo.FillData(res.AccountInfo, Data.UserLocalSaveFile.Instance.saveData.password);
+                    OnFoundInfo?.Invoke();
                 },
                 err => {
                     Debug.LogError("Get User Info error : " + err.GenerateErrorReport());

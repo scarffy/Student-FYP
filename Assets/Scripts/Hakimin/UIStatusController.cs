@@ -15,32 +15,17 @@ namespace FYP.UI
 
         public string _playerName;
 
-        public string GetPlayerName
-        {
-            get {
-                return Data.PlayfabAccountInfo.Instance.accountInfo.TitleInfo.DisplayName;
-            }
-            set {
-                _playerName = value;
-            }
-        }
-
         public void SetStatus(Backend.PlayerData data)
-        {
-            _playerName = GetPlayerName;
-            playerName.text = _playerName;
+        { 
             health.text = data.playerHealth.ToString();
             strength.text = data.playerHealth.ToString();
             vitality.text = data.playerVitality.ToString();
             experience.text = data.currentEXP.ToString() + " / " + data.maxEXP.ToString();
         }
 
-        private void Update()
+        public void SetStatusPlayerName(string value)
         {
-            if (Input.GetKeyUp(KeyCode.I))
-            {
-                UIStateManager.Instance.SetState(UIStateManager.State.status);
-            }
+            playerName.text = value;
         }
     }
 }

@@ -65,6 +65,8 @@ namespace FYP.UI {
             Backend.UserAccountController.Instance.OnTryLogin(info);
         }
 
+        public abstract void SetStatusPlayerName(string value);
+
         public abstract void SetStatus(Backend.PlayerData data);
     }
 }
