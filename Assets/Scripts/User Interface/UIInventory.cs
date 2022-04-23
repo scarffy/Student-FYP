@@ -2,6 +2,7 @@ using PlayFab.ClientModels;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 namespace FYP.UI
 {
@@ -12,9 +13,12 @@ namespace FYP.UI
 
         [SerializeField] List<GameObject> invItemList = new List<GameObject>();
 
+        [SerializeField] TextMeshProUGUI kachingText;
+
         private void Awake()
         {
             Backend.InventorySystem.Instance.OnUpdatedInventory += OnInventoryUpdate;
+            Backend.InventorySystem.Instance.OnUpdateKaChing += OnKaChingUpdate;
         }
 
         /// <summary>
@@ -23,7 +27,8 @@ namespace FYP.UI
         /// <param name="itemList"></param>
         void OnInventoryUpdate(List<ItemInstance> itemList)
         {
-            if(invItemList != null)
+            Debug.LogError("Updating Inventory UI");
+            if (invItemList != null)
             {
                 foreach (var item in invItemList)
                 {
@@ -36,12 +41,18 @@ namespace FYP.UI
             {
                 GameObject go = Instantiate(invButtonPrefab, invContent.transform);
                 Backend.Item item = go.GetComponent<Backend.Item>();
+                invItemList.Add(go);
 
                 item.ItemName = itemList[i].DisplayName;
                 item.SetItemInstance(itemList[i].ItemInstanceId);
                 item.ItemPrice = (int)itemList[i].UnitPrice;
                 item.ItemStack = itemList[i].RemainingUses;
             }
+        }
+
+        void OnKaChingUpdate(int value)
+        {
+            kachingText.text = string.Format("{0:n0}", value);
         }
     }
 }

@@ -8,12 +8,22 @@ using PlayFab.ClientModels;
 namespace FYP.Backend{ 
     public class PlayfabInventorySystem 
     {
-        //TODO: Rewrite/Transfer script from Inventory System here
-        public void GetInventory(Action<List<ItemInstance>> successCallback = null, Action errorCallback = null)
+        /// <summary>
+        /// Get the latest player inventory
+        /// </summary>
+        /// <param name="successCallback"></param>
+        /// <param name="errorCallback"></param>
+        public void GetInventory(Action<List<ItemInstance>> successCallback = null, Action errorCallback = null,Action<int> kaching = null)
         {
             GetUserInventoryRequest request = new GetUserInventoryRequest();
             PlayFabClientAPI.GetUserInventory(request, result => {
                 if (successCallback != null) successCallback(result.Inventory);
+                int value;
+                if(result.VirtualCurrency.TryGetValue("KC",out value) && kaching != null)
+                {
+                    kaching(value);
+                }
+
             }, error => {
                 if (errorCallback != null) errorCallback();
             });

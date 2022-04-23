@@ -35,6 +35,7 @@ namespace FYP.Backend
 
         [Header("New Stuffs")]
         public System.Action<List<ItemInstance>> OnUpdatedInventory;
+        public System.Action<int> OnUpdateKaChing;
 
         #region Gift
         public void BasicInventory()
@@ -72,7 +73,7 @@ namespace FYP.Backend
                         //    editorItems.Cost = (int)cost;
                         //}
                     }
-                    Debug.Log(cost);
+                    //Debug.Log(cost);
                 }
 
                 foreach (Item i in Items)
@@ -111,84 +112,18 @@ namespace FYP.Backend
         #endregion
 
         #region UpdateInventory
-        /// <summary>
-        /// Obsolette
-        /// </summary>
-        public void UpdateInventory()
-        {
-            GetUserInventoryRequest request = new GetUserInventoryRequest();
-
-            PlayFabClientAPI.GetUserInventory(request, result =>
-            {
-                if (inventoryObjects != null)
-                {
-                    foreach (GameObject obj in inventoryObjects)
-                    {
-                        Destroy(obj);
-                    }
-                    inventoryObjects.Clear();
-                    inventoryStacks.Clear();
-                }
-                List<ItemInstance> ii = result.Inventory;
-                foreach (ItemInstance i in ii)
-                {
-                    foreach (Item editorI in Items)
-                    {
-                        //if (editorI.Name == i.ItemId)
-                        //{
-                        //    GameObject o = Instantiate((buttonObject), inventoryContent.transform.position, Quaternion.identity);
-                        //    o.name = editorI.Name;
-                        //    o.transform.GetChild(0).GetComponent<TMP_Text>().text = i.ItemId;
-                        //    o.transform.GetChild(1).GetComponent<TMP_Text>().text = "[" + editorI.Cost + "]";
-                        //    o.transform.GetChild(2).GetComponent<TMP_Text>().text = i.ItemInstanceId;
-                        //    o.GetComponent<Image>().sprite = editorI.GetComponent<SpriteRenderer>().sprite;
-                        //    o.GetComponent<Image>().preserveAspect = true;
-                        //    o.transform.SetParent(inventoryContent.transform);
-                        //    for (int inv = 0; inv < inventoryObjects.Count; inv++)
-                        //    {
-
-                        //        if (o.name == inventoryObjects[inv].name)
-                        //        {
-                        //            int stacks = inventoryStacks[inv];
-                        //            stacks++;
-                        //            inventoryObjects[inv].transform.GetChild(0).GetComponent<TMP_Text>().text = i.ItemId + " x " + stacks;
-
-                        //            inventoryStacks[inv] = stacks;
-                        //            Destroy(o);
-                        //            Debug.Log("Dope item found!");
-                        //            break;
-                        //        }
-                        //    }
-
-                        //    //! this is to detect missing object from inventory system
-                        //    //for (int inv = 0; inv < inventoryObjects.Count; inv++)
-                        //    //{
-                        //    //    if (inventoryObjects[inv] == null)
-                        //    //    {
-                        //    //        inventoryObjects.RemoveAt(inv);
-                        //    //        Debug.Log("Null Object Found!");
-                        //    //    }
-                        //    //}
-
-                        //    inventoryObjects.Add(o);
-                        //    inventoryStacks.Add(1);
-
-
-                        //}
-
-                    }
-
-                }
-            }, null);
-        }
-
         public void GetInventory()
         {
             PlayfabInventorySystem inv = new PlayfabInventorySystem();
             inv.GetInventory(res =>
             {
                 OnUpdatedInventory(res);
-            }, null);
+            }, 
+            null,
+            k => { 
+                OnUpdateKaChing?.Invoke(k);
+                PlayFabManager.Instance.KC = k;
+            });
         }
         #endregion
 
@@ -213,6 +148,7 @@ namespace FYP.Backend
         }
         #endregion
 
+        #region Consume Items
         public void ConsumeItem()
         {
             PlayfabInventorySystem inv = new PlayfabInventorySystem();
@@ -231,6 +167,7 @@ namespace FYP.Backend
             PlayfabInventorySystem inv = new PlayfabInventorySystem();
             inv.SellItem(itemId);
         }
+        #endregion
     }
 }
 

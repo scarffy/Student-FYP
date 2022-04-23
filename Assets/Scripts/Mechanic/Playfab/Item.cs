@@ -12,7 +12,7 @@ namespace FYP.Backend
     /// </summary>
     public class Item : MonoBehaviour
     {
-        private string itemName;
+        [SerializeField] private string itemName;
         public string ItemName
         {
             get => itemName;
@@ -23,7 +23,7 @@ namespace FYP.Backend
             }
         }
 
-        private int itemPrice;
+        [SerializeField] private int itemPrice;
         public int ItemPrice {
             get => itemPrice;
             set {

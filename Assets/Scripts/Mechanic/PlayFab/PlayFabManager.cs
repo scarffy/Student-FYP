@@ -16,27 +16,23 @@ namespace FYP.Backend
     {
         [Header("Virtual Currency")]
         public int KC = 0;
+
+        [Header("Checker")]
+        public bool isSignIn;
+
+
         #region move these to UI scripts
         [Header("Coin")]
         public TMP_Text coinText;
 
         [Header("Stock Price")]
         public uint cost;
-
-        [Header("Player Stat")]
-        public TMP_Text currentEXP;
-        public TMP_Text maxEXP;
-        public TMP_Text playerLevel;
-        public TMP_Text playerHealth;
-        public TMP_Text playerVitality;
-        public TMP_Text playerStrength;
         #endregion
 
         [Header("Player Update Btn")]
         public GameObject playerStats;
 
-        [Header("Checker")]
-        public bool isSignIn;
+
 
     }
 }
