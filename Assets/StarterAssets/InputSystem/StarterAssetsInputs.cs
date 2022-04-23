@@ -24,15 +24,47 @@ namespace StarterAssets
 		public bool cursorInputForLook = true;
 #endif
 
+		public bool isUiOn = false;
+
+		public bool IsUiOn
+        {
+			get { return isUiOn; }
+			set { 
+				isUiOn = value;
+				cursorLocked = !IsUiOn;
+				SetCursorState(!IsUiOn);
+				FYP.UI.UIStateManager.Instance.SetState(FYP.UI.UIStateManager.State.quit);
+			}
+        }
+
+        void Start()
+        {
+			SetCursorState(true);
+		}
+
+        void Update()
+		{
+			if (Input.GetKeyUp(KeyCode.Escape))
+			{
+				//IsUiOn = !IsUiOn;
+			}
+		}
+
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
+		public void OnOpenUI(InputValue value)
+        {
+			IsUiOn = !IsUiOn;
+        }
+
 		public void OnMove(InputValue value)
 		{
-			MoveInput(value.Get<Vector2>());
+			if (!isUiOn)
+				MoveInput(value.Get<Vector2>());
 		}
 
 		public void OnLook(InputValue value)
 		{
-			if(cursorInputForLook)
+			if(cursorInputForLook && !isUiOn)
 			{
 				LookInput(value.Get<Vector2>());
 			}
@@ -40,24 +72,26 @@ namespace StarterAssets
 
 		public void OnJump(InputValue value)
 		{
-			JumpInput(value.isPressed);
+			if(!isUiOn)
+				JumpInput(value.isPressed);
 		}
 
 		public void OnSprint(InputValue value)
 		{
-			SprintInput(value.isPressed);
+			if(!isUiOn)
+				SprintInput(value.isPressed);
 		}
 
 		public void OnAttack(InputValue value)
         {
-			attack = value.isPressed;
-			Debug.Log("Attack");
+			if(!isUiOn)
+				attack = value.isPressed;
         }
 
 		public void OnDefence(InputValue value)
 		{
-			defence = value.isPressed;
-			Debug.Log("Defence");
+			if(!isUiOn)
+				defence = value.isPressed;
 		}
 
 
@@ -65,8 +99,7 @@ namespace StarterAssets
 	// old input sys if we do decide to have it (most likely wont)...
 #endif
 
-
-		public void MoveInput(Vector2 newMoveDirection)
+        public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
 		} 
@@ -95,7 +128,7 @@ namespace StarterAssets
 
 		private void OnApplicationFocus(bool hasFocus)
 		{
-			SetCursorState(cursorLocked);
+			//SetCursorState(cursorLocked);
 		}
 
 		private void SetCursorState(bool newState)

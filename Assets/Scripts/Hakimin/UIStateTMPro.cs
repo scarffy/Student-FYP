@@ -68,5 +68,14 @@ namespace FYP.UI {
         public abstract void SetStatusPlayerName(string value);
 
         public abstract void SetStatus(Backend.PlayerData data);
+
+        public virtual void QuitPlayer()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        }
     }
 }
