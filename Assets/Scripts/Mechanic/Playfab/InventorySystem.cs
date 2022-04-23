@@ -8,6 +8,9 @@ using PlayFab.ClientModels;
 
 namespace FYP.Backend
 {
+    /// <summary>
+    /// Inventory system as the manager
+    /// </summary>
     public class InventorySystem : Singleton<InventorySystem>
     {
         public Item[] Items;
@@ -58,7 +61,7 @@ namespace FYP.Backend
                             editorItems.Cost = (int)cost;
                         }
                     }
-                    //Debug.Log(cost);
+                    Debug.Log(cost);
                 }
 
                 foreach (Item i in Items)
@@ -123,6 +126,7 @@ namespace FYP.Backend
                             o.name = editorI.Name;
                             o.transform.GetChild(0).GetComponent<TMP_Text>().text = i.ItemId;
                             o.transform.GetChild(1).GetComponent<TMP_Text>().text = "[" + editorI.Cost + "]";
+                            o.transform.GetChild(2).GetComponent<TMP_Text>().text = i.ItemInstanceId;
                             o.GetComponent<Image>().sprite = editorI.GetComponent<SpriteRenderer>().sprite;
                             o.GetComponent<Image>().preserveAspect = true;
                             o.transform.SetParent(inventoryContent.transform);
@@ -176,8 +180,31 @@ namespace FYP.Backend
         void Update()
         {
             Backend.PlayFabManager.Instance.coinText.text = "Coin : " + Backend.PlayFabManager.Instance.KC;
+
+            //if (Input.GetKeyUp(KeyCode.Alpha0))
+            //{
+            //    ConsumeItem();
+            //}
+            //if (Input.GetKeyUp(KeyCode.Alpha9))
+            //{
+            //    PlayfabInventorySystem r = new PlayfabInventorySystem();
+            //    r.AddCurrency(50);
+            //}
         }
         #endregion
+
+        public void ConsumeItem()
+        {
+            PlayfabInventorySystem inv = new PlayfabInventorySystem();
+            inv.ConsumeItem("FD94AE77D0E41761", 1, ConsumeItemResult, err => {
+                Debug.LogError($"Consume item error : {err}");
+            });
+        }
+
+        void ConsumeItemResult(string itemName, int remainingValue)
+        {
+            Debug.LogError($"Item consume success : {itemName} has {remainingValue} left");
+        }
     }
 }
 
