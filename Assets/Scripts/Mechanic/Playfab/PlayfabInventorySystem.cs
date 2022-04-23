@@ -9,21 +9,40 @@ namespace FYP.Backend{
     public class PlayfabInventorySystem 
     {
         //TODO: Rewrite/Transfer script from Inventory System here
-        public void GetInventory()
+        public void GetInventory(Action<List<ItemInstance>> successCallback = null, Action errorCallback = null)
         {
-            
+            GetUserInventoryRequest request = new GetUserInventoryRequest();
+            PlayFabClientAPI.GetUserInventory(request, result => {
+                if (successCallback != null) successCallback(result.Inventory);
+            }, error => {
+                if (errorCallback != null) errorCallback();
+            });
         }
 
         /// <summary>
         /// Sell Item. Using cloud script
         /// </summary>
-        public void SellItem(string itemId,int consumeValue)
+        public void SellItem(string itemId,Action<string> successCallback = null, Action<string> errorCallback = null)
         {
             var req = new ExecuteCloudScriptRequest
             {
-
+                FunctionName = "SellItem",
+                FunctionParameter = new Dictionary<string, string>
+                {
+                    { itemId,"KC" }
+                }
             };
-            PlayFabClientAPI.ExecuteCloudScript(req, res => { }, err => { });
+            PlayFabClientAPI.ExecuteCloudScript(req, res => {
+                if(successCallback != null)
+                {
+                    GetInventory();
+                }
+            }, err => {
+                if(errorCallback!= null)
+                {
+                    errorCallback(err.GenerateErrorReport());
+                }
+            });
         }
 
         #region Currency
