@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 170906649}
   - component: {fileID: 170906648}
   m_Layer: 0
-  m_Name: Canvas - Monster
+  m_Name: Canvas - ForestGuardianMonster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
