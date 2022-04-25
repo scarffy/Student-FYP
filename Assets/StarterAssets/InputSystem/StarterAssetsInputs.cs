@@ -7,6 +7,8 @@ namespace StarterAssets
 {
 	public class StarterAssetsInputs : MonoBehaviour
 	{
+		public PhotonPlayerController playerController;
+
 		[Header("Character Input Values")]
 		public Vector2 move;
 		public Vector2 look;
