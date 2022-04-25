@@ -18,6 +18,10 @@ namespace FYP.Backend
         public List<GameObject> inventoryObjects;
         public List<int> inventoryStacks;
 
+        public GameObject inventoryBeg;
+        public GameObject shopBag;
+        public GameObject virtualCoin;
+
         #region Gift
         public void BasicInventory()
         {
@@ -26,9 +30,11 @@ namespace FYP.Backend
             request.ItemId = "BasicInventory";
             request.VirtualCurrency = "KC";
             request.Price = 0;
-            PlayFabClientAPI.PurchaseItem(request, result => {
+            PlayFabClientAPI.PurchaseItem(request, result =>
+            {
                 Backend.PlayFabManager.Instance.KC += (int)result.Items[0].UnitPrice;
-            }, error => {
+            }, error =>
+            {
                 Debug.LogError(error.ErrorMessage);
             });
         }
@@ -52,7 +58,7 @@ namespace FYP.Backend
                             editorItems.Cost = (int)cost;
                         }
                     }
-                    Debug.Log(cost);
+                    //Debug.Log(cost);
                 }
 
                 foreach (Item i in Items)
@@ -99,7 +105,7 @@ namespace FYP.Backend
             {
                 if (inventoryObjects != null)
                 {
-                    foreach(GameObject obj in inventoryObjects)
+                    foreach (GameObject obj in inventoryObjects)
                     {
                         Destroy(obj);
                     }
@@ -122,7 +128,7 @@ namespace FYP.Backend
                             o.transform.SetParent(inventoryContent.transform);
                             for (int inv = 0; inv < inventoryObjects.Count; inv++)
                             {
-                                
+
                                 if (o.name == inventoryObjects[inv].name)
                                 {
                                     int stacks = inventoryStacks[inv];
@@ -145,11 +151,11 @@ namespace FYP.Backend
                             //        Debug.Log("Null Object Found!");
                             //    }
                             //}
-                            
+
                             inventoryObjects.Add(o);
                             inventoryStacks.Add(1);
 
-                        
+
                         }
 
                     }

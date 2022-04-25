@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using PlayFab;
 using PlayFab.ClientModels;
+using PlayFab.Json;
 
 namespace FYP.Data
 {
@@ -15,27 +17,37 @@ namespace FYP.Data
         [Header("PlayFab Account Info")]
         public UserAccountInfo accountInfo;
 
+        [Header("Info Request")]
+        public GetPlayerCombinedInfoRequestParams infoRequest;
 
-        public static void FillData(UserAccountInfo value)
+
+        public static void FillData(UserAccountInfo value, string pas)
         {
             Instance.accountInfo = value;
 
+            UserLocalSaveFile.Instance.saveData.username = value.Username;
             UserLocalSaveFile.Instance.saveData.playfabId = value.PlayFabId;
+            UserLocalSaveFile.Instance.saveData.email = value.PrivateInfo.Email;
+            UserLocalSaveFile.Instance.saveData.password = pas;
             UserLocalSaveFile.Instance.saveData.displayName = value.TitleInfo.DisplayName;
+           
 
             UserLocalSaveFile.Instance.SaveData();
-            
         }
 
-        public static void FillData(UserAccountInfo value, Action action)
+        public static void FillData(UserAccountInfo value,string pas ,Action action = null)
         {
             Instance.accountInfo = value;
 
+            UserLocalSaveFile.Instance.saveData.username = value.Username;
             UserLocalSaveFile.Instance.saveData.playfabId = value.PlayFabId;
+            UserLocalSaveFile.Instance.saveData.email = value.PrivateInfo.Email;
+            UserLocalSaveFile.Instance.saveData.password = pas;
             UserLocalSaveFile.Instance.saveData.displayName = value.TitleInfo.DisplayName;
 
             UserLocalSaveFile.Instance.SaveData();
             action();
         }
+
     }
 }
