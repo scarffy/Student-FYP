@@ -34,8 +34,6 @@ namespace FYP.Backend
             {
                 string json = result.Data["PlayerData"].Value;
                 playerData = JsonUtility.FromJson<PlayerData>(json);
-                PlayFabManager.Instance.playerLevel.text = playerData.playerLevel.ToString();
-
                 _playerData?.Invoke(playerData);
             }, (error) =>
             {

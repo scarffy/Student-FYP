@@ -8,19 +8,34 @@ using PlayFab.ClientModels;
 
 namespace FYP.Backend
 {
+    /// <summary>
+    /// Inventory system as the manager
+    /// </summary>
     public class InventorySystem : Singleton<InventorySystem>
     {
+        // Prefab <- want
+        public GameObject buttonObject;
+        // Spawn list?
+        public List<GameObject> inventoryObjects;
+
+        // What does this do?
         public Item[] Items;
         public GameObject[] enableGameObject; //this will be enabled when user login the account
+        [Header("User Interface")]
+        // UI <- Dont want
         public GameObject contentArea;
-        public GameObject buttonObject;
+        // UI <- Dont want
         public GameObject inventoryContent;
-        public List<GameObject> inventoryObjects;
+        
         public List<int> inventoryStacks;
-
+        // UI < Dont want
         public GameObject inventoryBeg;
+        // UI < Dont want
         public GameObject shopBag;
-        public GameObject virtualCoin;
+
+        [Header("New Stuffs")]
+        public System.Action<List<ItemInstance>> OnUpdatedInventory;
+        public System.Action<int> OnUpdateKaChing;
 
         #region Gift
         public void BasicInventory()
@@ -53,10 +68,10 @@ namespace FYP.Backend
                     uint cost = i.VirtualCurrencyPrices["KC"];
                     foreach (Item editorItems in Items)
                     {
-                        if (editorItems.Name == i.ItemId)
-                        {
-                            editorItems.Cost = (int)cost;
-                        }
+                        //if (editorItems.Name == i.ItemId)
+                        //{
+                        //    editorItems.Cost = (int)cost;
+                        //}
                     }
                     //Debug.Log(cost);
                 }
@@ -64,12 +79,12 @@ namespace FYP.Backend
                 foreach (Item i in Items)
                 {
                     GameObject o = Instantiate((buttonObject), contentArea.transform.position, Quaternion.identity);
-                    o.transform.GetChild(0).GetComponent<TMP_Text>().text = i.Name;
-                    o.transform.GetChild(1).GetComponent<TMP_Text>().text = "[" + i.Cost + "]";
+                    //o.transform.GetChild(0).GetComponent<TMP_Text>().text = i.Name;
+                    //o.transform.GetChild(1).GetComponent<TMP_Text>().text = "[" + i.Cost + "]";
                     o.GetComponent<Image>().sprite = i.GetComponent<SpriteRenderer>().sprite;
                     o.GetComponent<Image>().preserveAspect = true;
                     o.transform.SetParent(contentArea.transform);
-                    o.GetComponent<Button>().onClick.AddListener(delegate { MakePurchase(i.Name, i.Cost); });
+                    //o.GetComponent<Button>().onClick.AddListener(delegate { MakePurchase(i.Name, i.Cost); });
                 }
             }, error => { });
 
@@ -87,7 +102,7 @@ namespace FYP.Backend
 
             PlayFabClientAPI.PurchaseItem(request, result =>
             {
-                UpdateInventory();
+                GetInventory();
                 Backend.PlayFabManager.Instance.KC -= price;
             }, error =>
             {
@@ -97,73 +112,17 @@ namespace FYP.Backend
         #endregion
 
         #region UpdateInventory
-        public void UpdateInventory()
+        public void GetInventory()
         {
-            GetUserInventoryRequest request = new GetUserInventoryRequest();
-
-            PlayFabClientAPI.GetUserInventory(request, result =>
+            PlayfabInventorySystem inv = new PlayfabInventorySystem();
+            inv.GetInventory(res =>
             {
-                if (inventoryObjects != null)
-                {
-                    foreach (GameObject obj in inventoryObjects)
-                    {
-                        Destroy(obj);
-                    }
-                    inventoryObjects.Clear();
-                    inventoryStacks.Clear();
-                }
-                List<ItemInstance> ii = result.Inventory;
-                foreach (ItemInstance i in ii)
-                {
-                    foreach (Item editorI in Items)
-                    {
-                        if (editorI.Name == i.ItemId)
-                        {
-                            GameObject o = Instantiate((buttonObject), inventoryContent.transform.position, Quaternion.identity);
-                            o.name = editorI.Name;
-                            o.transform.GetChild(0).GetComponent<TMP_Text>().text = i.ItemId;
-                            o.transform.GetChild(1).GetComponent<TMP_Text>().text = "[" + editorI.Cost + "]";
-                            o.GetComponent<Image>().sprite = editorI.GetComponent<SpriteRenderer>().sprite;
-                            o.GetComponent<Image>().preserveAspect = true;
-                            o.transform.SetParent(inventoryContent.transform);
-                            for (int inv = 0; inv < inventoryObjects.Count; inv++)
-                            {
-
-                                if (o.name == inventoryObjects[inv].name)
-                                {
-                                    int stacks = inventoryStacks[inv];
-                                    stacks++;
-                                    inventoryObjects[inv].transform.GetChild(0).GetComponent<TMP_Text>().text = i.ItemId + " x " + stacks;
-
-                                    inventoryStacks[inv] = stacks;
-                                    Destroy(o);
-                                    Debug.Log("Dope item found!");
-                                    break;
-                                }
-                            }
-
-                            //! this is to detect missing object from inventory system
-                            //for (int inv = 0; inv < inventoryObjects.Count; inv++)
-                            //{
-                            //    if (inventoryObjects[inv] == null)
-                            //    {
-                            //        inventoryObjects.RemoveAt(inv);
-                            //        Debug.Log("Null Object Found!");
-                            //    }
-                            //}
-
-                            inventoryObjects.Add(o);
-                            inventoryStacks.Add(1);
-
-
-                        }
-
-                    }
-
-                }
-            }, error =>
-            {
-
+                OnUpdatedInventory(res);
+            }, 
+            null,
+            k => { 
+                OnUpdateKaChing?.Invoke(k);
+                PlayFabManager.Instance.KC = k;
             });
         }
         #endregion
@@ -176,6 +135,37 @@ namespace FYP.Backend
         void Update()
         {
             Backend.PlayFabManager.Instance.coinText.text = "Coin : " + Backend.PlayFabManager.Instance.KC;
+
+            //if (Input.GetKeyUp(KeyCode.Alpha0))
+            //{
+            //    ConsumeItem();
+            //}
+            //if (Input.GetKeyUp(KeyCode.Alpha9))
+            //{
+            //    PlayfabInventorySystem r = new PlayfabInventorySystem();
+            //    r.AddCurrency(50);
+            //}
+        }
+        #endregion
+
+        #region Consume Items
+        public void ConsumeItem()
+        {
+            PlayfabInventorySystem inv = new PlayfabInventorySystem();
+            inv.ConsumeItem("FD94AE77D0E41761", 1, ConsumeItemResult, err => {
+                Debug.LogError($"Consume item error : {err}");
+            });
+        }
+
+        void ConsumeItemResult(string itemName, int remainingValue)
+        {
+            Debug.LogError($"Item consume success : {itemName} has {remainingValue} left");
+        }
+
+        public void SellItem(string itemId)
+        {
+            PlayfabInventorySystem inv = new PlayfabInventorySystem();
+            inv.SellItem(itemId);
         }
         #endregion
     }

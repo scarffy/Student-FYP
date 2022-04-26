@@ -269,7 +269,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &140292361
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1135,7 +1135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &566370091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1148,19 +1148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea0fb75b2bdbed48a5a4ae6547e330e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoginPanel: {fileID: 914294473}
-  RegisterPanel: {fileID: 1327965886}
-  LoginEmailField: {fileID: 154162662}
-  LoginPasswordField: {fileID: 1174161467}
-  LoginBtn: {fileID: 1340339255}
-  RegisterBtn: {fileID: 145060316}
-  RegisterEmailField: {fileID: 1719027059}
-  RegisterUsernameField: {fileID: 1513496973}
-  RegisterPasswordField: {fileID: 1098870834}
-  RegisterAccountBtn: {fileID: 1410735159}
-  BackBtn: {fileID: 1605968240}
-  ErrorLogin: {fileID: 811631738}
-  ErrorSignUp: {fileID: 148614841}
 --- !u!4 &566370092
 Transform:
   m_ObjectHideFlags: 0
@@ -2172,7 +2159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &787021512
 AudioListener:
   m_ObjectHideFlags: 0
