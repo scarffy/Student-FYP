@@ -1,12 +1,12 @@
-using PlayFab.ClientModels;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using PlayFab.ClientModels;
 
 namespace FYP.UI
 {
-    public class UIInventory : Singleton<UIInventory>
+    public class UIShopSell : Singleton<UIShopSell>
     {
         [SerializeField] GameObject invContent;
         [SerializeField] GameObject invButtonPrefab;
@@ -15,14 +15,17 @@ namespace FYP.UI
 
         [SerializeField] TextMeshProUGUI kachingText;
 
-        private void Awake()
+        [Header("Detail Panels")]
+        [SerializeField] GameObject detailPanel;
+
+        void Awake()
         {
             Backend.InventorySystem.Instance.OnUpdatedInventory += OnInventoryUpdate;
             Backend.InventorySystem.Instance.OnUpdateKaChing += OnKaChingUpdate;
         }
 
         /// <summary>
-        /// Update the inventory
+        /// Update Inventory list for selling
         /// </summary>
         /// <param name="itemList"></param>
         void OnInventoryUpdate(List<ItemInstance> itemList)
