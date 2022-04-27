@@ -22,6 +22,10 @@ namespace FYP.UI
                 Backend.PlayfabInventorySystem cat = new Backend.PlayfabInventorySystem();
                 cat.GetCatalogItems(OnGetCatalogItems);
             }
+            if (Input.GetKeyUp(KeyCode.Alpha9))
+            {
+                GetItemsByTag("Healing");
+            }
         }
 
         void OnGetCatalogItems(List<CatalogItem> obj)
@@ -45,13 +49,17 @@ namespace FYP.UI
             return false;
         }
 
+        /// <summary>
+        /// Get items by tag
+        /// </summary>
+        /// <param name="tag"></param>
         public void GetItemsByTag(string tag)
         {
-            foreach(var item in items)
+            for (int i = items.Count - 1; i >= 0; i--)
             {
-                if (!GetTags(item.Tags,tag))
+                if(!GetTags(items[i].Tags, tag))
                 {
-                    items.Remove(item);
+                    items.Remove(items[i]);
                 }
             }
         }
