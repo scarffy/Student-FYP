@@ -17,6 +17,12 @@ namespace FYP.UI
 
         [Header("Detail Panels")]
         [SerializeField] GameObject detailPanel;
+        [SerializeField] TextMeshProUGUI itemTitle;
+        [SerializeField] TextMeshProUGUI itemCategory;
+        [SerializeField] TextMeshProUGUI itemDescription;
+        [SerializeField] TextMeshProUGUI itemStock;
+        [SerializeField] TextMeshProUGUI itemPrice;
+        public string itemInstanceId;
 
         void Awake()
         {
@@ -50,7 +56,7 @@ namespace FYP.UI
                 item.ItemPrice = (int)itemList[i].UnitPrice;
                 item.ItemStack = itemList[i].RemainingUses;
                 item.ItemClass = itemList[i].ItemClass;
-  
+                item.itemInstance = itemList[i];
             }
         }
 
@@ -62,6 +68,28 @@ namespace FYP.UI
         public void SetDetails(UISellItem item)
         {
             detailPanel.SetActive(true);
+            itemTitle.text = item.itemInstance.DisplayName;
+            if (string.IsNullOrEmpty(item.itemInstance.ItemClass)) itemCategory.text = "Category : Null"; 
+            else itemCategory.text = "Category : " + item.itemInstance.ItemClass;
+            itemDescription.text = "No description available";
+            itemStock.text = "Stock : " + item.itemInstance.RemainingUses.ToString();
+            itemPrice.text = "Item Price : " + item.ItemPrice;
+            itemInstanceId = item.itemInstanceId;
+        }
+
+        public void SellItem()
+        {
+            detailPanel.SetActive(false);
+            // Update Inventory
+            Backend.InventorySystem.Instance.SellItem(itemInstanceId);
+        }
+
+        private void Update()
+        {
+            //if (Input.GetKeyUp(KeyCode.Alpha0))
+            //{
+            //    Backend.InventorySystem.Instance.SellItem(itemInstanceId);
+            //}
         }
     }
 }

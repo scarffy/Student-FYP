@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using PlayFab.ClientModels;
 
 namespace FYP.UI
 {
@@ -11,6 +12,8 @@ namespace FYP.UI
     /// </summary>
     public class UISellItem : MonoBehaviour
     {
+        public ItemInstance itemInstance;
+
         [SerializeField] private string itemName;
         public string ItemName
         {
@@ -59,6 +62,7 @@ namespace FYP.UI
 
         private void Start()
         {
+            if (button == null) GetComponent<Button>();
             button.onClick.AddListener(() => { OpenSetDetails(); });
         }
 

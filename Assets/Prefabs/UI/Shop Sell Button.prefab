@@ -135,13 +135,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c6bbb42bef964afaa02cde8bcef6d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemInstance:
+    Annotation: 
+    BundleContents: []
+    BundleParent: 
+    CatalogVersion: 
+    DisplayName: 
+    ItemClass: 
+    ItemId: 
+    ItemInstanceId: 
+    UnitCurrency: 
+    UnitPrice: 0
   itemName: 
   itemPrice: 0
-  GainPerSecond: 0
+  itemClass: 
   itemInstanceId: 
   itemNameText: {fileID: 1863028934570965936}
-  itemPriceText: {fileID: 0}
-  itemStackText: {fileID: 0}
+  sprite: {fileID: 0}
+  image: {fileID: 6677620919693104155}
+  button: {fileID: 8925353189466478634}
 --- !u!1 &4046646444733827750
 GameObject:
   m_ObjectHideFlags: 0
