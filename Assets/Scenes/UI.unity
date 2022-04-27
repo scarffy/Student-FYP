@@ -167,9 +167,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invContent: {fileID: 5491410010481793503}
-  invButtonPrefab: {fileID: 0}
+  invButtonPrefab: {fileID: 2652597374836173942, guid: 4658b44c588044a1cadca87c07dc141a, type: 3}
   invItemList: []
   kachingText: {fileID: 5491410010481793502}
+  detailPanel: {fileID: 5491410010481793504}
 --- !u!1 &307405280
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,5 +970,10 @@ MonoBehaviour:
 --- !u!1 &5491410010481793503 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7770710883666615627, guid: 9d7170c7456e14d14bb64a3c51bbd645, type: 3}
+  m_PrefabInstance: {fileID: 5491410010481793482}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5491410010481793504 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2419443105668807129, guid: 9d7170c7456e14d14bb64a3c51bbd645, type: 3}
   m_PrefabInstance: {fileID: 5491410010481793482}
   m_PrefabAsset: {fileID: 0}

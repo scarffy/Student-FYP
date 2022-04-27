@@ -42,19 +42,26 @@ namespace FYP.UI
             for (int i = 0; i < itemList.Count; i++)
             {
                 GameObject go = Instantiate(invButtonPrefab, invContent.transform);
-                Backend.Item item = go.GetComponent<Backend.Item>();
+                UISellItem item = go.GetComponent<UISellItem>();
                 invItemList.Add(go);
 
                 item.ItemName = itemList[i].DisplayName;
                 item.SetItemInstance(itemList[i].ItemInstanceId);
                 item.ItemPrice = (int)itemList[i].UnitPrice;
                 item.ItemStack = itemList[i].RemainingUses;
+                item.ItemClass = itemList[i].ItemClass;
+  
             }
         }
 
         void OnKaChingUpdate(int value)
         {
             kachingText.text = string.Format("{0:n0}", value);
+        }
+
+        public void SetDetails(UISellItem item)
+        {
+            detailPanel.SetActive(true);
         }
     }
 }

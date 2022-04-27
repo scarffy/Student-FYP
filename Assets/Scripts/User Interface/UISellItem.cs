@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 namespace FYP.UI
 {
@@ -31,8 +32,6 @@ namespace FYP.UI
             }
         }
 
-        public int GainPerSecond; // <-- ??
-
         public int? itemStack;
         public int? ItemStack
         {
@@ -40,17 +39,35 @@ namespace FYP.UI
             set
             {
                 itemStack = value;
-                itemStackText.text = value.ToString();
             }
         }
 
-        [SerializeField] string itemInstanceId;
+        [SerializeField] private string itemClass;
+        public string ItemClass
+        {
+            get => itemClass; 
+            set { itemClass = value; }
+        }
+
+        public string itemInstanceId;
 
         [SerializeField] TextMeshProUGUI itemNameText;
-        [SerializeField] TextMeshProUGUI itemPriceText;
-        [SerializeField] TextMeshProUGUI itemStackText;
+        public Sprite sprite;
+        [SerializeField] Image image;
 
+        [SerializeField] Button button;
+
+        private void Start()
+        {
+            button.onClick.AddListener(() => { OpenSetDetails(); });
+        }
 
         public void SetItemInstance(string value) => itemInstanceId = value;
+        public void SetImage()
+        {
+            image.sprite = sprite;
+        }
+
+        void OpenSetDetails() =>  UIShopSell.Instance.SetDetails(this);
     }
 }
