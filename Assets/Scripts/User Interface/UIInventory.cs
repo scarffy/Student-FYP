@@ -27,7 +27,6 @@ namespace FYP.UI
         /// <param name="itemList"></param>
         void OnInventoryUpdate(List<ItemInstance> itemList)
         {
-            Debug.LogError("Updating Inventory UI");
             if (invItemList != null)
             {
                 foreach (var item in invItemList)
