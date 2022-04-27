@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311915, g: 0.3807396, b: 0.35872662, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -133,8 +133,9 @@ GameObject:
   m_Component:
   - component: {fileID: 51684459}
   - component: {fileID: 51684460}
+  - component: {fileID: 51684461}
   m_Layer: 0
-  m_Name: Shop Sell
+  m_Name: Shop Buy Sell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,6 +177,19 @@ MonoBehaviour:
   itemDescription: {fileID: 5491410010481793507}
   itemStock: {fileID: 5491410010481793506}
   itemPrice: {fileID: 5491410010481793505}
+  itemInstanceId: 
+--- !u!114 &51684461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51684458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcfd70bcbdbdd334fab3b401ea52c836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &307405280
 GameObject:
   m_ObjectHideFlags: 0
@@ -765,6 +779,18 @@ PrefabInstance:
     - target: {fileID: 7384615192479061003, guid: 9d7170c7456e14d14bb64a3c51bbd645, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7565594483298523041, guid: 9d7170c7456e14d14bb64a3c51bbd645, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7565594483298523041, guid: 9d7170c7456e14d14bb64a3c51bbd645, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7565594483298523041, guid: 9d7170c7456e14d14bb64a3c51bbd645, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d7170c7456e14d14bb64a3c51bbd645, type: 3}

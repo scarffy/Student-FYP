@@ -102,7 +102,7 @@ namespace FYP.Backend
 
                 //! calling the function from Inventory System script
                 //InventorySystem.Instance.BuyItem()
-               InventorySystem.Instance.GetItemPrice();
+               //InventorySystem.Instance.GetItemPrice();
                InventorySystem.Instance.GetInventory();
                foreach (GameObject obj in InventorySystem.Instance.enableGameObject)
                {

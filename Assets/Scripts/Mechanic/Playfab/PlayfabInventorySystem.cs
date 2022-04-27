@@ -23,7 +23,6 @@ namespace FYP.Backend{
                 {
                     kaching(value);
                 }
-
             }, error => {
                 if (errorCallback != null) errorCallback();
             });
@@ -34,25 +33,24 @@ namespace FYP.Backend{
         /// </summary>
         public void SellItem(string itemId,Action<string> successCallback = null, Action<string> errorCallback = null)
         {
-            var req = new ExecuteCloudScriptRequest
+                       
+        }
+
+        public void GetCatalogItems(Action<List<CatalogItem>> callback = null)
+        {
+            var request = new GetCatalogItemsRequest
             {
-                FunctionName = "SellItem",
-                FunctionParameter = new Dictionary<string, string>
-                {
-                    { itemId,"KC" }
-                }
+                
             };
-            PlayFabClientAPI.ExecuteCloudScript(req, res => {
-                if(successCallback != null)
-                {
-                    GetInventory();
-                }
-            }, err => {
-                if(errorCallback!= null)
-                {
-                    errorCallback(err.GenerateErrorReport());
-                }
-            });
+            PlayFabClientAPI.GetCatalogItems(
+                request
+                ,Result => {
+                    if(callback != null)
+                    {
+                        callback(Result.Catalog);
+                    }
+                }, 
+                Err => { Debug.LogError(Err.GenerateErrorReport()); }) ;
         }
 
         #region Currency
