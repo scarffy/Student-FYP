@@ -16,6 +16,7 @@ namespace StarterAssets
 		public bool sprint;
 		public bool attack;
 		public bool defence;
+		public bool interacted;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -42,14 +43,6 @@ namespace StarterAssets
         void Start()
         {
 			SetCursorState(true);
-		}
-
-        void Update()
-		{
-			if (Input.GetKeyUp(KeyCode.Escape))
-			{
-				//IsUiOn = !IsUiOn;
-			}
 		}
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
@@ -96,6 +89,10 @@ namespace StarterAssets
 				defence = value.isPressed;
 		}
 
+		public void OnInteraction(InputValue value)
+        {
+			InteractInput(value.isPressed);
+        }
 
 #else
 	// old input sys if we do decide to have it (most likely wont)...
@@ -124,6 +121,11 @@ namespace StarterAssets
 		public void AttackInput(bool newAttackState)
         {
 			attack = newAttackState;
+        }
+
+		public void InteractInput(bool newInteracState)
+        {
+			interacted = newInteracState;
         }
 
 #if !UNITY_IOS || !UNITY_ANDROID

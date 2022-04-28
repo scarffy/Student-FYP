@@ -13,30 +13,20 @@ namespace FYP.Backend
     /// </summary>
     public class InventorySystem : Singleton<InventorySystem>
     {
-        // Prefab <- want
         public GameObject buttonObject;
         // Spawn list?
         public List<GameObject> inventoryObjects;
 
-        // What does this do?
-        public Item[] Items;
         public GameObject[] enableGameObject; //this will be enabled when user login the account
-        [Header("User Interface")]
-        // UI <- Dont want
-        public GameObject contentArea;
-        // UI <- Dont want
-        public GameObject inventoryContent;
+
         
         public List<int> inventoryStacks;
-        // UI < Dont want
-        public GameObject inventoryBeg;
-        // UI < Dont want
-        public GameObject shopBag;
 
         [Header("New Stuffs")]
         public System.Action<List<ItemInstance>> OnUpdatedInventory;
         public System.Action<int> OnUpdateKaChing;
 
+        //! This is obsolette
         #region Gift
         public void BasicInventory()
         {
@@ -55,55 +45,62 @@ namespace FYP.Backend
         }
         #endregion
 
+        //! This is obsolette
         #region Request Price from Catalog
-        public void GetItemPrice()
-        {
-            GetCatalogItemsRequest request = new GetCatalogItemsRequest();
-            request.CatalogVersion = "Items";
-            PlayFabClientAPI.GetCatalogItems(request, result =>
-            {
-                List<CatalogItem> items = result.Catalog;
-                foreach (CatalogItem i in items)
-                {
-                    uint cost = i.VirtualCurrencyPrices["KC"];
-                    foreach (Item editorItems in Items)
-                    {
-                        //if (editorItems.Name == i.ItemId)
-                        //{
-                        //    editorItems.Cost = (int)cost;
-                        //}
-                    }
-                    //Debug.Log(cost);
-                }
+        //public void GetItemPrice()
+        //{
+        //    GetCatalogItemsRequest request = new GetCatalogItemsRequest();
+        //    request.CatalogVersion = "Items";
+        //    PlayFabClientAPI.GetCatalogItems(request, result =>
+        //    {
+        //        List<CatalogItem> items = result.Catalog;
+        //        foreach (CatalogItem i in items)
+        //        {
+        //            uint cost = i.VirtualCurrencyPrices["KC"];
+        //            foreach (Item editorItems in Items)
+        //            {
+        //                //if (editorItems.Name == i.ItemId)
+        //                //{
+        //                //    editorItems.Cost = (int)cost;
+        //                //}
+        //            }
+        //            //Debug.Log(cost);
+        //        }
 
-                foreach (Item i in Items)
-                {
-                    GameObject o = Instantiate((buttonObject), contentArea.transform.position, Quaternion.identity);
-                    //o.transform.GetChild(0).GetComponent<TMP_Text>().text = i.Name;
-                    //o.transform.GetChild(1).GetComponent<TMP_Text>().text = "[" + i.Cost + "]";
-                    o.GetComponent<Image>().sprite = i.GetComponent<SpriteRenderer>().sprite;
-                    o.GetComponent<Image>().preserveAspect = true;
-                    o.transform.SetParent(contentArea.transform);
-                    //o.GetComponent<Button>().onClick.AddListener(delegate { MakePurchase(i.Name, i.Cost); });
-                }
-            }, error => { });
+        //        foreach (Item i in Items)
+        //        {
+        //            GameObject o = Instantiate((buttonObject), contentArea.transform.position, Quaternion.identity);
+        //            //o.transform.GetChild(0).GetComponent<TMP_Text>().text = i.Name;
+        //            //o.transform.GetChild(1).GetComponent<TMP_Text>().text = "[" + i.Cost + "]";
+        //            o.GetComponent<Image>().sprite = i.GetComponent<SpriteRenderer>().sprite;
+        //            o.GetComponent<Image>().preserveAspect = true;
+        //            o.transform.SetParent(contentArea.transform);
+        //            //o.GetComponent<Button>().onClick.AddListener(delegate { MakePurchase(i.Name, i.Cost); });
+        //        }
+        //    }, error => { });
 
-        }
+        //}
         #endregion
 
         #region Purchase Item
-        void MakePurchase(string name, int price)
+        /// <summary>
+        /// Get items from catalog
+        /// Make purchase if available
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="price"></param>
+        public void BuyItem(string itemId, int price)
         {
             PurchaseItemRequest request = new PurchaseItemRequest();
             request.CatalogVersion = "Items";
-            request.ItemId = name;
+            request.ItemId = itemId;
             request.VirtualCurrency = "KC";
             request.Price = price;
 
             PlayFabClientAPI.PurchaseItem(request, result =>
             {
                 GetInventory();
-                Backend.PlayFabManager.Instance.KC -= price;
+                PlayFabManager.Instance.KC -= price;
             }, error =>
             {
                 Debug.Log(error.ErrorMessage);
@@ -120,31 +117,10 @@ namespace FYP.Backend
                 OnUpdatedInventory(res);
             }, 
             null,
-            k => { 
-                OnUpdateKaChing?.Invoke(k);
-                PlayFabManager.Instance.KC = k;
+            Currency => { 
+                OnUpdateKaChing?.Invoke(Currency);
+                PlayFabManager.Instance.KC = Currency;
             });
-        }
-        #endregion
-
-        #region Virtual Currency
-        /// <summary>
-        /// this is to display Virtual Currency into game scene
-        /// Call KC from playfab manager
-        /// </summary>
-        void Update()
-        {
-            Backend.PlayFabManager.Instance.coinText.text = "Coin : " + Backend.PlayFabManager.Instance.KC;
-
-            //if (Input.GetKeyUp(KeyCode.Alpha0))
-            //{
-            //    ConsumeItem();
-            //}
-            //if (Input.GetKeyUp(KeyCode.Alpha9))
-            //{
-            //    PlayfabInventorySystem r = new PlayfabInventorySystem();
-            //    r.AddCurrency(50);
-            //}
         }
         #endregion
 
@@ -165,7 +141,11 @@ namespace FYP.Backend
         public void SellItem(string itemId)
         {
             PlayfabInventorySystem inv = new PlayfabInventorySystem();
-            inv.SellItem(itemId);
+            inv.SellItem(itemId,
+                res => { 
+                    Debug.Log(res);
+                },
+                errorCallback => { Debug.LogError(errorCallback); });
         }
         #endregion
     }
