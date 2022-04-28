@@ -19,6 +19,7 @@ namespace FYP.UI
         [Space(20)]
         [SerializeField] GameObject shopInvContent;
         [SerializeField] GameObject shopButtonPrefab;
+        [SerializeField] GameObject shopDetailPanel;
 
         [Space(20)]
         [SerializeField] TextMeshProUGUI itemTitle;
@@ -102,6 +103,7 @@ namespace FYP.UI
 
         public void SetDetail(UIBuyItem obj)
         {
+            shopDetailPanel.SetActive(true);
             itemTitle.text = obj.Instance.DisplayName;
             itemCategory.text = string.IsNullOrEmpty(obj.Instance.ItemClass) ? obj.Instance.ItemClass : "Null";
             itemDescription.text = string.IsNullOrEmpty(obj.Instance.Description) ? obj.Instance.Description : "Null";
