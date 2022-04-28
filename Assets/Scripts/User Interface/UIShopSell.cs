@@ -52,7 +52,7 @@ namespace FYP.UI
                 invItemList.Add(go);
 
                 item.ItemName = itemList[i].DisplayName;
-                item.SetItemInstance(itemList[i].ItemInstanceId);
+                item.SetItemInstanceId(itemList[i].ItemInstanceId);
                 item.ItemPrice = (int)itemList[i].UnitPrice;
                 item.ItemStack = itemList[i].RemainingUses;
                 item.ItemClass = itemList[i].ItemClass;
@@ -82,14 +82,6 @@ namespace FYP.UI
             detailPanel.SetActive(false);
             // Update Inventory
             Backend.InventorySystem.Instance.SellItem(itemInstanceId);
-        }
-
-        private void Update()
-        {
-            //if (Input.GetKeyUp(KeyCode.Alpha0))
-            //{
-            //    Backend.InventorySystem.Instance.SellItem(itemInstanceId);
-            //}
         }
     }
 }

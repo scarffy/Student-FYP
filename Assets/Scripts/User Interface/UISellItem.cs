@@ -7,9 +7,6 @@ using PlayFab.ClientModels;
 
 namespace FYP.UI
 {
-    /// <summary>
-    /// Repurpose to fit Sell button
-    /// </summary>
     public class UISellItem : MonoBehaviour
     {
         public ItemInstance itemInstance;
@@ -63,15 +60,15 @@ namespace FYP.UI
         private void Start()
         {
             if (button == null) GetComponent<Button>();
-            button.onClick.AddListener(() => { OpenSetDetails(); });
+            button.onClick.AddListener(() => { OpenSellDetails(); });
         }
 
-        public void SetItemInstance(string value) => itemInstanceId = value;
+        public void SetItemInstanceId(string value) => itemInstanceId = value;
         public void SetImage()
         {
             image.sprite = sprite;
         }
 
-        void OpenSetDetails() =>  UIShopSell.Instance.SetDetails(this);
+        void OpenSellDetails() =>  UIShopSell.Instance.SetDetails(this);
     }
 }

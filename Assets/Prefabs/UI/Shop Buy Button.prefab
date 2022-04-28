@@ -355,6 +355,7 @@ GameObject:
   - component: {fileID: 7048365484342112859}
   - component: {fileID: 9210807500061556997}
   - component: {fileID: 2946824098365596602}
+  - component: {fileID: 4304035735097279498}
   m_Layer: 5
   m_Name: Shop Buy Button
   m_TagString: Untagged
@@ -466,3 +467,42 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4304035735097279498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8644636164618622950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0823f84c9cbb0974abb2503bd4b2d1bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instance:
+    Bundle:
+      BundledItems: []
+      BundledResultTables: []
+    CanBecomeCharacter: 0
+    CatalogVersion: 
+    Consumable:
+      UsagePeriodGroup: 
+    Container:
+      ItemContents: []
+      KeyItemId: 
+      ResultTableContents: []
+    CustomData: 
+    Description: 
+    DisplayName: 
+    InitialLimitedEditionCount: 0
+    IsLimitedEdition: 0
+    IsStackable: 0
+    IsTradable: 0
+    ItemClass: 
+    ItemId: 
+    ItemImageUrl: 
+    Tags: []
+  button: {fileID: 2946824098365596602}
+  itemImage: {fileID: 1122431294218612619}
+  itemName: {fileID: 5396103424369000480}
+  itemPrice: {fileID: 5398618363723369893}
