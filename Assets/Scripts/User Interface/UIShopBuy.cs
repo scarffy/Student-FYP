@@ -22,13 +22,12 @@ namespace FYP.UI
             if (Input.GetKeyUp(KeyCode.E)) GetCatalogByTag(ShopTrigger.ShopType.Food);
         }
 
+        #region Get Catalog
         public void GetCatalogByTag(ShopTrigger.ShopType tag)
         {
             PlayfabInventorySystem cat = new PlayfabInventorySystem();
             cat.GetCatalogItemsByTag(tag.ToString(), OnGetCatalogItems);
         }
-
-        #region Get Catalog
         public void GetCatalogByTag(string tag)
         {
             PlayfabInventorySystem cat = new PlayfabInventorySystem();
