@@ -89,18 +89,18 @@ namespace FYP.Backend
         /// </summary>
         /// <param name="name"></param>
         /// <param name="price"></param>
-        void MakePurchase(string name, int price)
+        public void BuyItem(string itemId, int price)
         {
             PurchaseItemRequest request = new PurchaseItemRequest();
             request.CatalogVersion = "Items";
-            request.ItemId = name;
+            request.ItemId = itemId;
             request.VirtualCurrency = "KC";
             request.Price = price;
 
             PlayFabClientAPI.PurchaseItem(request, result =>
             {
                 GetInventory();
-                Backend.PlayFabManager.Instance.KC -= price;
+                PlayFabManager.Instance.KC -= price;
             }, error =>
             {
                 Debug.Log(error.ErrorMessage);

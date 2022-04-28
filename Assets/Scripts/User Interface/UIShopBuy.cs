@@ -1,3 +1,4 @@
+using FYP.Backend;
 using PlayFab.ClientModels;
 using StarterAssets;
 using System;
@@ -14,7 +15,6 @@ namespace FYP.UI
     public class UIShopBuy : MonoBehaviour
     {
         public List<CatalogItem> items = new List<CatalogItem>();
-        StarterAssetsInputs _input;
 
         // Update is called once per frame
         void Update()
@@ -28,15 +28,17 @@ namespace FYP.UI
             //{
             //    GetItemsByTag("Healing");
             //}
-            if (Input.GetKeyUp(KeyCode.I))
+            if (Input.GetKeyUp(KeyCode.E))
             {
-                _input = GameObject.FindObjectOfType<StarterAssetsInputs>();
-                
+                GetCatalogByTag("Healing");
             }
-            if (_input.interacted && _input != null)
-            {
-                Debug.Log("Presssss E");
-            }
+        }
+
+        #region Get Catalog
+        public void GetCatalogByTag(string tag)
+        {
+            PlayfabInventorySystem cat = new PlayfabInventorySystem();
+            cat.GetCatalogItemsByTag(tag,OnGetCatalogItems);
         }
 
         void OnGetCatalogItems(List<CatalogItem> obj)
@@ -47,32 +49,15 @@ namespace FYP.UI
                 items.Add(item);
             }
         }
-
-        bool GetTags(List<string> tags,string tag)
-        {
-            for (int i = 0; i < tags.Count; i++)
-            {
-                if(tags[i] == tag)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        #endregion
 
         /// <summary>
-        /// Get items by tag
+        /// Check buyer's money before buy
         /// </summary>
-        /// <param name="tag"></param>
-        public void GetItemsByTag(string tag)
+        public void PurchaseItem(string itemId,int itemPrice)
         {
-            for (int i = items.Count - 1; i >= 0; i--)
-            {
-                if(!GetTags(items[i].Tags, tag))
-                {
-                    items.Remove(items[i]);
-                }
-            }
+            InventorySystem inv = new InventorySystem();
+            inv.BuyItem(itemId, itemPrice);
         }
     }
 }

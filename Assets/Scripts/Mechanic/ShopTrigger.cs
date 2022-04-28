@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ShopTrigger : MonoBehaviour
 {
-  [SerializeField] StarterAssetsInputs player;
+    [SerializeField] StarterAssetsInputs player;
     public GameObject UI;
 
     public enum ShopType
@@ -19,23 +19,29 @@ public class ShopTrigger : MonoBehaviour
 
     public ShopType shopType = ShopType.None;
 
-  public void OnTriggerEnter(Collider other)
-  {
-    if (other.CompareTag("Player"))
+    public void OnTriggerEnter(Collider other)
     {
-      StarterAssetsInputs controller =  other.GetComponent<StarterAssetsInputs>();
-      if(controller.playerController != null)
-      {
-        if (!controller.playerController.isOtherPlayer)
+        if (other.CompareTag("Player"))
         {
+            StarterAssetsInputs controller = other.GetComponent<StarterAssetsInputs>();
+            if (controller.playerController != null)
+            {
+                if (!controller.playerController.isOtherPlayer)
+                {
                     // Can open shop UI from starter input
                     // If Press E. Then open UI
+                    if (controller.interacted)
+                    {
+                        FYP.UI.UIStateManager.Instance.SetState(FYP.UI.UIStateManager.State.buy);
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Missing controller reference. Is this intended?");
+            }
         }
-      }
-      else
-      {
-        Debug.LogWarning("Missing controller reference. Is this intended?");
-      }
     }
-  }
+
+
 }
