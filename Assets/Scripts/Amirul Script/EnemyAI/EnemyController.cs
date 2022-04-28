@@ -134,7 +134,7 @@ namespace FYP.NPC.EnemyAI
             enemyColor.color = Color.grey;
             MoveSpeed(2.0f);
             animator.SetBool("isPatrolling", true);
-            Debug.Log("monster patrol");
+            
 
             while (currentState == ENEMY_STATE.PATROL)
             {
@@ -262,7 +262,7 @@ namespace FYP.NPC.EnemyAI
         /// </summary>
         public void TurnOnCollider()
         {
-          Debug.Log("Trigger on collider");
+          //Debug.Log("Trigger on collider");
         }
         
         /// <summary>
@@ -270,7 +270,7 @@ namespace FYP.NPC.EnemyAI
         /// </summary>
         public void TurnOffCollider()
         {
-          Debug.Log("Trigger off collider");
+          //Debug.Log("Trigger off collider");
         }
 
         public IEnumerator EnemyDead()
@@ -333,7 +333,7 @@ namespace FYP.NPC.EnemyAI
             if (value.CompareTag("Player"))
             {
                 isAttacking = false;
-                Debug.Log("Not Attack");
+                //Debug.Log("Not Attack");
             }
 
         }
