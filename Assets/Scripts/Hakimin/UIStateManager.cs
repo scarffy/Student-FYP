@@ -38,15 +38,29 @@ namespace FYP.UI
         void Start()
         {
             Backend.UserAccountController.Instance.OnLoggedIn += LoggedIn;
+            Backend.UserAccountController.Instance.OnFoundInfo += FoundInfo;
             RegisterButtons();
 
             SetState(0);
         }
 
+        /// <summary>
+        /// Get player's status during first time login
+        /// </summary>
         void LoggedIn()
         {
             SetState(State.none);
+            SetStatus(Backend.PlayerStats.Instance.playerData);
             Backend.UserAccountController.Instance.OnLoggedIn -= LoggedIn;
+        }
+
+        /// <summary>
+        /// Updating the player name in status windows
+        /// </summary>
+        void FoundInfo()
+        {
+            SetStatusPlayerName(Data.PlayfabAccountInfo.Instance.accountInfo.TitleInfo.DisplayName);
+            Backend.UserAccountController.Instance.OnFoundInfo -= FoundInfo;
         }
 
         public override void RegisterButtons()
@@ -60,6 +74,7 @@ namespace FYP.UI
             {
                 closeButton[i].onClick.AddListener(() => { SetStates(0); });
             }
+            quitButton.onClick.AddListener(() => { QuitPlayer(); });
         }
         #endregion
 
@@ -82,6 +97,7 @@ namespace FYP.UI
             sellPanel.SetActive(state == State.sell);
             buyPanel.SetActive(state == State.buy);
             quitPanel.SetActive(state == State.quit);
+
         }
 
         /// <summary>
@@ -96,6 +112,18 @@ namespace FYP.UI
 
         public override void RegisterPlayer() => base.RegisterPlayer();
         public override void SignInPlayer() => base.SignInPlayer();
+
+        public override void SetStatus(Backend.PlayerData data)
+        {
+            UIStatusController.Instance.SetStatus(data);
+        }
+
+        public override void SetStatusPlayerName(string value)
+        {
+            UIStatusController.Instance.SetStatusPlayerName(value);
+        }
+
+        public override void QuitPlayer() => base.QuitPlayer();
 
         public string GetEmailSignIn => signinEmail.text;
         public string GetPass => signinPassword.text;
