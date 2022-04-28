@@ -1,8 +1,6 @@
 using FYP.Backend;
 using PlayFab.ClientModels;
-using StarterAssets;
-using System;
-using System.Collections;
+using TMPro;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +12,26 @@ namespace FYP.UI
     /// </summary>
     public class UIShopBuy : Singleton<UIShopBuy>
     {
+        [Header("Catalog")]
         public List<CatalogItem> items = new List<CatalogItem>();
+
+        [Space(20)]
+        [SerializeField] GameObject shopInvContent;
+        [SerializeField] GameObject shopButtonPrefab;
+        [SerializeField] TextMeshProUGUI itemTitle;
+        [SerializeField] TextMeshProUGUI itemCategory;
+        [SerializeField] TextMeshProUGUI itemDescription;
+        [SerializeField] TextMeshProUGUI itemStock;
+        [SerializeField] TextMeshProUGUI itemPrice;
+
+        [Header("User Interface (UI)")]
+        [SerializeField] TextMeshProUGUI kachingText;
+
+
+        void Start()
+        {
+            InventorySystem.Instance.OnUpdateKaChing += UpdateMoney;
+        }
 
         // Update is called once per frame
         void Update()
@@ -48,6 +65,11 @@ namespace FYP.UI
         void PopulateUI()
         {
 
+        }
+
+        void UpdateMoney(int value)
+        {
+            kachingText.text = string.Format("{0:n0}", value);
         }
         #endregion
 
