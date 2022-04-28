@@ -1,4 +1,5 @@
 using PlayFab.ClientModels;
+using StarterAssets;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,18 +14,28 @@ namespace FYP.UI
     public class UIShopBuy : MonoBehaviour
     {
         public List<CatalogItem> items = new List<CatalogItem>();
+        StarterAssetsInputs _input;
 
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyUp(KeyCode.Alpha0))
+            //if (Input.GetKeyUp(KeyCode.Alpha0))
+            //{
+            //    Backend.PlayfabInventorySystem cat = new Backend.PlayfabInventorySystem();
+            //    cat.GetCatalogItems(OnGetCatalogItems);
+            //}
+            //if (Input.GetKeyUp(KeyCode.Alpha9))
+            //{
+            //    GetItemsByTag("Healing");
+            //}
+            if (Input.GetKeyUp(KeyCode.I))
             {
-                Backend.PlayfabInventorySystem cat = new Backend.PlayfabInventorySystem();
-                cat.GetCatalogItems(OnGetCatalogItems);
+                _input = GameObject.FindObjectOfType<StarterAssetsInputs>();
+                
             }
-            if (Input.GetKeyUp(KeyCode.Alpha9))
+            if (_input.interacted && _input != null)
             {
-                GetItemsByTag("Healing");
+                Debug.Log("Presssss E");
             }
         }
 

@@ -6,6 +6,18 @@ using UnityEngine;
 public class ShopTrigger : MonoBehaviour
 {
   [SerializeField] StarterAssetsInputs player;
+    public GameObject UI;
+
+    public enum ShopType
+    {
+        None,
+        Healing,
+        Potion,
+        Food,
+        Weapon
+    }
+
+    public ShopType shopType = ShopType.None;
 
   public void OnTriggerEnter(Collider other)
   {
@@ -16,8 +28,8 @@ public class ShopTrigger : MonoBehaviour
       {
         if (!controller.playerController.isOtherPlayer)
         {
-          // Can open shop UI from starter input
-          // If Press E. Then open UI
+                    // Can open shop UI from starter input
+                    // If Press E. Then open UI
         }
       }
       else
