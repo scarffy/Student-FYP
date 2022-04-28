@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class PlayerAttackEnemy : MonoBehaviour
 {
-    private Animator animator;
-    //Collider enemyCollider = null;
-
-    [SerializeField] bool isAttacking;
-    
+    [SerializeField] bool isAttacking;    
 
     public void Awake()
     {
@@ -17,15 +13,19 @@ public class PlayerAttackEnemy : MonoBehaviour
 
     private void Update()
     {
+
         if (isAttacking)
         {
+
             if (Input.GetMouseButtonDown(0))
             {
+
                 Debug.Log("attack");
 
             }
-        }            
-        
+        }
+
+
     }
 
     public void OnTriggerEnter(Collider other)
@@ -42,9 +42,8 @@ public class PlayerAttackEnemy : MonoBehaviour
     {
         if (other.CompareTag("Monster"))
         {
-            //enemyCollider = value;
             isAttacking = false;
-            Debug.Log("did found monster");
+            Debug.Log("did not found monster");
 
         }
     }

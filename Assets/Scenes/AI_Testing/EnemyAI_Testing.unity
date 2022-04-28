@@ -324,11 +324,6 @@ Transform:
   m_Father: {fileID: 681229982}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &87683808 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3150296046384028684, guid: edcd64c162d66e64d905ddea92e3fe8f, type: 3}
-  m_PrefabInstance: {fileID: 674126973590188355}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &109051630
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,6 +488,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+--- !u!1 &151175197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 151175198}
+  - component: {fileID: 151175199}
+  m_Layer: 0
+  m_Name: EnemyAttack
+  m_TagString: Monster
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &151175198
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151175197}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2058504987}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &151175199
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151175197}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.53
+  m_Height: 2.0749345
+  m_Direction: 1
+  m_Center: {x: -0.037966013, y: 1.0174346, z: 0.007301172}
 --- !u!1 &202685567
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,6 +907,51 @@ Transform:
   m_Father: {fileID: 681229982}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &401834868
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 401834869}
+  - component: {fileID: 401834870}
+  m_Layer: 0
+  m_Name: EnemyAttack
+  m_TagString: Monster
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &401834869
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401834868}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 891949834}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &401834870
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401834868}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.2
+  m_Height: 2.0749345
+  m_Direction: 1
+  m_Center: {x: -0.037966013, y: 1.0174346, z: 0.007301172}
 --- !u!1 &563320265
 GameObject:
   m_ObjectHideFlags: 3
@@ -1017,6 +1102,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &592538866 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2164621103343108121, guid: 095a52179b67c8749b17005acdfcd20d, type: 3}
+  m_PrefabInstance: {fileID: 2893354072449193831}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &649734965 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3879701164170650041, guid: cd6b75c496d15fd4682b77439a94f964, type: 3}
@@ -1056,6 +1146,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &734593656 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2507381889171717824, guid: 7d337c0dcdddf4f499aea18cb92efd79, type: 3}
+  m_PrefabInstance: {fileID: 2512364132111838737}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &836093537
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1149,6 +1244,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
+--- !u!4 &891949834 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3379729320204574056, guid: 72e6f8a1a9b8fdf46989d73676d02828, type: 3}
+  m_PrefabInstance: {fileID: 6061185700328599946}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &912075142 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2720109967380089520, guid: 07823bd753158684d97702f6da6cf2a8, type: 3}
@@ -1159,11 +1259,101 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5032721315109604092, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
   m_PrefabInstance: {fileID: 836093537}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &915949705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 915949706}
+  - component: {fileID: 915949707}
+  m_Layer: 0
+  m_Name: EnemyAttack
+  m_TagString: Monster
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &915949706
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915949705}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 592538866}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &915949707
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915949705}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.99
+  m_Height: 2.0749345
+  m_Direction: 1
+  m_Center: {x: -0.037966013, y: 1.0174346, z: 0.007301172}
 --- !u!4 &1133579652 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
   m_PrefabInstance: {fileID: 114407926}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1135510418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1135510419}
+  - component: {fileID: 1135510420}
+  m_Layer: 0
+  m_Name: EnemyAttack
+  m_TagString: Monster
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1135510419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135510418}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 649734965}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1135510420
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135510418}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.99
+  m_Height: 2.0749345
+  m_Direction: 1
+  m_Center: {x: -0.037966013, y: 1.0174346, z: 0.007301172}
 --- !u!1 &1163722606
 GameObject:
   m_ObjectHideFlags: 0
@@ -1721,51 +1911,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &1692975454
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1692975455}
-  - component: {fileID: 1692975456}
-  m_Layer: 0
-  m_Name: EnemyAttack
-  m_TagString: Monster
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1692975455
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1692975454}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 87683808}
-  m_RootOrder: 15
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &1692975456
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1692975454}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.9410176
-  m_Height: 2.0749345
-  m_Direction: 1
-  m_Center: {x: -0.037966013, y: 1.0174346, z: 0.007301172}
 --- !u!1 &1715480747
 GameObject:
   m_ObjectHideFlags: 0
@@ -2162,6 +2307,51 @@ MonoBehaviour:
   isEntering: 0
   isAttacking: 0
   axes: {fileID: 0}
+--- !u!1 &1911888775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1911888776}
+  - component: {fileID: 1911888777}
+  m_Layer: 0
+  m_Name: EnemyAttack
+  m_TagString: Monster
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1911888776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911888775}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 734593656}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1911888777
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911888775}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 3
+  m_Height: 2.0749345
+  m_Direction: 1
+  m_Center: {x: -0.037966013, y: 1.0174346, z: 0.007301172}
 --- !u!1 &1937649312
 GameObject:
   m_ObjectHideFlags: 0
@@ -2228,6 +2418,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2058504987 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7761107115338289749, guid: 54b5e449c9ec5f446ab613a7876bb048, type: 3}
+  m_PrefabInstance: {fileID: 7756492031323192506}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2083548390 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
@@ -2362,9 +2557,9 @@ PrefabInstance:
       propertyPath: destpoints.Array.data[3]
       value: 
       objectReference: {fileID: 288768525}
-    - target: {fileID: 3147097767193931348, guid: edcd64c162d66e64d905ddea92e3fe8f, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
+    - target: {fileID: 1692975456, guid: edcd64c162d66e64d905ddea92e3fe8f, type: 3}
+      propertyPath: m_Radius
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3147675500510912268, guid: edcd64c162d66e64d905ddea92e3fe8f, type: 3}
       propertyPath: m_Name
@@ -2372,7 +2567,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3147675500510912268, guid: edcd64c162d66e64d905ddea92e3fe8f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3150296046384028684, guid: edcd64c162d66e64d905ddea92e3fe8f, type: 3}
       propertyPath: m_RootOrder
@@ -2647,7 +2842,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2170526745774360499, guid: 095a52179b67c8749b17005acdfcd20d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3230322261933989980, guid: 095a52179b67c8749b17005acdfcd20d, type: 3}
+      propertyPath: m_Radius
+      value: 3.43
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 095a52179b67c8749b17005acdfcd20d, type: 3}
