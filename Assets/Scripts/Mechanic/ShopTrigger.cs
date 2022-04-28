@@ -33,6 +33,7 @@ public class ShopTrigger : MonoBehaviour
                     if (controller.interacted)
                     {
                         FYP.UI.UIStateManager.Instance.SetState(FYP.UI.UIStateManager.State.buy);
+                        FYP.UI.UIShopBuy.Instance.GetCatalogByTag(shopType);
                     }
                 }
             }

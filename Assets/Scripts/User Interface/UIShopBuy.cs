@@ -12,26 +12,20 @@ namespace FYP.UI
     /// This will get all catalog items 
     /// Compare and get appropriate catalog
     /// </summary>
-    public class UIShopBuy : MonoBehaviour
+    public class UIShopBuy : Singleton<UIShopBuy>
     {
         public List<CatalogItem> items = new List<CatalogItem>();
 
         // Update is called once per frame
         void Update()
         {
-            //if (Input.GetKeyUp(KeyCode.Alpha0))
-            //{
-            //    Backend.PlayfabInventorySystem cat = new Backend.PlayfabInventorySystem();
-            //    cat.GetCatalogItems(OnGetCatalogItems);
-            //}
-            //if (Input.GetKeyUp(KeyCode.Alpha9))
-            //{
-            //    GetItemsByTag("Healing");
-            //}
-            if (Input.GetKeyUp(KeyCode.E))
-            {
-                GetCatalogByTag("Healing");
-            }
+            if (Input.GetKeyUp(KeyCode.E)) GetCatalogByTag(ShopTrigger.ShopType.Food);
+        }
+
+        public void GetCatalogByTag(ShopTrigger.ShopType tag)
+        {
+            PlayfabInventorySystem cat = new PlayfabInventorySystem();
+            cat.GetCatalogItemsByTag(tag.ToString(), OnGetCatalogItems);
         }
 
         #region Get Catalog
@@ -48,6 +42,13 @@ namespace FYP.UI
             {
                 items.Add(item);
             }
+        }
+        #endregion
+
+        #region Instantiate Items
+        void PopulateUI()
+        {
+
         }
         #endregion
 
