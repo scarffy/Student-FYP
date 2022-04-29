@@ -7,13 +7,15 @@ namespace FYP.UI
 {
     public class UIStatusController : Singleton<UIStatusController>
     {
+        public string _playerName;
+
+        [Space(20)]
         public TextMeshProUGUI playerName;
         public TextMeshProUGUI health;
         public TextMeshProUGUI strength;
         public TextMeshProUGUI vitality;
         public TextMeshProUGUI experience;
 
-        public string _playerName;
 
         public void SetStatus(Backend.PlayerData data)
         { 

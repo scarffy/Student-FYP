@@ -23,7 +23,6 @@ namespace FYP.Backend{
                 {
                     kaching(value);
                 }
-
             }, error => {
                 if (errorCallback != null) errorCallback();
             });
@@ -34,26 +33,63 @@ namespace FYP.Backend{
         /// </summary>
         public void SellItem(string itemId,Action<string> successCallback = null, Action<string> errorCallback = null)
         {
-            var req = new ExecuteCloudScriptRequest
-            {
-                FunctionName = "SellItem",
-                FunctionParameter = new Dictionary<string, string>
-                {
-                    { itemId,"KC" }
-                }
-            };
-            PlayFabClientAPI.ExecuteCloudScript(req, res => {
-                if(successCallback != null)
-                {
-                    GetInventory();
-                }
-            }, err => {
-                if(errorCallback!= null)
-                {
-                    errorCallback(err.GenerateErrorReport());
-                }
-            });
+                       
         }
+
+        #region Get Catalog
+        public void GetCatalogALlItems(Action<List<CatalogItem>> callback)
+        {
+            var request = new GetCatalogItemsRequest();
+            PlayFabClientAPI.GetCatalogItems(
+                request
+                ,Result => {
+                    if(callback != null)
+                    {
+                        callback(Result.Catalog);
+                    }
+                }, 
+                Err => { Debug.LogError(Err.GenerateErrorReport()); }) ;
+        }
+
+        public void GetCatalogItemsByTag(string tag, Action<List<CatalogItem>> callback)
+        {
+            var request = new GetCatalogItemsRequest();
+            PlayFabClientAPI.GetCatalogItems(
+                request
+                , Result => {
+                    if (callback != null)
+                    {
+                        GetItemsByTags(Result.Catalog, tag, callback);
+                    }
+                },
+                Err => { Debug.LogError(Err.GenerateErrorReport()); });
+        }
+
+        bool GetTags(List<string> tags, string searchingTag)
+        {
+            for (int i = 0; i < tags.Count; i++)
+            {
+                if (tags[i] == searchingTag)
+                    return true;
+            }
+            return false;
+        }
+
+        void GetItemsByTags(List<CatalogItem> itemList, string tag, Action<List<CatalogItem>> callback = null)
+        {
+            List<CatalogItem> items = new List<CatalogItem>(itemList);
+
+            for (int i = items.Count - 1; i >= 0; i--)
+            {
+                if (!GetTags(items[i].Tags, tag))
+                {
+                    items.Remove(items[i]);
+                }
+            }
+
+            if (callback != null) callback(items);
+        }
+        #endregion
 
         #region Currency
         public void AddCurrency(int amount,Action<int> successCallback = null, Action<string> errorCallback = null)

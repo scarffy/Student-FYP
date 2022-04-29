@@ -5,25 +5,44 @@ using UnityEngine;
 
 public class ShopTrigger : MonoBehaviour
 {
-  [SerializeField] StarterAssetsInputs player;
+    [SerializeField] StarterAssetsInputs player;
+    public GameObject UI;
 
-  public void OnTriggerEnter(Collider other)
-  {
-    if (other.CompareTag("Player"))
+    public enum ShopType
     {
-      StarterAssetsInputs controller =  other.GetComponent<StarterAssetsInputs>();
-      if(controller.playerController != null)
-      {
-        if (!controller.playerController.isOtherPlayer)
-        {
-          // Can open shop UI from starter input
-          // If Press E. Then open UI
-        }
-      }
-      else
-      {
-        Debug.LogWarning("Missing controller reference. Is this intended?");
-      }
+        None,
+        Healing,
+        Potion,
+        Food,
+        Weapon
     }
-  }
+
+    public ShopType shopType = ShopType.None;
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            StarterAssetsInputs controller = other.GetComponent<StarterAssetsInputs>();
+            if (controller.playerController != null)
+            {
+                if (!controller.playerController.isOtherPlayer)
+                {
+                    // Can open shop UI from starter input
+                    // If Press E. Then open UI
+                    if (controller.interacted)
+                    {
+                        FYP.UI.UIStateManager.Instance.SetState(FYP.UI.UIStateManager.State.buy);
+                        FYP.UI.UIShopBuy.Instance.GetCatalogByTag(shopType);
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Missing controller reference. Is this intended?");
+            }
+        }
+    }
+
+
 }

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Inventory_Canvas
   - FollowTarget
+  - CinemachineTarget
+  - Monster
   layers:
   - Default
   - TransparentFX
