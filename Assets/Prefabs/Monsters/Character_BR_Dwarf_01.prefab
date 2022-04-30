@@ -41,7 +41,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 4.45
+  m_Radius: 3
   m_Height: 2.0749345
   m_Direction: 1
   m_Center: {x: -0.037966013, y: 1.0174346, z: 0.007301172}
@@ -220,8 +220,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.561028, y: 2.1081042, z: 1.4943068}
-  m_Center: {x: 0.012471318, y: 0.5911646, z: 0.48761022}
+  m_Size: {x: 1.5610329, y: 2.1081042, z: 1.146308}
+  m_Center: {x: 0.01247132, y: 0.5911645, z: 0.66160965}
 --- !u!1 &1891744181
 GameObject:
   m_ObjectHideFlags: 0
@@ -3212,7 +3212,7 @@ GameObject:
   - component: {fileID: 1404120837}
   m_Layer: 0
   m_Name: Character_BR_Dwarf_01
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
