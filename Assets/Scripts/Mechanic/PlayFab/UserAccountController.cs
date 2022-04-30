@@ -16,8 +16,9 @@ namespace FYP.Backend
         public Action OnLoggedIn;
         public Action OnFoundInfo;
 
-        private void Start()
+        private IEnumerator Start()
         {
+            yield return new WaitForSeconds(2f);
             OnCheckLogin();
         }
 
@@ -72,9 +73,14 @@ namespace FYP.Backend
         public void OnCheckLogin()
         {
             if (Data.UserLocalSaveFile.Instance.DataExist() && !PlayFabManager.Instance.isSignIn){
+                UIStateManager.Instance.SetState(UIStateManager.State.loading);
                 Debug.Log("File Exist. Try to login");
                 OnTryLogin(Data.UserLocalSaveFile.Instance.saveData);
-                UIStateManager.Instance.SetState(UIStateManager.State.loading);
+            }
+            else
+            {
+                UIStateManager.Instance.SetState(UIStateManager.State.single);
+                Debug.Log("Data don't exist");
             }
         }
 

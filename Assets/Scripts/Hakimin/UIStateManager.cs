@@ -42,7 +42,7 @@ namespace FYP.UI
             Backend.UserAccountController.Instance.OnFoundInfo += FoundInfo;
             RegisterButtons();
 
-            SetState(0);
+            SetState(State.loading);
         }
 
         /// <summary>
