@@ -74,6 +74,7 @@ namespace FYP.UI
             {
                 closeButton[i].onClick.AddListener(() => { SetStates(0); });
             }
+            quitButton.onClick.AddListener(() => { QuitPlayer(); });
         }
         #endregion
 
@@ -96,6 +97,7 @@ namespace FYP.UI
             sellPanel.SetActive(state == State.sell);
             buyPanel.SetActive(state == State.buy);
             quitPanel.SetActive(state == State.quit);
+
         }
 
         /// <summary>
@@ -120,6 +122,8 @@ namespace FYP.UI
         {
             UIStatusController.Instance.SetStatusPlayerName(value);
         }
+
+        public override void QuitPlayer() => base.QuitPlayer();
 
         public string GetEmailSignIn => signinEmail.text;
         public string GetPass => signinPassword.text;
