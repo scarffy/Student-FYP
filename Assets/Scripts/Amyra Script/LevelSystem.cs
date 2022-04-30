@@ -8,15 +8,15 @@ public class LevelSystem //: MonoBehaviour
     public event EventHandler OnExperienceChanged;
     public event EventHandler OnLevelChanged;
 
-    private static readonly int[] experiencePerLevel = new[] { 100, 120, 140, 160, 180, 200, 250, 300, 400 };
-    private int level;
-    private int experience;
-    //private int experienceToNextLevel;
+   // private static readonly int[] experiencePerLevel = new[] { 100, 120, 140, 160, 180, 200, 250, 300, 400 };
+    public int level;
+    public int experience;
+    public int experienceToNextLevel = 100;
 
     public LevelSystem()
     {
         level = 0;
-        experience = 0;
+        experience = 10;
         //experienceToNextLevel = 100;
     }
 
@@ -67,20 +67,18 @@ public class LevelSystem //: MonoBehaviour
         //return experienceToNextLevel;
         //!infinite loop level calculation
         //return level * 10;
-        if (level < experiencePerLevel.Length)
+        if (level < experienceToNextLevel)
         {
-            return experiencePerLevel[level];
-
+            //return experiencePerLevel[level];
+            // Exp = (6 / 5)n ^ 3 - 15n ^ 2 + 100n - 140
+            return ((6 / 5) * level) ^ 3 - ((15 * level) ^ 2) + (100 * level) - 140 ; 
         }
         else
         {
             //invalid level
             Debug.LogError("Level invalid" + level);
-            return 100;
+            return 100 * level;
         }
-
-        //
-       
     }
 
     public bool IsMaxLevel()
@@ -90,7 +88,8 @@ public class LevelSystem //: MonoBehaviour
 
     public bool IsMaxLevel(int level)
     {
-        return level == experiencePerLevel.Length - 1;
+
+        return level == experienceToNextLevel;
     }
 
 }

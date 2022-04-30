@@ -9,13 +9,13 @@ public class Player_LevelSystem : MonoBehaviour
 {
     public static Player_LevelSystem instance;
 
-    private LevelSystem levelSystem;
+    public LevelSystem levelSystem;
     
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        SetLevelSystem(levelSystem);
     }
 
     // Update is called once per frame
@@ -27,6 +27,12 @@ public class Player_LevelSystem : MonoBehaviour
     public enum Equip
     {
 
+    }
+
+    public void AddLevel(int value)
+    {
+        levelSystem.AddExperience(value);
+        Debug.Log($"current exp: {levelSystem.GetExperience()}");
     }
 
     public void SetLevelSystem(LevelSystem levelSystem)
@@ -42,6 +48,10 @@ public class Player_LevelSystem : MonoBehaviour
         Debug.Log("Yeay Victory");
 
         SetHealthBarSize(1f + levelSystem.GetLevelNumber() * .1f);
+
+        Debug.Log($"current exp: {levelSystem.GetExperience()} " +
+            $"| current level: {levelSystem.GetLevelNumber()} " +
+            $"| next level {levelSystem.GetExperienceToNextLevel(levelSystem.GetLevelNumber())}");
     }
 
 
