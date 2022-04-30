@@ -16,8 +16,9 @@ namespace FYP.Backend
         public Action OnLoggedIn;
         public Action OnFoundInfo;
 
-        private void Start()
+        private IEnumerator Start()
         {
+            yield return new WaitForSeconds(2f);
             OnCheckLogin();
         }
 
@@ -72,8 +73,14 @@ namespace FYP.Backend
         public void OnCheckLogin()
         {
             if (Data.UserLocalSaveFile.Instance.DataExist() && !PlayFabManager.Instance.isSignIn){
+                UIStateManager.Instance.SetState(UIStateManager.State.loading);
                 Debug.Log("File Exist. Try to login");
                 OnTryLogin(Data.UserLocalSaveFile.Instance.saveData);
+            }
+            else
+            {
+                UIStateManager.Instance.SetState(UIStateManager.State.single);
+                Debug.Log("Data don't exist");
             }
         }
 
@@ -85,11 +92,10 @@ namespace FYP.Backend
                 Password = saveData.password,
                 InfoRequestParameters = Data.PlayfabAccountInfo.Instance.infoRequest,
             };
-
             PlayFabClientAPI.LoginWithEmailAddress(req,
            res =>
            {
-               GetUserInfo(saveData.email, res.PlayFabId);
+               GetUserInfo(saveData.email, res.PlayFabId, saveData.password);
                PlayerStats.Instance.GetUserData(res.PlayFabId, "PlayerGender", null,res => 
                {
                    if (res.Contains("True"))
@@ -100,73 +106,25 @@ namespace FYP.Backend
                PlayFabManager.Instance.isSignIn = true;
                PlayFabManager.Instance.KC = res.InfoResultPayload.UserVirtualCurrency["KC"]; // to get the user virtual currency from playfab portal
 
-                //! calling the function from Inventory System script
-                //InventorySystem.Instance.BuyItem()
-               //InventorySystem.Instance.GetItemPrice();
                InventorySystem.Instance.GetInventory();
-               foreach (GameObject obj in InventorySystem.Instance.enableGameObject)
-               {
-                   obj.SetActive(true);
-               }
 
                PlayerStats.Instance.SetUserData();
                PlayerStats.Instance.GetUserData(res.PlayFabId);
                MonsterStats.Instance.GetTitleData();
-               //Data.UserLocalSaveFile.Instance.SaveData();
+
                OnLoggedIn?.Invoke();
+               UIStateManager.Instance.SetState(UIStateManager.State.single);
+
            },
            err =>
            {
-               Debug.Log("Error: " + err.ErrorMessage);
+               Debug.Log("Error: " + err.ErrorMessage + " | Parameter: " + saveData.email + "," + saveData.password);
            });
         }
 
         #endregion
 
-        #region sign in
-        /// <summary>
-        /// This is not used
-        /// </summary>
-        //public void OnTryLogin()
-        //{
-        //    LoginWithEmailAddressRequest req = new LoginWithEmailAddressRequest
-        //    {
-        //        //Email = email,
-        //        //Password = password,
-        //        InfoRequestParameters = Data.PlayfabAccountInfo.Instance.infoRequest,
-               
-        //    };
-
-        //    PlayFabClientAPI.LoginWithEmailAddress(req,
-        //    res =>
-        //    {
-        //        GetUserInfo(UIStateManager.Instance.GetEmailSignIn, res.PlayFabId);
-        //        PlayFabManager.Instance.isSignIn = true;
-        //        PlayFabManager.Instance.KC = res.InfoResultPayload.UserVirtualCurrency["KC"]; // to get the user virtual currency from playfab portal
-
-        //        //! calling the function from Inventory System script
-        //        //InventorySystem.Instance.BuyItem()
-        //        InventorySystem.Instance.GetItemPrice();
-        //        InventorySystem.Instance.UpdateInventory();
-        //        foreach(GameObject obj in InventorySystem.Instance.enableGameObject)
-        //        {
-        //            obj.SetActive(true);
-        //        }
-
-        //        PlayerStats.Instance.SetUserData();
-        //        PlayerStats.Instance.GetUserData(res.PlayFabId);
-        //        MonsterStats.Instance.GetTitleData();
-
-        //        OnLoggedIn?.Invoke();
-        //    },
-        //    err =>
-        //    {
-        //        Debug.Log("Error: " + err.ErrorMessage);
-        //    });
-        //}
-        #endregion
-
-        void GetUserInfo(string email, string playfabId)
+        void GetUserInfo(string email, string playfabId, string pass)
         {
             GetAccountInfoRequest req = new GetAccountInfoRequest
             {
@@ -177,8 +135,13 @@ namespace FYP.Backend
             PlayFabClientAPI.GetAccountInfo(req,
                 res =>
                 {
-                    Data.PlayfabAccountInfo.FillData(res.AccountInfo, Data.UserLocalSaveFile.Instance.saveData.password);
                     OnFoundInfo?.Invoke();
+
+                    if (!string.IsNullOrEmpty(pass))
+                    {
+                        Data.PlayfabAccountInfo.FillData(res.AccountInfo, pass);
+                    }
+                    else Debug.Log("Can't save data. Password field is empty");
                 },
                 err => {
                     Debug.LogError("Get User Info error : " + err.GenerateErrorReport());
