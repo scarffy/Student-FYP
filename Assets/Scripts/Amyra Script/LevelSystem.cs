@@ -3,93 +3,89 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class LevelSystem //: MonoBehaviour
+namespace FYP.Combat
 {
-    public event EventHandler OnExperienceChanged;
-    public event EventHandler OnLevelChanged;
-
-   // private static readonly int[] experiencePerLevel = new[] { 100, 120, 140, 160, 180, 200, 250, 300, 400 };
-    public int level;
-    public int experience;
-    public int experienceToNextLevel = 100;
-
-    public LevelSystem()
+    public class LevelSystem //: MonoBehaviour
     {
-        level = 0;
-        experience = 10;
-        //experienceToNextLevel = 100;
-    }
+        public event EventHandler OnExperienceChanged;
+        public event EventHandler OnLevelChanged;
 
-    //im changing to while but it didnt go to the level 2
-    public void AddExperience(int amount)
-    {
-        if (!IsMaxLevel())
+        public int level;
+        public int experience;
+        public int experienceToNextLevel = 100;
+
+        public LevelSystem()
         {
-            experience += amount;
-            while (!IsMaxLevel() && experience >= GetExperienceToNextLevel(level))
+            level = 0;
+            experience = 10;
+        }
+
+        //im changing to while but it didnt go to the level 2
+        public void AddExperience(int amount)
+        {
+            if (!IsMaxLevel())
             {
-                //Enough experience to level up                
-                experience -= GetExperienceToNextLevel(level);
-                level++;
+                experience += amount;
+                while (!IsMaxLevel() && experience >= GetExperienceToNextLevel(level))
+                {
+                    experience -= GetExperienceToNextLevel(level);
+                    level++;
 
-                if (OnLevelChanged != null) OnLevelChanged(this, EventArgs.Empty);
+                    if (OnLevelChanged != null) OnLevelChanged(this, EventArgs.Empty);
+                }
+                if (OnExperienceChanged != null) OnExperienceChanged(this, EventArgs.Empty);
             }
-            if (OnExperienceChanged != null) OnExperienceChanged(this, EventArgs.Empty);
         }
-    }
 
-    public int GetLevelNumber()
-    {
-        return level;
-    }
-
-    public float GetExperienceNormalized()
-    {
-        if (IsMaxLevel())
+        public int GetLevelNumber()
         {
-            return 1f;
-
+            return level;
         }
-        else
+
+        public float GetExperienceNormalized()
         {
-            return (float)experience / GetExperienceToNextLevel(level);
+            if (IsMaxLevel())
+            {
+                return 1f;
+
+            }
+            else
+            {
+                return (float)experience / GetExperienceToNextLevel(level);
+            }
+
         }
-        
-    }
 
-    public int GetExperience()
-    {
-        return experience;
-    }
-
-    public int GetExperienceToNextLevel(int level)
-    {
-        //return experienceToNextLevel;
-        //!infinite loop level calculation
-        //return level * 10;
-        if (level < experienceToNextLevel)
+        public int GetExperience()
         {
-            //return experiencePerLevel[level];
-            // Exp = (6 / 5)n ^ 3 - 15n ^ 2 + 100n - 140
-            return ((6 / 5) * level) ^ 3 - ((15 * level) ^ 2) + (100 * level) - 140 ; 
+            return experience;
         }
-        else
+
+        public int GetExperienceToNextLevel(int level)
         {
-            //invalid level
-            Debug.LogError("Level invalid" + level);
-            return 100 * level;
+            //!infinite loop level calculation
+            if (level < experienceToNextLevel)
+            {
+                return ((6 / 5) * level) ^ 3 - ((15 * level) ^ 2) + (100 * level) - 140;
+            }
+            else
+            {
+                //! invalid level
+                Debug.LogError("Level invalid" + level);
+                return 100 * level;
+            }
         }
+
+        public bool IsMaxLevel()
+        {
+            return IsMaxLevel(level);
+        }
+
+        public bool IsMaxLevel(int level)
+        {
+
+            return level == experienceToNextLevel;
+        }
+
     }
-
-    public bool IsMaxLevel()
-    {
-        return IsMaxLevel(level);
-    }
-
-    public bool IsMaxLevel(int level)
-    {
-
-        return level == experienceToNextLevel;
-    }
-
 }

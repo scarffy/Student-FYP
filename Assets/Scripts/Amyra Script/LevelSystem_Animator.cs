@@ -4,78 +4,81 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelSystem_Animator // : MonoBehaviour
+namespace FYP.Combat
 {
-    private LevelSystem levelSystem;
-    private bool isAnimating;
-
-    private int level;
-    private int experience;
-    //private int experienceToNextLevel;
-
-    public LevelSystem_Animator(LevelSystem levelSystem)
+    public class LevelSystem_Animator // : MonoBehaviour
     {
-        SetLevelSystem(levelSystem);
-        
-    }
+        private LevelSystem levelSystem;
+        private bool isAnimating;
 
-    private void SetLevelSystem(LevelSystem levelSystem)
-    {
-        this.levelSystem = levelSystem;
+        private int level;
+        private int experience;
+        //private int experienceToNextLevel;
 
-        level = levelSystem.GetLevelNumber();
-        experience = levelSystem.GetExperience();
-        //experienceToNextLevel = levelSystem.GetExperienceToNextLevel();
-
-        levelSystem.OnExperienceChanged += LevelSystem_OnExperienceChanged;
-        levelSystem.OnLevelChanged += LevelSystem_OnLevelChanged;
-
-    }
-
-    private void LevelSystem_OnLevelChanged(object sender, EventArgs e)
-    {
-        isAnimating = false;
-    }
-
-    private void LevelSystem_OnExperienceChanged(object sender, EventArgs e)
-    {
-        isAnimating = true;
-    }
-
-    private void Update()
-    {
-        if (isAnimating)
+        public LevelSystem_Animator(LevelSystem levelSystem)
         {
-            if (level < levelSystem.GetLevelNumber())
+            SetLevelSystem(levelSystem);
+
+        }
+
+        private void SetLevelSystem(LevelSystem levelSystem)
+        {
+            this.levelSystem = levelSystem;
+
+            level = levelSystem.GetLevelNumber();
+            experience = levelSystem.GetExperience();
+            //experienceToNextLevel = levelSystem.GetExperienceToNextLevel();
+
+            levelSystem.OnExperienceChanged += LevelSystem_OnExperienceChanged;
+            levelSystem.OnLevelChanged += LevelSystem_OnLevelChanged;
+
+        }
+
+        private void LevelSystem_OnLevelChanged(object sender, EventArgs e)
+        {
+            isAnimating = false;
+        }
+
+        private void LevelSystem_OnExperienceChanged(object sender, EventArgs e)
+        {
+            isAnimating = true;
+        }
+
+        private void Update()
+        {
+            if (isAnimating)
             {
-                //Local level under target level
-                AddExperience();
-            }
-            else
-            {
-                //Local level equals the target level
-                if (experience < levelSystem.GetExperience())
+                if (level < levelSystem.GetLevelNumber())
                 {
+                    //Local level under target level
                     AddExperience();
                 }
                 else
                 {
-                    isAnimating = false; 
+                    //Local level equals the target level
+                    if (experience < levelSystem.GetExperience())
+                    {
+                        AddExperience();
+                    }
+                    else
+                    {
+                        isAnimating = false;
+                    }
                 }
+
             }
-
+            Debug.Log(level + " " + experience);
         }
-        Debug.Log(level + " " + experience);
-    }
 
-    private void AddExperience()
-    {
-        experience++;
-        if (experience >= levelSystem.GetExperienceToNextLevel(level)) 
+        private void AddExperience()
         {
-            level++;
-            experience = 0;
+            experience++;
+            if (experience >= levelSystem.GetExperienceToNextLevel(level))
+            {
+                level++;
+                experience = 0;
 
+            }
         }
     }
 }

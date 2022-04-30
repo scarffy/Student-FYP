@@ -42,13 +42,13 @@ namespace StarterAssets
 
         void Start()
         {
-			SetCursorState(false);
+			SetCursorState(true);
 		}
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		public void OnOpenUI(InputValue value)
         {
-			//IsUiOn = !IsUiOn;
+			IsUiOn = !IsUiOn;
         }
 
 		public void OnMove(InputValue value)
