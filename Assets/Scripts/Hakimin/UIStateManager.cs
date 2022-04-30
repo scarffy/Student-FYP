@@ -17,6 +17,7 @@ namespace FYP.UI
             none,
             single,
             multiplayer,
+            loading,
             signup,
             signin,
             error,
@@ -72,7 +73,10 @@ namespace FYP.UI
 
             for (int i = 0; i < closeButton.Count; i++)
             {
-                closeButton[i].onClick.AddListener(() => { SetStates(0); });
+                closeButton[i].onClick.AddListener(() => {
+                    SetStates(0);
+                    StarterAssets.StarterAssetsInputs.Instance.IsUiOn = false;
+                });
             }
             quitButton.onClick.AddListener(() => { QuitPlayer(); });
         }
@@ -89,6 +93,7 @@ namespace FYP.UI
             state = curState;
 
             mainMultiplayer.SetActive(state == State.multiplayer);
+            loadingPanel.SetActive(state == State.loading);
             signupPanel.SetActive(state == State.signup);
             signinPanel.SetActive(state == State.signin);
             //errorPanel.SetActive(state == State.error);

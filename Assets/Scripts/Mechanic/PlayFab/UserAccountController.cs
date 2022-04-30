@@ -74,6 +74,7 @@ namespace FYP.Backend
             if (Data.UserLocalSaveFile.Instance.DataExist() && !PlayFabManager.Instance.isSignIn){
                 Debug.Log("File Exist. Try to login");
                 OnTryLogin(Data.UserLocalSaveFile.Instance.saveData);
+                UIStateManager.Instance.SetState(UIStateManager.State.loading);
             }
         }
 
@@ -104,20 +105,17 @@ namespace FYP.Backend
                 //InventorySystem.Instance.BuyItem()
                //InventorySystem.Instance.GetItemPrice();
                InventorySystem.Instance.GetInventory();
-               foreach (GameObject obj in InventorySystem.Instance.enableGameObject)
-               {
-                   obj.SetActive(true);
-               }
 
                PlayerStats.Instance.SetUserData();
                PlayerStats.Instance.GetUserData(res.PlayFabId);
                MonsterStats.Instance.GetTitleData();
                //Data.UserLocalSaveFile.Instance.SaveData();
                OnLoggedIn?.Invoke();
+               UIStateManager.Instance.SetState(UIStateManager.State.single);
            },
            err =>
            {
-               Debug.Log("Error: " + err.ErrorMessage);
+               Debug.Log("Error: " + err.ErrorMessage + " | Parameter: " + saveData.email + "," + saveData.password);
            });
         }
 

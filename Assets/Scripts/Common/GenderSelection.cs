@@ -68,6 +68,7 @@ namespace FYP.UI
                 girlPlayer.SetActive(true);
                 boyPlayer.SetActive(false);
             }
+            StarterAssets.StarterAssetsInputs.Instance.SetCursorState(false);
         }
 
         void NextQuestion()
@@ -93,7 +94,7 @@ namespace FYP.UI
             {
                 StartCoroutine(FadeCanvas(cg, Direction.FadeOut, fadingSpeed));
                 UIStateManager.Instance.SetState(UIStateManager.State.single);
-
+                StarterAssets.StarterAssetsInputs.Instance.SetCursorState(true);
                 //if (Backend.PlayFabManager.Instance.isSignIn)
                 //{
                 //    Backend.PlayerStats.Instance.SetUserData("PlayerGender", isBoy.ToString());

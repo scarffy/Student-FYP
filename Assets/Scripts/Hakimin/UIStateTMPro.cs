@@ -31,6 +31,7 @@ namespace FYP.UI {
 
         [Header("Panels")]
         [SerializeField] protected GameObject mainMultiplayer;
+        [SerializeField] protected GameObject loadingPanel;
         [SerializeField] protected GameObject signupPanel;
         [SerializeField] protected GameObject signinPanel;
         [SerializeField] protected GameObject errorPanel;

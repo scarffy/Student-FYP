@@ -2,10 +2,11 @@ using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
+using FYP;
 
 namespace StarterAssets
 {
-	public class StarterAssetsInputs : MonoBehaviour
+	public class StarterAssetsInputs : Singleton<StarterAssetsInputs>
 	{
 		public PhotonPlayerController playerController;
 
@@ -37,18 +38,26 @@ namespace StarterAssets
 				cursorLocked = !IsUiOn;
 				SetCursorState(!IsUiOn);
 				FYP.UI.UIStateManager.Instance.SetState(FYP.UI.UIStateManager.State.quit);
+				ResetValue();
 			}
         }
 
-        void Start()
-        {
-			SetCursorState(true);
+        void Start() { 
+
+			//!TO DO: To have scene checker
+			SetCursorState(false);
 		}
+
+		void ResetValue()
+        {
+			move = Vector2.zero;
+			look = Vector2.zero;
+        }
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		public void OnOpenUI(InputValue value)
         {
-			IsUiOn = !IsUiOn;
+			IsUiOn = !IsUiOn;	
         }
 
 		public void OnMove(InputValue value)
@@ -135,7 +144,7 @@ namespace StarterAssets
 			//SetCursorState(cursorLocked);
 		}
 
-		private void SetCursorState(bool newState)
+		public void SetCursorState(bool newState)
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
