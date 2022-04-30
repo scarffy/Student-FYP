@@ -19,21 +19,6 @@ namespace FYP.Backend
 
         [Header("Checker")]
         public bool isSignIn;
-
-
-        #region move these to UI scripts
-        [Header("Coin")]
-        public TMP_Text coinText;
-
-        [Header("Stock Price")]
-        public uint cost;
-        #endregion
-
-        [Header("Player Update Btn")]
-        public GameObject playerStats;
-
-
-
     }
 }
 
