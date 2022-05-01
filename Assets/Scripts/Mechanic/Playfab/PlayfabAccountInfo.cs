@@ -30,12 +30,12 @@ namespace FYP.Data
             UserLocalSaveFile.Instance.saveData.email = value.PrivateInfo.Email;
             UserLocalSaveFile.Instance.saveData.password = pas;
             UserLocalSaveFile.Instance.saveData.displayName = value.TitleInfo.DisplayName;
-           
+
 
             UserLocalSaveFile.Instance.SaveData();
         }
 
-        public static void FillData(UserAccountInfo value,string pas ,Action action = null)
+        public static void FillData(UserAccountInfo value, string pas, Action action = null)
         {
             Instance.accountInfo = value;
 
