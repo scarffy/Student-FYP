@@ -89,7 +89,7 @@ namespace FYP.Backend
         /// </summary>
         /// <param name="name"></param>
         /// <param name="price"></param>
-        public void BuyItem(string itemId, int price)
+        public void BuyItem(string itemId, int price, System.Action success = null)
         {
             PurchaseItemRequest request = new PurchaseItemRequest();
             request.CatalogVersion = "Items";
@@ -101,6 +101,7 @@ namespace FYP.Backend
             {
                 GetInventory();
                 PlayFabManager.Instance.KC -= price;
+                if (success != null) success();
             }, error =>
             {
                 Debug.Log(error.ErrorMessage);
