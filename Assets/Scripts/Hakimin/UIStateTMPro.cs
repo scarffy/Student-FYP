@@ -31,6 +31,7 @@ namespace FYP.UI {
 
         [Header("Panels")]
         [SerializeField] protected GameObject mainMultiplayer;
+        [SerializeField] protected GameObject loadingPanel;
         [SerializeField] protected GameObject signupPanel;
         [SerializeField] protected GameObject signinPanel;
         [SerializeField] protected GameObject errorPanel;
@@ -61,7 +62,7 @@ namespace FYP.UI {
             Data.LocalSaveFile info = new Data.LocalSaveFile();
             info.email = signinEmail.text;
             info.password = signinPassword.text;
-
+            
             Backend.UserAccountController.Instance.OnTryLogin(info);
         }
 
