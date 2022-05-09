@@ -32,6 +32,9 @@ namespace FYP.UI
         [Header("User Interface (UI)")]
         [SerializeField] TextMeshProUGUI kachingText;
 
+        [Header("Purchase Status")]
+        [SerializeField] GameObject purchasePanel;
+        [SerializeField] TextMeshProUGUI purchaseStatusText;
 
         void Start()
         {
@@ -41,7 +44,10 @@ namespace FYP.UI
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyUp(KeyCode.E)) GetCatalogByTag(ShopTrigger.ShopType.Food);
+            if (Input.GetKeyUp(KeyCode.E)) {
+                UIStateManager.Instance.SetState(UIStateManager.State.buy);
+                GetCatalogByTag(ShopTrigger.ShopType.Healing);
+            }
         }
 
         #region Get Catalog
@@ -99,8 +105,8 @@ namespace FYP.UI
         /// </summary>
         public void PurchaseItem()
         {
-            InventorySystem inv = new InventorySystem();
-            inv.BuyItem(_itemId, _itemPrice);
+            InventorySystem.Instance.BuyItem(_itemId, _itemPrice);
+
         }
 
         public void SetDetail(UIBuyItem obj)
@@ -110,6 +116,7 @@ namespace FYP.UI
             itemCategory.text = string.IsNullOrEmpty(obj.Instance.ItemClass) ? obj.Instance.ItemClass : "Null";
             itemDescription.text = string.IsNullOrEmpty(obj.Instance.Description) ? obj.Instance.Description : "Null";
             _itemId = obj.Instance.ItemId;
+
             if(obj.Instance.VirtualCurrencyPrices.TryGetValue("KC",out uint value))
             {
                 itemPrice.text = "KC "+ value.ToString();
