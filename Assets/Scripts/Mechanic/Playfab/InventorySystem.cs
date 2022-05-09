@@ -45,43 +45,6 @@ namespace FYP.Backend
         }
         #endregion
 
-        //! This is obsolette
-        #region Request Price from Catalog
-        //public void GetItemPrice()
-        //{
-        //    GetCatalogItemsRequest request = new GetCatalogItemsRequest();
-        //    request.CatalogVersion = "Items";
-        //    PlayFabClientAPI.GetCatalogItems(request, result =>
-        //    {
-        //        List<CatalogItem> items = result.Catalog;
-        //        foreach (CatalogItem i in items)
-        //        {
-        //            uint cost = i.VirtualCurrencyPrices["KC"];
-        //            foreach (Item editorItems in Items)
-        //            {
-        //                //if (editorItems.Name == i.ItemId)
-        //                //{
-        //                //    editorItems.Cost = (int)cost;
-        //                //}
-        //            }
-        //            //Debug.Log(cost);
-        //        }
-
-        //        foreach (Item i in Items)
-        //        {
-        //            GameObject o = Instantiate((buttonObject), contentArea.transform.position, Quaternion.identity);
-        //            //o.transform.GetChild(0).GetComponent<TMP_Text>().text = i.Name;
-        //            //o.transform.GetChild(1).GetComponent<TMP_Text>().text = "[" + i.Cost + "]";
-        //            o.GetComponent<Image>().sprite = i.GetComponent<SpriteRenderer>().sprite;
-        //            o.GetComponent<Image>().preserveAspect = true;
-        //            o.transform.SetParent(contentArea.transform);
-        //            //o.GetComponent<Button>().onClick.AddListener(delegate { MakePurchase(i.Name, i.Cost); });
-        //        }
-        //    }, error => { });
-
-        //}
-        #endregion
-
         #region Purchase Item
         /// <summary>
         /// Get items from catalog
@@ -89,7 +52,7 @@ namespace FYP.Backend
         /// </summary>
         /// <param name="name"></param>
         /// <param name="price"></param>
-        public void BuyItem(string itemId, int price)
+        public void BuyItem(string itemId, int price, System.Action success = null,System.Action<string> fail = null)
         {
             PurchaseItemRequest request = new PurchaseItemRequest();
             request.CatalogVersion = "Items";
@@ -101,9 +64,11 @@ namespace FYP.Backend
             {
                 GetInventory();
                 PlayFabManager.Instance.KC -= price;
+                if (success != null) success();
             }, error =>
             {
                 Debug.Log(error.ErrorMessage);
+                if (fail != null) fail(error.ErrorMessage);
             });
         }
         #endregion

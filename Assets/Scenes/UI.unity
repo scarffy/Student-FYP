@@ -870,9 +870,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6085276758634998261, guid: 9d7170c7456e14d14bb64a3c51bbd645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085276758634998261, guid: 9d7170c7456e14d14bb64a3c51bbd645, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 51684460}
+      objectReference: {fileID: 51684461}
+    - target: {fileID: 6085276758634998261, guid: 9d7170c7456e14d14bb64a3c51bbd645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PurchaseItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085276758634998261, guid: 9d7170c7456e14d14bb64a3c51bbd645, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FYP.UI.UIShopBuy, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 6092587788254445984, guid: 9d7170c7456e14d14bb64a3c51bbd645, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0

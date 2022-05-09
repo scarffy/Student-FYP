@@ -22,6 +22,7 @@ namespace FYP.Backend
         public int monsterEXP;
         public int monsterAttack;
         public int monsterVitality;
+        public string area;
     }
 
     public class MonsterStats : Singleton<MonsterStats>
