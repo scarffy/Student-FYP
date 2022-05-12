@@ -9,9 +9,13 @@ namespace FYP.Storyline
     {
         [SerializeField] GameObject questTrigger;
         [SerializeField] GameObject exitTrigger;
+        [SerializeField] GameObject textPanel;
         [SerializeField] GameObject textBox;
-        [SerializeField] GameObject playerMom;
-        [SerializeField] GameObject playerGirl;
+        [SerializeField] GameObject momDialogue;
+        [SerializeField] GameObject playerDialogue;
+        
+        //[SerializeField] GameObject playerMom;
+        //[SerializeField] GameObject playerGirl;
 
         public void LoadQuest()
         {
@@ -20,15 +24,18 @@ namespace FYP.Storyline
 
         IEnumerator FirstQuestScene()
         {
-            playerMom.SetActive(true);
+            textPanel.SetActive(true);
+            momDialogue.GetComponent<TMP_Text>().text = " Mom : ";
             textBox.GetComponent<TMP_Text>().text = " Can you buy some tomatoes? ";
             yield return new WaitForSeconds(1.5f);
-            playerMom.SetActive(false);
+            momDialogue.GetComponent<TMP_Text>().text = " ";
             textBox.GetComponent<TMP_Text>().text = " ";
             yield return new WaitForSeconds(1.5f);
-            playerGirl.SetActive(true);
+            playerDialogue.GetComponent<TMP_Text>().text = " You : ";
             textBox.GetComponent<TMP_Text>().text = " Sure! ";
             yield return new WaitForSeconds(1.5f);
+            textPanel.SetActive(false);
+            playerDialogue.GetComponent<TMP_Text>().text = " ";
             textBox.GetComponent<TMP_Text>().text = " ";
             yield return new WaitForSeconds(2.5f);
             exitTrigger.SetActive(true);
