@@ -1345,6 +1345,7 @@ GameObject:
   - component: {fileID: 456642208}
   - component: {fileID: 456642209}
   - component: {fileID: 456642210}
+  - component: {fileID: -910812994386776265}
   m_Layer: 0
   m_Name: Character_ForestGuardian_01
   m_TagString: Untagged
@@ -1459,6 +1460,26 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-910812994386776265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510989083494641434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaeca2f9faf54b241bdab8dcdd04438c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats:
+    monsterName: 
+    monsterLevel: 0
+    monsterHealth: 0
+    monsterEXP: 0
+    monsterAttack: 0
+    monsterVitality: 0
+    area: 
 --- !u!1 &2511009444998648556
 GameObject:
   m_ObjectHideFlags: 0

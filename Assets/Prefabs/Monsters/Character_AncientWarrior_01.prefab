@@ -1136,6 +1136,7 @@ GameObject:
   - component: {fileID: 1948933970}
   - component: {fileID: 1948933968}
   - component: {fileID: 1948933969}
+  - component: {fileID: -51939999544488054}
   m_Layer: 0
   m_Name: Character_AncientWarrior_01
   m_TagString: Untagged
@@ -1251,6 +1252,26 @@ MonoBehaviour:
   isEntering: 0
   isAttacking: 0
   axes: {fileID: 0}
+--- !u!114 &-51939999544488054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3873646750406180191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaeca2f9faf54b241bdab8dcdd04438c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats:
+    monsterName: 
+    monsterLevel: 0
+    monsterHealth: 0
+    monsterEXP: 0
+    monsterAttack: 0
+    monsterVitality: 0
+    area: 
 --- !u!1 &3873653227592838909
 GameObject:
   m_ObjectHideFlags: 0
