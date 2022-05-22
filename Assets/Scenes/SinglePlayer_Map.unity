@@ -54006,6 +54006,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GirlPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 9009547502522816761, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 405881a4ffc0b6f40accc9914d68c43c, type: 3}
 --- !u!1001 &2011821242

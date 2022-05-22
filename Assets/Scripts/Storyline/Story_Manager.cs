@@ -75,13 +75,19 @@ namespace FYP.Storyline
 
         [SerializeField] bool isEntering;
 
+        [Header("Universal Use")]
+        [SerializeField] GameObject textPanel;
+        [SerializeField] GameObject textBox;
+        [SerializeField] GameObject playerDialogue;
+        [SerializeField] GameObject npcDialogue;
+
         [Header("OutsideRoom Stuff")]
         [SerializeField] GameObject questTrigger;
         [SerializeField] GameObject exitTrigger;
-        [SerializeField] GameObject textPanel;
-        [SerializeField] GameObject textBox;
-        [SerializeField] GameObject momDialogue;
-        [SerializeField] GameObject playerDialogue;
+
+
+        [Header("StoryTown Stuff")]
+        [SerializeField] GameObject townTrigger;
 
         void Start()
         {
@@ -113,10 +119,10 @@ namespace FYP.Storyline
                 if(isEntering)
                 {
                     textPanel.SetActive(true);
-                    momDialogue.GetComponent<TMP_Text>().text = " Mom : ";
+                    npcDialogue.GetComponent<TMP_Text>().text = " Mom : ";
                     textBox.GetComponent<TMP_Text>().text = " Can you buy some tomatoes? ";
                     yield return new WaitForSeconds(1.5f);
-                    momDialogue.GetComponent<TMP_Text>().text = " ";
+                    npcDialogue.GetComponent<TMP_Text>().text = " ";
                     textBox.GetComponent<TMP_Text>().text = " ";
                     yield return new WaitForSeconds(1.5f);
                     playerDialogue.GetComponent<TMP_Text>().text = " You : ";
@@ -128,18 +134,30 @@ namespace FYP.Storyline
                     yield return new WaitForSeconds(2.5f);
                     exitTrigger.SetActive(true);
                     questTrigger.SetActive(false);
-                    yield return new WaitForSeconds(0.5f);
+                    PlayerExit(playerCollider);
                     ChangeStoryState(STORY_STATE.TOWN);
                 }
-                yield return null;
             }
-
-            yield return null;
         }
 
         public IEnumerator StoryTown()
         {
-            yield return new WaitForSeconds(5);
+            while (currentState == STORY_STATE.TOWN)
+            {
+                if(isEntering)
+                {
+                    textPanel.SetActive(true);
+                    npcDialogue.GetComponent<TMP_Text>().text = " Uncle : ";
+                    textBox.GetComponent<TMP_Text>().text = " Hi! How can I help you? ";
+                    yield return new WaitForSeconds(1.5f);
+                    npcDialogue.GetComponent<TMP_Text>().text = " ";
+                    textBox.GetComponent<TMP_Text>().text = " ";
+
+                } else
+                {
+                    ChangeStoryState(STORY_STATE.HOME);
+                }
+            }
         }
 
         public IEnumerator StoryMariya()
@@ -178,6 +196,10 @@ namespace FYP.Storyline
 
         public void PlayerExit(Collider value)
         {
+            if(value.CompareTag("Player"))
+            {
+                isEntering = false;
+            }
         }
         #endregion
     }
