@@ -5,7 +5,7 @@ using TMPro;
 
 namespace FYP.Storyline
 {
-    public class Story_OutsideRoom : MonoBehaviour
+    public class Story_OutsideRoom : Singleton<Story_OutsideRoom>
     {
         [SerializeField] GameObject questTrigger;
         [SerializeField] GameObject exitTrigger;
@@ -13,11 +13,8 @@ namespace FYP.Storyline
         [SerializeField] GameObject textBox;
         [SerializeField] GameObject momDialogue;
         [SerializeField] GameObject playerDialogue;
-        
-        //[SerializeField] GameObject playerMom;
-        //[SerializeField] GameObject playerGirl;
 
-        public void LoadQuest()
+        public void LoadQuest_1()
         {
             StartCoroutine(FirstQuestScene());
         }
