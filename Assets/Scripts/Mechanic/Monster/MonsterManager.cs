@@ -13,6 +13,8 @@ namespace FYP.Common
         [SerializeField] GameObject TrollPrefab;
         [SerializeField] GameObject ForestGuardianPrefab;
 
+        [Header("Data")]
+        public Backend.MonsterData stats;
 
         // Start is called before the first frame update
         void Start()
@@ -22,6 +24,11 @@ namespace FYP.Common
 
         // Update is called once per frame
         void Update()
+        {
+
+        }
+
+        void SpawnMonsters()
         {
 
         }

@@ -21,5 +21,18 @@ namespace FYP.Common
         {
 
         }
+
+        public void OnSpawn(MonsterData stat)
+        {
+            stats = stat;
+        }
+
+        /// <summary>
+        /// Do something like disable all relevant data and rerandomise the stats again?
+        /// </summary>
+        void OnDeath()
+        {
+
+        }
     }
 }
