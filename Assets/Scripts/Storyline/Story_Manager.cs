@@ -28,7 +28,7 @@ namespace FYP.Storyline
 
                 StopAllCoroutines();
 
-                switch(currentState)
+                switch (currentState)
                 {
                     case STORY_STATE.HOME:
                         StartCoroutine(StoryHome());
@@ -73,7 +73,9 @@ namespace FYP.Storyline
 
         Collider playerCollider = null;
 
+
         [SerializeField] bool isEntering;
+
 
         [Header("Universal Use")]
         [SerializeField] GameObject textPanel;
@@ -102,49 +104,48 @@ namespace FYP.Storyline
         {
             while (currentState == STORY_STATE.HOME)
             {
-                if(isEntering)
+                if (isEntering)
                 {
-                    yield return new WaitForSeconds(0.5f);
                     ChangeStoryState(STORY_STATE.OUTSIDEROOM);
-                }
 
+                    yield return null;
+                }
                 yield return null;
             }
-            yield return null;
+
         }
         public IEnumerator OutsideRoom()
         {
-            while(currentState  == STORY_STATE.OUTSIDEROOM)
+            while (currentState == STORY_STATE.OUTSIDEROOM)
             {
-                if(isEntering)
-                {
-                    textPanel.SetActive(true);
-                    npcDialogue.GetComponent<TMP_Text>().text = " Mom : ";
-                    textBox.GetComponent<TMP_Text>().text = " Can you buy some tomatoes? ";
-                    yield return new WaitForSeconds(1.5f);
-                    npcDialogue.GetComponent<TMP_Text>().text = " ";
-                    textBox.GetComponent<TMP_Text>().text = " ";
-                    yield return new WaitForSeconds(1.5f);
-                    playerDialogue.GetComponent<TMP_Text>().text = " You : ";
-                    textBox.GetComponent<TMP_Text>().text = " Sure! ";
-                    yield return new WaitForSeconds(1.5f);
-                    textPanel.SetActive(false);
-                    playerDialogue.GetComponent<TMP_Text>().text = " ";
-                    textBox.GetComponent<TMP_Text>().text = " ";
-                    yield return new WaitForSeconds(2.5f);
-                    exitTrigger.SetActive(true);
-                    questTrigger.SetActive(false);
-                    PlayerExit(playerCollider);
-                    ChangeStoryState(STORY_STATE.TOWN);
-                }
+                textPanel.SetActive(true);
+                npcDialogue.GetComponent<TMP_Text>().text = " Mom : ";
+                textBox.GetComponent<TMP_Text>().text = " Can you buy some tomatoes? ";
+                yield return new WaitForSeconds(1.5f);
+                npcDialogue.GetComponent<TMP_Text>().text = " ";
+                textBox.GetComponent<TMP_Text>().text = " ";
+                yield return new WaitForSeconds(1.5f);
+                playerDialogue.GetComponent<TMP_Text>().text = " You : ";
+                textBox.GetComponent<TMP_Text>().text = " Sure! ";
+                yield return new WaitForSeconds(1.5f);
+                textPanel.SetActive(false);
+                playerDialogue.GetComponent<TMP_Text>().text = " ";
+                textBox.GetComponent<TMP_Text>().text = " ";
+                yield return new WaitForSeconds(2.5f);
+                exitTrigger.SetActive(true);
+                questTrigger.SetActive(false);
+
+                break;
             }
+
+            PlayerExit(playerCollider);
         }
 
         public IEnumerator StoryTown()
         {
             while (currentState == STORY_STATE.TOWN)
             {
-                if(isEntering)
+                if (isEntering)
                 {
                     textPanel.SetActive(true);
                     npcDialogue.GetComponent<TMP_Text>().text = " Uncle : ";
@@ -153,9 +154,8 @@ namespace FYP.Storyline
                     npcDialogue.GetComponent<TMP_Text>().text = " ";
                     textBox.GetComponent<TMP_Text>().text = " ";
 
-                } else
-                {
-                    ChangeStoryState(STORY_STATE.HOME);
+                    break;
+
                 }
             }
         }
@@ -196,7 +196,7 @@ namespace FYP.Storyline
 
         public void PlayerExit(Collider value)
         {
-            if(value.CompareTag("Player"))
+            if (value.CompareTag("Player"))
             {
                 isEntering = false;
             }
