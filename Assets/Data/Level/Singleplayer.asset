@@ -16,11 +16,11 @@ MonoBehaviour:
   - {fileID: 102900000, guid: dcf989f2725c0424194037458f3a4b3c, type: 3}
   - {fileID: 102900000, guid: 3f6c22689e7534bbc8f37ac1209e3a8e, type: 3}
   - {fileID: 102900000, guid: 767a7b279ec1a5b4aaa729e46902431e, type: 3}
-  - {fileID: 102900000, guid: afe640287cdef477b89e654ec06e95a1, type: 3}
   - {fileID: 102900000, guid: b06e8701ced4a4748b1730d94f2d2d7c, type: 3}
+  - {fileID: 102900000, guid: afe640287cdef477b89e654ec06e95a1, type: 3}
   levelsName:
   - Core
   - Audio
   - UI
-  - House_Interaction
   - SinglePlayer_Map
+  - House_Interaction

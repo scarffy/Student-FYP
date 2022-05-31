@@ -73,7 +73,6 @@ namespace FYP.Storyline
 
         Collider playerCollider = null;
 
-
         [SerializeField] bool isEntering;
 
 
@@ -86,6 +85,7 @@ namespace FYP.Storyline
         [Header("OutsideRoom Stuff")]
         [SerializeField] GameObject questTrigger;
         [SerializeField] GameObject exitTrigger;
+        [SerializeField] GameObject momCharacter;
 
 
         [Header("StoryTown Stuff")]
@@ -134,6 +134,7 @@ namespace FYP.Storyline
                 yield return new WaitForSeconds(2.5f);
                 exitTrigger.SetActive(true);
                 questTrigger.SetActive(false);
+                momCharacter.SetActive(false);
 
                 break;
             }
@@ -181,6 +182,7 @@ namespace FYP.Storyline
 
                 break;
             }
+
 
             PlayerExit(playerCollider);
 
