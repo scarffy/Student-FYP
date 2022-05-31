@@ -139,24 +139,60 @@ namespace FYP.Storyline
             }
 
             PlayerExit(playerCollider);
+
+            while (currentState == STORY_STATE.OUTSIDEROOM)
+            {
+                if (isEntering)
+                {
+                    ChangeStoryState(STORY_STATE.TOWN);
+
+                    yield return null;
+                }
+
+                yield return null;
+            }
         }
 
         public IEnumerator StoryTown()
         {
             while (currentState == STORY_STATE.TOWN)
             {
+                textPanel.SetActive(true);
+                npcDialogue.GetComponent<TMP_Text>().text = " Uncle : ";
+                textBox.GetComponent<TMP_Text>().text = " Hi! How can I help you? ";
+                yield return new WaitForSeconds(1.5f);
+                npcDialogue.GetComponent<TMP_Text>().text = " ";
+                textBox.GetComponent<TMP_Text>().text = " ";
+                yield return new WaitForSeconds(1.5f);
+                playerDialogue.GetComponent<TMP_Text>().text = " You : ";
+                textBox.GetComponent<TMP_Text>().text = " Can I get some tomatoes?";
+                yield return new WaitForSeconds(1.5f);
+                playerDialogue.GetComponent<TMP_Text>().text = " ";
+                textBox.GetComponent<TMP_Text>().text = " ";
+                yield return new WaitForSeconds(1.5f);
+                npcDialogue.GetComponent<TMP_Text>().text = " Uncle : ";
+                textBox.GetComponent<TMP_Text>().text = " Sure! ";
+                yield return new WaitForSeconds(1.5f);
+                textPanel.SetActive(false);
+                npcDialogue.GetComponent<TMP_Text>().text = " ";
+                textBox.GetComponent<TMP_Text>().text = " ";
+                yield return new WaitForSeconds(2.5f);
+                townTrigger.SetActive(false);
+
+                break;
+            }
+
+            PlayerExit(playerCollider);
+
+            while (currentState == STORY_STATE.TOWN)
+            {
                 if (isEntering)
                 {
-                    textPanel.SetActive(true);
-                    npcDialogue.GetComponent<TMP_Text>().text = " Uncle : ";
-                    textBox.GetComponent<TMP_Text>().text = " Hi! How can I help you? ";
-                    yield return new WaitForSeconds(1.5f);
-                    npcDialogue.GetComponent<TMP_Text>().text = " ";
-                    textBox.GetComponent<TMP_Text>().text = " ";
+                    ChangeStoryState(STORY_STATE.MARIYA);
 
-                    break;
-
+                    yield return null;
                 }
+                yield return null;
             }
         }
 
