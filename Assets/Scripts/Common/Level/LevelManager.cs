@@ -72,7 +72,7 @@ namespace FYP
                     break;
 
                 case CurrentLoadedScene.Multiplayer:
-                    LoadLevels(allLevels[2]);
+                    LoadLevels(allLevels[3]);
                     break;
             }
         }
