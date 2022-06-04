@@ -52,7 +52,9 @@ namespace FYP.Backend
         [SerializeField] TextMeshProUGUI itemNameText;
         [SerializeField] TextMeshProUGUI itemPriceText;
         [SerializeField] TextMeshProUGUI itemStackText;
+        [SerializeField] Image itemImage;
 
+        public void SetItemImage(Sprite inventoryImages) => itemImage.sprite = inventoryImages;
 
         public void SetItemInstance(string value) => itemInstanceId = value;
         void SetItemStack(bool value) => itemStackText.transform.parent.gameObject.SetActive(value);
