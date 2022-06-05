@@ -8,6 +8,7 @@ TagManager:
   - FollowTarget
   - CinemachineTarget
   - Monster
+  - House
   layers:
   - Default
   - TransparentFX
