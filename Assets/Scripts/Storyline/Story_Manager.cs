@@ -90,6 +90,8 @@ namespace FYP.Storyline
 
         [Header("StoryTown Stuff")]
         [SerializeField] GameObject townTrigger;
+        [SerializeField] GameObject backtoroomTrigger;
+        [SerializeField] GameObject findmariyaTrigger;
 
         void Start()
         {
@@ -159,26 +161,48 @@ namespace FYP.Storyline
             while (currentState == STORY_STATE.TOWN)
             {
                 textPanel.SetActive(true);
-                npcDialogue.GetComponent<TMP_Text>().text = " Uncle : ";
+                npcDialogue.GetComponent<TMP_Text>().text = " Uncle Lim : ";
                 textBox.GetComponent<TMP_Text>().text = " Hi! How can I help you? ";
                 yield return new WaitForSeconds(1.5f);
                 npcDialogue.GetComponent<TMP_Text>().text = " ";
                 textBox.GetComponent<TMP_Text>().text = " ";
                 yield return new WaitForSeconds(1.5f);
                 playerDialogue.GetComponent<TMP_Text>().text = " You : ";
-                textBox.GetComponent<TMP_Text>().text = " Can I get some tomatoes?";
+                textBox.GetComponent<TMP_Text>().text = " Hi Uncle Lim! Can I get some tomatoes?";
                 yield return new WaitForSeconds(1.5f);
                 playerDialogue.GetComponent<TMP_Text>().text = " ";
                 textBox.GetComponent<TMP_Text>().text = " ";
                 yield return new WaitForSeconds(1.5f);
-                npcDialogue.GetComponent<TMP_Text>().text = " Uncle : ";
-                textBox.GetComponent<TMP_Text>().text = " Sure! ";
+                npcDialogue.GetComponent<TMP_Text>().text = " Uncle Lim: ";
+                textBox.GetComponent<TMP_Text>().text = " Sure! Later I will deliver to your house ";
                 yield return new WaitForSeconds(1.5f);
                 textPanel.SetActive(false);
                 npcDialogue.GetComponent<TMP_Text>().text = " ";
                 textBox.GetComponent<TMP_Text>().text = " ";
                 yield return new WaitForSeconds(2.5f);
                 townTrigger.SetActive(false);
+                backtoroomTrigger.SetActive(true);
+                findmariyaTrigger.SetActive(true);
+
+                if (findmariyaTrigger == true)
+                {
+                    textPanel.SetActive(true);
+                    playerDialogue.GetComponent<TMP_Text>().text = " You : ";
+                    textBox.GetComponent<TMP_Text>().text = " Mom, already bought your tomatoes. Later Uncle Lim will deliver to you ";
+                    yield return new WaitForSeconds(1.5f);
+                    playerDialogue.GetComponent<TMP_Text>().text = " ";
+                    textBox.GetComponent<TMP_Text>().text = " ";
+                    yield return new WaitForSeconds(1.5f);
+                    npcDialogue.GetComponent<TMP_Text>().text = " Mom : ";
+                    textBox.GetComponent<TMP_Text>().text = " Thanks dear! Just now Mariya was looking for you. She said to find her at usual place ";
+                    yield return new WaitForSeconds(1.5f);
+                    npcDialogue.GetComponent<TMP_Text>().text = " ";
+                    textBox.GetComponent<TMP_Text>().text = " ";
+                    yield return new WaitForSeconds(1.5f);
+                    backtoroomTrigger.SetActive(false);
+                    textPanel.SetActive(false);
+                    findmariyaTrigger.SetActive(false);
+                }
 
                 break;
             }
