@@ -404,10 +404,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eb60e9e5b1454e4a876e7251e93ddc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemName: 
+  itemPrice: 0
   GainPerSecond: 0
+  itemInstanceId: 
   itemNameText: {fileID: 2910721495127314050}
   itemPriceText: {fileID: 0}
   itemStackText: {fileID: 4717779475723513585}
+  itemImage: {fileID: 7860355773124993321}
 --- !u!1 &6761602673684807702
 GameObject:
   m_ObjectHideFlags: 0

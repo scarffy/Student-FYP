@@ -55,6 +55,9 @@ namespace FYP.UI
                 item.SetItemInstance(itemList[i].ItemInstanceId);
                 item.ItemPrice = (int)itemList[i].UnitPrice;
                 item.ItemStack = itemList[i].RemainingUses;
+                Data.InventoryImagesArray.Instance.FetchID(int.Parse(itemList[i].ItemId));
+                item.SetItemImage(Data.InventoryImagesArray.Instance.temporarySprite);
+                
             }
         }
 
