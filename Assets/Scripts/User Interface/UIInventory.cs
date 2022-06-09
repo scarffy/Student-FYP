@@ -21,6 +21,15 @@ namespace FYP.UI
             Backend.InventorySystem.Instance.OnUpdateKaChing += OnKaChingUpdate;
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyUp(KeyCode.I))
+            {
+                Backend.InventorySystem.Instance.GetInventory();
+                UIStateManager.Instance.SetState(UIStateManager.State.inventory);
+            }
+        }
+
         /// <summary>
         /// Update the inventory
         /// </summary>
