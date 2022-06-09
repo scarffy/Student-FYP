@@ -26,6 +26,7 @@ namespace FYP.Data
                     temporarySprite = inventoryImages[i].inventorySprite;
                     return;
                 }
+                Debug.Log(ID);
 
             }
             temporarySprite = null;

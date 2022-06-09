@@ -48,6 +48,7 @@ namespace FYP.UI
                 item.ItemStack = itemList[i].RemainingUses;
                 Data.InventoryImagesArray.Instance.FetchID(int.Parse(itemList[i].ItemId));
                 item.SetItemImage(Data.InventoryImagesArray.Instance.temporarySprite);
+                
             }
         }
 
